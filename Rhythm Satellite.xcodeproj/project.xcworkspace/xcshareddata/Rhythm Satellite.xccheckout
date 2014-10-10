@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>43DF76EA-7C37-4410-B204-50B0FBE203E4</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Rhythm Satellite</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>CF11EBF297569064025E5BE1E95B60E1A5BA559E</key>
+		<string>https://github.com/chinsai/Rhythm-Satellite.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Rhythm Satellite.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>CF11EBF297569064025E5BE1E95B60E1A5BA559E</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/chinsai/Rhythm-Satellite.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CF11EBF297569064025E5BE1E95B60E1A5BA559E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CF11EBF297569064025E5BE1E95B60E1A5BA559E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Rhythm%20Satellite</string>
+		</dict>
+	</array>
+</dict>
+</plist>

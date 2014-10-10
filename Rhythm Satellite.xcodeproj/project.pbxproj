@@ -50,7 +50,7 @@
 		983BE0CC19E7521E00147F39 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		983BE0CD19E7521E00147F39 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		983BE0CF19E7521E00147F39 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		983BE0D119E7521E00147F39 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Rhythm Satellite/Images.xcassets"; sourceTree = "<group>"; };
+		983BE0D119E7521E00147F39 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
 		983BE0D419E7521E00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		983BE0DA19E7521E00147F39 /* Rhythm SatelliteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm SatelliteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		983BE0DF19E7521E00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,12 +105,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9805CF8E19E77048008C0DC3 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0D119E7521E00147F39 /* Images.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 		983BE0B919E7521E00147F39 = {
 			isa = PBXGroup;
 			children = (
-				983BE11A19E7581F00147F39 /* Common */,
+				983BE11A19E7581F00147F39 /* Shared */,
 				983BE0C419E7521E00147F39 /* Rhythm Satellite */,
 				983BE0F019E753BB00147F39 /* Rhythm Satellite iOS */,
+				9805CF8E19E77048008C0DC3 /* Assets */,
 				983BE11C19E75C1000147F39 /* Tests */,
 				983BE0C319E7521E00147F39 /* Products */,
 			);
@@ -210,13 +219,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		983BE11A19E7581F00147F39 /* Common */ = {
+		983BE11A19E7581F00147F39 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				983BE0EA19E752CA00147F39 /* TransferService.h */,
-				983BE0D119E7521E00147F39 /* Images.xcassets */,
 			);
-			name = Common;
+			name = Shared;
 			sourceTree = "<group>";
 		};
 		983BE11C19E75C1000147F39 /* Tests */ = {
@@ -691,6 +699,7 @@
 				983BE0E619E7521E00147F39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		983BE0E719E7521E00147F39 /* Build configuration list for PBXNativeTarget "Rhythm SatelliteTests" */ = {
 			isa = XCConfigurationList;
@@ -699,6 +708,7 @@
 				983BE0E919E7521E00147F39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		983BE11419E753BB00147F39 /* Build configuration list for PBXNativeTarget "Rhythm Satellite iOS" */ = {
 			isa = XCConfigurationList;
@@ -707,6 +717,7 @@
 				983BE11619E753BB00147F39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		983BE11719E753BB00147F39 /* Build configuration list for PBXNativeTarget "Rhythm Satellite iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -715,6 +726,7 @@
 				983BE11919E753BB00147F39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

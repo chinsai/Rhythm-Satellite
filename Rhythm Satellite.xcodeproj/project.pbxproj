@@ -1,0 +1,722 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		983BE0C919E7521E00147F39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0C819E7521E00147F39 /* AppDelegate.m */; };
+		983BE0CB19E7521E00147F39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0CA19E7521E00147F39 /* main.m */; };
+		983BE0CE19E7521E00147F39 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0CD19E7521E00147F39 /* GameScene.m */; };
+		983BE0D019E7521E00147F39 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0CF19E7521E00147F39 /* GameScene.sks */; };
+		983BE0D219E7521E00147F39 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D119E7521E00147F39 /* Images.xcassets */; };
+		983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D319E7521E00147F39 /* MainMenu.xib */; };
+		983BE0E119E7521E00147F39 /* Rhythm_SatelliteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0E019E7521E00147F39 /* Rhythm_SatelliteTests.m */; };
+		983BE0F419E753BB00147F39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0F319E753BB00147F39 /* main.m */; };
+		983BE0F719E753BB00147F39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0F619E753BB00147F39 /* AppDelegate.m */; };
+		983BE0FA19E753BB00147F39 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0F919E753BB00147F39 /* GameScene.m */; };
+		983BE0FC19E753BB00147F39 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0FB19E753BB00147F39 /* GameScene.sks */; };
+		983BE0FF19E753BB00147F39 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0FE19E753BB00147F39 /* GameViewController.m */; };
+		983BE10219E753BB00147F39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10019E753BB00147F39 /* Main.storyboard */; };
+		983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10519E753BB00147F39 /* LaunchScreen.xib */; };
+		983BE11319E753BB00147F39 /* Rhythm_Satellite_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		983BE0DB19E7521E00147F39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 983BE0BA19E7521E00147F39 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 983BE0C119E7521E00147F39;
+			remoteInfo = "Rhythm Satellite";
+		};
+		983BE10D19E753BB00147F39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 983BE0BA19E7521E00147F39 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 983BE0EE19E753BB00147F39;
+			remoteInfo = "Rhythm Satellite iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		983BE0C219E7521E00147F39 /* Rhythm Satellite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rhythm Satellite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		983BE0C619E7521E00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		983BE0C719E7521E00147F39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		983BE0C819E7521E00147F39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		983BE0CA19E7521E00147F39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		983BE0CC19E7521E00147F39 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		983BE0CD19E7521E00147F39 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		983BE0CF19E7521E00147F39 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		983BE0D119E7521E00147F39 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Rhythm Satellite/Images.xcassets"; sourceTree = "<group>"; };
+		983BE0D419E7521E00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		983BE0DA19E7521E00147F39 /* Rhythm SatelliteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm SatelliteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		983BE0DF19E7521E00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		983BE0E019E7521E00147F39 /* Rhythm_SatelliteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Rhythm_SatelliteTests.m; sourceTree = "<group>"; };
+		983BE0EA19E752CA00147F39 /* TransferService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TransferService.h; path = "Rhythm Satellite/TransferService.h"; sourceTree = "<group>"; };
+		983BE0EF19E753BB00147F39 /* Rhythm Satellite iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rhythm Satellite iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		983BE0F219E753BB00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		983BE0F319E753BB00147F39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		983BE0F619E753BB00147F39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		983BE0F819E753BB00147F39 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		983BE0F919E753BB00147F39 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		983BE0FB19E753BB00147F39 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		983BE0FD19E753BB00147F39 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		983BE0FE19E753BB00147F39 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		983BE10119E753BB00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		983BE10619E753BB00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		983BE10C19E753BB00147F39 /* Rhythm Satellite iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm Satellite iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		983BE11119E753BB00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Rhythm_Satellite_iOSTests.m; sourceTree = "<group>"; };
+		983BE11B19E7588C00147F39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		983BE0BF19E7521E00147F39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE0D719E7521E00147F39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE0EC19E753BB00147F39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE10919E753BB00147F39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		983BE0B919E7521E00147F39 = {
+			isa = PBXGroup;
+			children = (
+				983BE11A19E7581F00147F39 /* Common */,
+				983BE0C419E7521E00147F39 /* Rhythm Satellite */,
+				983BE0F019E753BB00147F39 /* Rhythm Satellite iOS */,
+				983BE11C19E75C1000147F39 /* Tests */,
+				983BE0C319E7521E00147F39 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		983BE0C319E7521E00147F39 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0C219E7521E00147F39 /* Rhythm Satellite.app */,
+				983BE0DA19E7521E00147F39 /* Rhythm SatelliteTests.xctest */,
+				983BE0EF19E753BB00147F39 /* Rhythm Satellite iOS.app */,
+				983BE10C19E753BB00147F39 /* Rhythm Satellite iOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		983BE0C419E7521E00147F39 /* Rhythm Satellite */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0C719E7521E00147F39 /* AppDelegate.h */,
+				983BE0C819E7521E00147F39 /* AppDelegate.m */,
+				983BE0CC19E7521E00147F39 /* GameScene.h */,
+				983BE0CD19E7521E00147F39 /* GameScene.m */,
+				983BE0CF19E7521E00147F39 /* GameScene.sks */,
+				983BE0D319E7521E00147F39 /* MainMenu.xib */,
+				983BE0C519E7521E00147F39 /* Supporting Files */,
+			);
+			path = "Rhythm Satellite";
+			sourceTree = "<group>";
+		};
+		983BE0C519E7521E00147F39 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0C619E7521E00147F39 /* Info.plist */,
+				983BE0CA19E7521E00147F39 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		983BE0DD19E7521E00147F39 /* Rhythm SatelliteTests */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0E019E7521E00147F39 /* Rhythm_SatelliteTests.m */,
+				983BE0DE19E7521E00147F39 /* Supporting Files */,
+			);
+			path = "Rhythm SatelliteTests";
+			sourceTree = "<group>";
+		};
+		983BE0DE19E7521E00147F39 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0DF19E7521E00147F39 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		983BE0F019E753BB00147F39 /* Rhythm Satellite iOS */ = {
+			isa = PBXGroup;
+			children = (
+				983BE11B19E7588C00147F39 /* AppDelegate.h */,
+				983BE0F619E753BB00147F39 /* AppDelegate.m */,
+				983BE0F819E753BB00147F39 /* GameScene.h */,
+				983BE0F919E753BB00147F39 /* GameScene.m */,
+				983BE0FB19E753BB00147F39 /* GameScene.sks */,
+				983BE0FD19E753BB00147F39 /* GameViewController.h */,
+				983BE0FE19E753BB00147F39 /* GameViewController.m */,
+				983BE10019E753BB00147F39 /* Main.storyboard */,
+				983BE10519E753BB00147F39 /* LaunchScreen.xib */,
+				983BE0F119E753BB00147F39 /* Supporting Files */,
+			);
+			path = "Rhythm Satellite iOS";
+			sourceTree = "<group>";
+		};
+		983BE0F119E753BB00147F39 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0F219E753BB00147F39 /* Info.plist */,
+				983BE0F319E753BB00147F39 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		983BE10F19E753BB00147F39 /* Rhythm Satellite iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */,
+				983BE11019E753BB00147F39 /* Supporting Files */,
+			);
+			path = "Rhythm Satellite iOSTests";
+			sourceTree = "<group>";
+		};
+		983BE11019E753BB00147F39 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				983BE11119E753BB00147F39 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		983BE11A19E7581F00147F39 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0EA19E752CA00147F39 /* TransferService.h */,
+				983BE0D119E7521E00147F39 /* Images.xcassets */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		983BE11C19E75C1000147F39 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				983BE0DD19E7521E00147F39 /* Rhythm SatelliteTests */,
+				983BE10F19E753BB00147F39 /* Rhythm Satellite iOSTests */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		983BE0C119E7521E00147F39 /* Rhythm Satellite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 983BE0E419E7521E00147F39 /* Build configuration list for PBXNativeTarget "Rhythm Satellite" */;
+			buildPhases = (
+				983BE0BE19E7521E00147F39 /* Sources */,
+				983BE0BF19E7521E00147F39 /* Frameworks */,
+				983BE0C019E7521E00147F39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Rhythm Satellite";
+			productName = "Rhythm Satellite";
+			productReference = 983BE0C219E7521E00147F39 /* Rhythm Satellite.app */;
+			productType = "com.apple.product-type.application";
+		};
+		983BE0D919E7521E00147F39 /* Rhythm SatelliteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 983BE0E719E7521E00147F39 /* Build configuration list for PBXNativeTarget "Rhythm SatelliteTests" */;
+			buildPhases = (
+				983BE0D619E7521E00147F39 /* Sources */,
+				983BE0D719E7521E00147F39 /* Frameworks */,
+				983BE0D819E7521E00147F39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				983BE0DC19E7521E00147F39 /* PBXTargetDependency */,
+			);
+			name = "Rhythm SatelliteTests";
+			productName = "Rhythm SatelliteTests";
+			productReference = 983BE0DA19E7521E00147F39 /* Rhythm SatelliteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		983BE0EE19E753BB00147F39 /* Rhythm Satellite iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 983BE11419E753BB00147F39 /* Build configuration list for PBXNativeTarget "Rhythm Satellite iOS" */;
+			buildPhases = (
+				983BE0EB19E753BB00147F39 /* Sources */,
+				983BE0EC19E753BB00147F39 /* Frameworks */,
+				983BE0ED19E753BB00147F39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Rhythm Satellite iOS";
+			productName = "Rhythm Satellite iOS";
+			productReference = 983BE0EF19E753BB00147F39 /* Rhythm Satellite iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		983BE10B19E753BB00147F39 /* Rhythm Satellite iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 983BE11719E753BB00147F39 /* Build configuration list for PBXNativeTarget "Rhythm Satellite iOSTests" */;
+			buildPhases = (
+				983BE10819E753BB00147F39 /* Sources */,
+				983BE10919E753BB00147F39 /* Frameworks */,
+				983BE10A19E753BB00147F39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				983BE10E19E753BB00147F39 /* PBXTargetDependency */,
+			);
+			name = "Rhythm Satellite iOSTests";
+			productName = "Rhythm Satellite iOSTests";
+			productReference = 983BE10C19E753BB00147F39 /* Rhythm Satellite iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		983BE0BA19E7521E00147F39 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = Kiron;
+				TargetAttributes = {
+					983BE0C119E7521E00147F39 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					983BE0D919E7521E00147F39 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 983BE0C119E7521E00147F39;
+					};
+					983BE0EE19E753BB00147F39 = {
+						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 4ATJP38Y6E;
+					};
+					983BE10B19E753BB00147F39 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 983BE0EE19E753BB00147F39;
+					};
+				};
+			};
+			buildConfigurationList = 983BE0BD19E7521E00147F39 /* Build configuration list for PBXProject "Rhythm Satellite" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 983BE0B919E7521E00147F39;
+			productRefGroup = 983BE0C319E7521E00147F39 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				983BE0C119E7521E00147F39 /* Rhythm Satellite */,
+				983BE0D919E7521E00147F39 /* Rhythm SatelliteTests */,
+				983BE0EE19E753BB00147F39 /* Rhythm Satellite iOS */,
+				983BE10B19E753BB00147F39 /* Rhythm Satellite iOSTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		983BE0C019E7521E00147F39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				983BE0D019E7521E00147F39 /* GameScene.sks in Resources */,
+				983BE0D219E7521E00147F39 /* Images.xcassets in Resources */,
+				983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE0D819E7521E00147F39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE0ED19E753BB00147F39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */,
+				983BE0FC19E753BB00147F39 /* GameScene.sks in Resources */,
+				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE10A19E753BB00147F39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		983BE0BE19E7521E00147F39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				983BE0CB19E7521E00147F39 /* main.m in Sources */,
+				983BE0CE19E7521E00147F39 /* GameScene.m in Sources */,
+				983BE0C919E7521E00147F39 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE0D619E7521E00147F39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				983BE0E119E7521E00147F39 /* Rhythm_SatelliteTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE0EB19E753BB00147F39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				983BE0FF19E753BB00147F39 /* GameViewController.m in Sources */,
+				983BE0F719E753BB00147F39 /* AppDelegate.m in Sources */,
+				983BE0FA19E753BB00147F39 /* GameScene.m in Sources */,
+				983BE0F419E753BB00147F39 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		983BE10819E753BB00147F39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				983BE11319E753BB00147F39 /* Rhythm_Satellite_iOSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		983BE0DC19E7521E00147F39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 983BE0C119E7521E00147F39 /* Rhythm Satellite */;
+			targetProxy = 983BE0DB19E7521E00147F39 /* PBXContainerItemProxy */;
+		};
+		983BE10E19E753BB00147F39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 983BE0EE19E753BB00147F39 /* Rhythm Satellite iOS */;
+			targetProxy = 983BE10D19E753BB00147F39 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		983BE0D319E7521E00147F39 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				983BE0D419E7521E00147F39 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		983BE10019E753BB00147F39 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				983BE10119E753BB00147F39 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		983BE10519E753BB00147F39 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				983BE10619E753BB00147F39 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		983BE0E219E7521E00147F39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		983BE0E319E7521E00147F39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		983BE0E519E7521E00147F39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Rhythm Satellite/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		983BE0E619E7521E00147F39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Rhythm Satellite/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		983BE0E819E7521E00147F39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Rhythm SatelliteTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rhythm Satellite.app/Contents/MacOS/Rhythm Satellite";
+			};
+			name = Debug;
+		};
+		983BE0E919E7521E00147F39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Rhythm SatelliteTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rhythm Satellite.app/Contents/MacOS/Rhythm Satellite";
+			};
+			name = Release;
+		};
+		983BE11519E753BB00147F39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Rhythm Satellite iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		983BE11619E753BB00147F39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Rhythm Satellite iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		983BE11819E753BB00147F39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Rhythm Satellite iOSTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rhythm Satellite iOS.app/Rhythm Satellite iOS";
+			};
+			name = Debug;
+		};
+		983BE11919E753BB00147F39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Rhythm Satellite iOSTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Rhythm Satellite iOS.app/Rhythm Satellite iOS";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		983BE0BD19E7521E00147F39 /* Build configuration list for PBXProject "Rhythm Satellite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				983BE0E219E7521E00147F39 /* Debug */,
+				983BE0E319E7521E00147F39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		983BE0E419E7521E00147F39 /* Build configuration list for PBXNativeTarget "Rhythm Satellite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				983BE0E519E7521E00147F39 /* Debug */,
+				983BE0E619E7521E00147F39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		983BE0E719E7521E00147F39 /* Build configuration list for PBXNativeTarget "Rhythm SatelliteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				983BE0E819E7521E00147F39 /* Debug */,
+				983BE0E919E7521E00147F39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		983BE11419E753BB00147F39 /* Build configuration list for PBXNativeTarget "Rhythm Satellite iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				983BE11519E753BB00147F39 /* Debug */,
+				983BE11619E753BB00147F39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		983BE11719E753BB00147F39 /* Build configuration list for PBXNativeTarget "Rhythm Satellite iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				983BE11819E753BB00147F39 /* Debug */,
+				983BE11919E753BB00147F39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 983BE0BA19E7521E00147F39 /* Project object */;
+}

@@ -23,6 +23,8 @@
 		983BE11319E753BB00147F39 /* Rhythm_Satellite_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */; };
 		984BCD7F19EE555900F90CAB /* AlarmClockScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 984BCD7E19EE555900F90CAB /* AlarmClockScene.sks */; };
 		984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 984BCD8019EE579200F90CAB /* AlarmClockScene.m */; };
+		98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
+		98E7C26B19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,7 @@
 		984BCD7E19EE555900F90CAB /* AlarmClockScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = AlarmClockScene.sks; path = Assets/AlarmClockScene.sks; sourceTree = "<group>"; };
 		984BCD8019EE579200F90CAB /* AlarmClockScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockScene.m; sourceTree = "<group>"; };
 		984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockScene.h; sourceTree = "<group>"; };
+		98E7C26919F0E1F8006397DF /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,7 @@
 		9805CF8E19E77048008C0DC3 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				98E7C26919F0E1F8006397DF /* bgm.mp3 */,
 				983BE0FB19E753BB00147F39 /* GameScene.sks */,
 				983BE0D119E7521E00147F39 /* Images.xcassets */,
 				984BCD7E19EE555900F90CAB /* AlarmClockScene.sks */,
@@ -366,6 +370,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */,
 				983BE0D219E7521E00147F39 /* Images.xcassets in Resources */,
 				983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */,
 			);
@@ -386,6 +391,7 @@
 				983BE0FC19E753BB00147F39 /* GameScene.sks in Resources */,
 				984BCD7F19EE555900F90CAB /* AlarmClockScene.sks in Resources */,
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
+				98E7C26B19F0E1F8006397DF /* bgm.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

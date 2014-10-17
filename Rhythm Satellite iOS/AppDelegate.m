@@ -12,6 +12,7 @@
 
     CMMotionManager *motionmanager;
 }
+
 @end
 
 @implementation AppDelegate
@@ -28,6 +29,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSError *error;
+    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"bgm" withExtension:@"mp3"];
+    _bgmPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+    _bgmPlayer.numberOfLoops = -1;
+    [_bgmPlayer prepareToPlay];
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                           error:nil];
+    
     return YES;
 }
 

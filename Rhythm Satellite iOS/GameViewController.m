@@ -8,6 +8,8 @@
 
 #import "GameViewController.h"
 #import "GameScene.h"
+#import "AlarmClockScene.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation SKScene (Unarchive)
 
@@ -42,17 +44,42 @@
     skView.ignoresSiblingOrder = YES;
     
     // Create and configure the scene.
-    GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
+    AlarmClockScene *scene = [AlarmClockScene unarchiveFromFile:@"AlarmClockScene"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
     [skView presentScene:scene];
 }
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)canBecomeFirstResponder {
     return YES;
 }
+
+//- (void)viewDidAppear:(BOOL)animated {
+//    [self becomeFirstResponder];
+//}
+//
+//- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+//    if (motion == UIEventSubtypeMotionShake)
+//    {
+////        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+//        NSLog(@"shaked");
+//    }
+//}
+//
+//- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+//    if (motion == UIEventSubtypeMotionShake)
+//    {
+//        //        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+//        NSLog(@"cancelled");
+//    }
+//}
+
+
+//- (BOOL)shouldAutorotate
+//{
+//    return YES;
+//}
 
 - (NSUInteger)supportedInterfaceOrientations
 {

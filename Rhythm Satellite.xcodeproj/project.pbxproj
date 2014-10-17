@@ -10,7 +10,6 @@
 		983BE0C919E7521E00147F39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0C819E7521E00147F39 /* AppDelegate.m */; };
 		983BE0CB19E7521E00147F39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0CA19E7521E00147F39 /* main.m */; };
 		983BE0CE19E7521E00147F39 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0CD19E7521E00147F39 /* GameScene.m */; };
-		983BE0D019E7521E00147F39 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0CF19E7521E00147F39 /* GameScene.sks */; };
 		983BE0D219E7521E00147F39 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D119E7521E00147F39 /* Images.xcassets */; };
 		983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D319E7521E00147F39 /* MainMenu.xib */; };
 		983BE0E119E7521E00147F39 /* Rhythm_SatelliteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0E019E7521E00147F39 /* Rhythm_SatelliteTests.m */; };
@@ -22,6 +21,8 @@
 		983BE10219E753BB00147F39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10019E753BB00147F39 /* Main.storyboard */; };
 		983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10519E753BB00147F39 /* LaunchScreen.xib */; };
 		983BE11319E753BB00147F39 /* Rhythm_Satellite_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */; };
+		984BCD7F19EE555900F90CAB /* AlarmClockScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 984BCD7E19EE555900F90CAB /* AlarmClockScene.sks */; };
+		984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 984BCD8019EE579200F90CAB /* AlarmClockScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +50,6 @@
 		983BE0CA19E7521E00147F39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		983BE0CC19E7521E00147F39 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		983BE0CD19E7521E00147F39 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		983BE0CF19E7521E00147F39 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		983BE0D119E7521E00147F39 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
 		983BE0D419E7521E00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		983BE0DA19E7521E00147F39 /* Rhythm SatelliteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm SatelliteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,7 +62,7 @@
 		983BE0F619E753BB00147F39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		983BE0F819E753BB00147F39 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		983BE0F919E753BB00147F39 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		983BE0FB19E753BB00147F39 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		983BE0FB19E753BB00147F39 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = "Rhythm Satellite iOS/GameScene.sks"; sourceTree = "<group>"; };
 		983BE0FD19E753BB00147F39 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		983BE0FE19E753BB00147F39 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		983BE10119E753BB00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -71,6 +71,9 @@
 		983BE11119E753BB00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Rhythm_Satellite_iOSTests.m; sourceTree = "<group>"; };
 		983BE11B19E7588C00147F39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		984BCD7E19EE555900F90CAB /* AlarmClockScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = AlarmClockScene.sks; path = Assets/AlarmClockScene.sks; sourceTree = "<group>"; };
+		984BCD8019EE579200F90CAB /* AlarmClockScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockScene.m; sourceTree = "<group>"; };
+		984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockScene.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +111,9 @@
 		9805CF8E19E77048008C0DC3 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				983BE0FB19E753BB00147F39 /* GameScene.sks */,
 				983BE0D119E7521E00147F39 /* Images.xcassets */,
+				984BCD7E19EE555900F90CAB /* AlarmClockScene.sks */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -143,7 +148,6 @@
 				983BE0C819E7521E00147F39 /* AppDelegate.m */,
 				983BE0CC19E7521E00147F39 /* GameScene.h */,
 				983BE0CD19E7521E00147F39 /* GameScene.m */,
-				983BE0CF19E7521E00147F39 /* GameScene.sks */,
 				983BE0D319E7521E00147F39 /* MainMenu.xib */,
 				983BE0C519E7521E00147F39 /* Supporting Files */,
 			);
@@ -181,9 +185,10 @@
 			children = (
 				983BE11B19E7588C00147F39 /* AppDelegate.h */,
 				983BE0F619E753BB00147F39 /* AppDelegate.m */,
+				984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */,
+				984BCD8019EE579200F90CAB /* AlarmClockScene.m */,
 				983BE0F819E753BB00147F39 /* GameScene.h */,
 				983BE0F919E753BB00147F39 /* GameScene.m */,
-				983BE0FB19E753BB00147F39 /* GameScene.sks */,
 				983BE0FD19E753BB00147F39 /* GameViewController.h */,
 				983BE0FE19E753BB00147F39 /* GameViewController.m */,
 				983BE10019E753BB00147F39 /* Main.storyboard */,
@@ -361,7 +366,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				983BE0D019E7521E00147F39 /* GameScene.sks in Resources */,
 				983BE0D219E7521E00147F39 /* Images.xcassets in Resources */,
 				983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */,
 			);
@@ -380,6 +384,7 @@
 			files = (
 				983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */,
 				983BE0FC19E753BB00147F39 /* GameScene.sks in Resources */,
+				984BCD7F19EE555900F90CAB /* AlarmClockScene.sks in Resources */,
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +425,7 @@
 				983BE0F719E753BB00147F39 /* AppDelegate.m in Sources */,
 				983BE0FA19E753BB00147F39 /* GameScene.m in Sources */,
 				983BE0F419E753BB00147F39 /* main.m in Sources */,
+				984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,8 +618,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -622,6 +628,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "44c854be-4112-4d31-8163-dda6f14d0675";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -630,12 +637,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "";
 				INFOPLIST_FILE = "Rhythm Satellite iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "44c854be-4112-4d31-8163-dda6f14d0675";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -645,6 +653,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -666,6 +675,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

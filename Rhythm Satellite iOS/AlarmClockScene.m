@@ -223,14 +223,14 @@ typedef enum alarmStateTypes{
                 //start timing for rhythm input
                 if (_numberOfHits == 0){
                     _numberOfHits++;
-//                    NSLog(@"HIT at %f with the number of hits: %d", _beatTimer, _numberOfHits);
+                    NSLog(@"HIT at %f with the number of hits: %d", _beatTimer, _numberOfHits);
                     
                 }
                 //if there is continueous rhythmic inputs, check timing
                 else {
                     if (_beatTimer >= beatTiming - INPUT_TOLERANCE && _beatTimer <= beatTiming + INPUT_TOLERANCE) {
                         _numberOfHits++;
-//                        NSLog(@"HIT at %f with the number of hits: %d", _beatTimer, _numberOfHits);
+                        NSLog(@"HIT at %f with the number of hits: %d", _beatTimer, _numberOfHits);
                         _beatTimer = 0;
                     }
                     else {
@@ -282,6 +282,34 @@ typedef enum alarmStateTypes{
         NSDateComponents *dc = [[NSDateComponents alloc] init];
         [dc setDay:1];
         _alarm = [[NSCalendar currentCalendar] dateByAddingComponents:dc toDate:_alarm options:0];
+    }
+    
+    if(_alarmState == ALARM_ON){
+        [self scheduleAlarmForDate:_alarm];
+    }
+}
+
+
+- (void)scheduleAlarmForDate:(NSDate*)theDate
+{
+    UIApplication* app = [UIApplication sharedApplication];
+    NSArray*    oldNotifications = [app scheduledLocalNotifications];
+    
+    // Clear out the old notification before scheduling a new one.
+    if ([oldNotifications count] > 0)
+        [app cancelAllLocalNotifications];
+    
+    // Create a new notification.
+    UILocalNotification* alarm = [[UILocalNotification alloc] init];
+    if (alarm)
+    {
+        alarm.fireDate = theDate;
+        alarm.timeZone = [NSTimeZone defaultTimeZone];
+        alarm.repeatInterval = 0;
+        alarm.soundName = @"simplebeat.caf";
+        alarm.alertBody = @"It's almost time for NoriNori Assembly!";
+        alarm.alertAction = NSLocalizedString(@"Start Preparing", nil);
+        [app scheduleLocalNotification:alarm];
     }
 }
 

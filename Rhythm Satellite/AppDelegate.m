@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "GameScene.h"
+#import "AssemblyScene.h"
 
 @implementation SKScene (Unarchive)
 
@@ -33,9 +33,10 @@
 @synthesize window = _window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
+    
+    AssemblyScene *scene = [[AssemblyScene alloc] initWithSize:self.skView.bounds.size];
 
-    /* Set the scale mode to scale to fit the window */
+//    /* Set the scale mode to scale to fit the window */
     scene.scaleMode = SKSceneScaleModeAspectFit;
 
     [self.skView presentScene:scene];

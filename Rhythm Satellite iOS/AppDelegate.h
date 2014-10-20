@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
 #import <AVFoundation/AVFoundation.h>
-
+#import "BTPeripheralModule.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic, readonly) CMMotionManager *sharedManager;
-@property (nonatomic, strong) AVAudioPlayer * bgmPlayer;                    //bgmPlayer
+@property (strong, nonatomic) UIWindow                      *window;
+@property (strong, nonatomic, readonly) CMMotionManager     *sharedManager;
+@property (nonatomic, strong) AVAudioPlayer                 * bgmPlayer;                    //bgmPlayer
+@property (nonatomic, strong) BTPeripheralModule            *btPeripheral;
 @end
 

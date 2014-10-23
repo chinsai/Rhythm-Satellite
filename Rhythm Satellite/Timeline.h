@@ -7,7 +7,16 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "Note.h"
 
 @interface Timeline : SKSpriteNode
+
+//all the beat sets to be played
+@property (nonatomic, strong) NSMutableArray          *notes;
+
+-(Timeline *) initWithImageNamed: (NSString *)image andHitSpotImageNamed:(NSString *)spotImage;
+-(void) update: (NSTimeInterval)currentTime;
+-(void)initTimeline;
+
 
 @end

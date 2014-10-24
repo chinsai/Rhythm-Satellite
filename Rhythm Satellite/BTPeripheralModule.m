@@ -12,15 +12,26 @@
 @interface BTPeripheralModule()<CBPeripheralManagerDelegate>
 @property (strong, nonatomic) CBPeripheralManager       *peripheralManager;
 @property (strong, nonatomic) CBMutableCharacteristic   *transferCharacteristic;
-@property (strong, nonatomic) NSData                    *dataToSend;
 @property (nonatomic, readwrite) NSInteger              sendDataIndex;
-@property (nonatomic, readwrite) BOOL                   isSubscribed;
+
 @end
 
 
 @implementation BTPeripheralModule
 
-#pragma mark - Peripheral Methods
+
+-(BTPeripheralModule *)init{
+    if(!self)
+        self = [super init];
+    
+    // Start up the CBPeripheralManager
+    _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
+    
+    _isSubscribed = NO;
+
+    
+    return self;
+}
 
 
 /** Required protocol method.  A full app should take care of all the possible states,
@@ -51,8 +62,8 @@
     // And add it to the peripheral manager
     [self.peripheralManager addService:transferService];
     
-    [self.peripheralManager startAdvertising:@{ CBAdvertisementDataServiceUUIDsKey : @[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]] }];
-    NSLog(@"advertising");
+//    [self.peripheralManager startAdvertising:@{ CBAdvertisementDataServiceUUIDsKey : @[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]] }];
+//    NSLog(@"advertising");
     
 }
 
@@ -62,13 +73,17 @@
 {
     NSLog(@"Central subscribed to characteristic");
     
-    // Get the data
-    self.dataToSend = [@"Left" dataUsingEncoding:NSUTF8StringEncoding];
-    
-    // Reset the index
-    self.sendDataIndex = 0;
     
     _isSubscribed = YES;
+    
+    [self.peripheralManager stopAdvertising];
+    
+    //    // Get the data
+    //    self.dataToSend = [@"Left" dataUsingEncoding:NSUTF8StringEncoding];
+    //
+    //    // Reset the index
+    //    self.sendDataIndex = 0;
+
     
     // Start sending
     //    [self sendData];
@@ -80,13 +95,26 @@
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
 {
     NSLog(@"Central unsubscribed from characteristic");
+    
+    //restart advertising
+    [self.peripheralManager startAdvertising:@{ CBAdvertisementDataServiceUUIDsKey : @[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]] }];
     _isSubscribed = NO;
 }
 
 
+
+- (void)sendData{
+    [self.peripheralManager updateValue:self.dataToSend forCharacteristic:self.transferCharacteristic onSubscribedCentrals:nil];
+    NSLog(@"data sent");
+}
+
+
+
+
+
 /** Sends the next amount of data to the connected central
  */
-- (void)sendData
+- (void)sendData_OLD
 {
     // First up, check if we're meant to be sending an EOM
     static BOOL sendingEOM = NO;

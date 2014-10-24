@@ -7,8 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "Command.h"
 
 typedef enum directions{
+    NONE,
     UP,
     RIGHT,
     DOWN,
@@ -19,7 +21,10 @@ typedef enum directions{
 @interface Note : SKSpriteNode
 
 @property (nonatomic) NSTimeInterval            time;
+@property (nonatomic, readonly) NoteType            direction;
+
 
 -(Note *)initWithDirection: (NoteType)direction atTime:(NSTimeInterval) time;
+-(BOOL)matchInput: (Command*)command;
 
 @end

@@ -13,13 +13,22 @@
 
 @property (strong, nonatomic) CBCentralManager          *centralManager;
 @property (strong, nonatomic) CBPeripheral              *discoveredPeripheral;
-@property (strong, nonatomic) NSMutableData             *receivedData;
+
 
 @end
 
 @implementation BTCentralModule
 
-#pragma mark - Central Methods
+-(BTCentralModule *)init{
+    if(!self)
+        self = [super init];
+    
+    _centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    // And somewhere to store the incoming data
+    _receivedData = [[NSMutableData alloc] init];
+    
+    return self;
+}
 
 
 /** centralManagerDidUpdateState is a required protocol method.
@@ -28,7 +37,14 @@
  *  the Central is ready to be used.
  */
 -(void)centralManagerDidUpdateState:(CBPeripheralManager *)central{
-    ;
+    if (central.state != CBCentralManagerStatePoweredOn) {
+        // In a real app, you'd deal with all the states correctly
+        return;
+    }
+    // The state must be CBCentralManagerStatePoweredOn...
+    
+    // ... so start scanning
+    [self scan];
 }
 
 
@@ -155,29 +171,8 @@
         return;
     }
     
-    NSString *stringFromData = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+    [self.receivedData appendData:characteristic.value];
     
-    //    // Have we got everything we need?
-    //    if ([stringFromData isEqualToString:@"EOM"]) {
-    //
-    //        // We have, so show the data.
-    //        NSLog(@"*******Incoming Data: *********\n%@", [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]);
-    //
-    //        //reset the data string after finishing one set of data
-    //        [self.data setLength:0];
-    //
-    //        // Cancel our subscription to the characteristic
-    //        [peripheral setNotifyValue:NO forCharacteristic:characteristic];
-    //
-    //        // and disconnect from the peripheral
-    //        [self.centralManager cancelPeripheralConnection:peripheral];
-    //    }
-    
-    //otherwise, just add the data on to what we already have
-    //    [self.data appendData:characteristic.value];
-    
-    // Log it
-    NSLog(@"Received: %@", stringFromData);
 }
 
 /** The peripheral letting us know whether our subscribe/unsubscribe happened or not
@@ -251,8 +246,6 @@
     // If we've got this far, we're connected, but we're not subscribed, so we just disconnect
     [self.centralManager cancelPeripheralConnection:self.discoveredPeripheral];
 }
-
-
 
 
 @end

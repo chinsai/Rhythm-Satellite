@@ -9,7 +9,7 @@
 #import "Note.h"
 
 @interface Note()
-@property (nonatomic, readonly) NoteType            direction;
+
 
 @end
 
@@ -22,21 +22,21 @@
     switch (direction) {
         case RIGHT:
             self.zRotation = -M_PI_2;
-            direction = RIGHT;
+            _direction = RIGHT;
             break;
             
         case DOWN:
             self.zRotation = -M_PI;
-            direction = DOWN;
+            _direction = DOWN;
             break;
             
         case LEFT:
             self.zRotation = M_PI_2;
-            direction = LEFT;
+            _direction = LEFT;
             break;
             
         default:
-            direction = UP;
+            _direction = UP;
             break;
     }
     _time = time;
@@ -44,5 +44,19 @@
     
     return self;
 }
+
+-(BOOL)matchInput: (Command*)command{
+    
+//    NSLog(@"input is %d, note is %d", command.input, _direction);
+    if ((command.input == COMMAND_UP && _direction == UP) ||
+        (command.input == COMMAND_DOWN && _direction == DOWN) ||
+        (command.input == COMMAND_RIGHT && _direction == RIGHT) ||
+        (command.input == COMMAND_LEFT && _direction == LEFT) ) {
+//        NSLog(@"INPUT MATCHED");
+        return YES;
+    }
+    return NO;
+}
+
 
 @end

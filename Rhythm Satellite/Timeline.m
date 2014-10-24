@@ -8,7 +8,9 @@
 
 #import "Timeline.h"
 
-
+#define GREAT_DELTA 20
+#define GOOD_DELTA 40
+#define BAD_DELTA 50
 @interface Timeline()
 
 
@@ -58,18 +60,60 @@ float velocity;
     if(!_notes){
         return;
     }
+    if (_notes.count == 0) {
+        return;
+    }
     for (Note * note in _notes) {
         note.position = CGPointMake(startingX + (note.time-timeElapsed)*velocity, 0);
 //        NSLog(@"x: %f, y:%f", note.position.x, note.position.y);
     }
-    if(!_notes){
-        Note * note = _notes[0];
-        if( note.position.x < -self.size.width/2 - note.size.width/2){
+    Note * note = _notes[0];
+    if( note.position.x < -self.size.width/2 - note.size.width/2){
+        [note removeFromParent];
+        [_notes removeObject:note];
+    }
+}
+
+
+-(TimingType) checkInput:(Command *)command{
+    
+    if (_notes.count == 0) {
+        return NO_GRADE;
+    }
+    
+    //check input timing for the closest note only
+    int i = 0;
+    Note* note = _notes[i];
+    while (note.position.x < _hitSpot.position.x - BAD_DELTA/2) {
+        note = _notes[++i];
+    }
+    float delta = fabsf(note.position.x - _hitSpot.position.x);
+    if (delta <= GREAT_DELTA){
+        if( [note matchInput:command]){
             [note removeFromParent];
             [_notes removeObject:note];
+            return GREAT;
         }
-
+        else{
+            return BAD;
+        }
     }
+    else if(delta <= GOOD_DELTA){
+        if( [note matchInput:command]){
+            [note removeFromParent];
+            [_notes removeObject:note];
+            return GOOD;
+        }
+        else{
+            return BAD; 
+        }
+    }
+    else if(delta > GOOD_DELTA && delta < BAD_DELTA ){
+        [note removeFromParent];
+        [_notes removeObject:note];
+        return BAD;
+    }
+    return NO_GRADE;
 }
 
 @end

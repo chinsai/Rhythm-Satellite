@@ -8,9 +8,18 @@
 
 #import "AssemblyScene.h"
 #import "Note.h"
+#import "Command.h"
 
-NSTimeInterval timeElapsed;
-NSTimeInterval previousTime;
+typedef enum gameStateType{
+    IDLE,
+    PLAYING,
+    ENDED
+} GameState;
+
+
+NSTimeInterval      timeElapsed;
+NSTimeInterval      previousTime;
+GameState           gameState;
 
 @interface AssemblyScene()
 
@@ -25,7 +34,8 @@ NSTimeInterval previousTime;
 
 // music
 
-
+// BLE Central
+@property (nonatomic, strong) BTCentralModule       *btReceiver;
 
 
 @end
@@ -46,12 +56,16 @@ NSTimeInterval previousTime;
     [self addChild:_timeline];
     
     [_timeline.notes addObject:[[ Note alloc ] initWithDirection: UP atTime: 1]];
-    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: RIGHT atTime: 2]];
-    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: DOWN atTime: 3]];
-    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: LEFT atTime: 4]];
+    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: UP atTime: 2]];
+    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: UP atTime: 3]];
+    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: UP atTime: 4]];
     
     [_timeline initTimeline];
     
+    _btReceiver = [[BTCentralModule alloc] init];
+    
+    
+    gameState = PLAYING;
     timeElapsed = 0;
     previousTime = 0;
     
@@ -59,11 +73,46 @@ NSTimeInterval previousTime;
 
 
 -(void)update:(NSTimeInterval)currentTime{
+    
     if(previousTime == 0)
         previousTime = currentTime;
     timeElapsed += currentTime - previousTime;
+    
+    //update the command input
+    Command *command = [self getLatestCommand];
+    
+    
+    if(command){
+        TimingType rank = [_timeline checkInput:command];
+        if (rank == GREAT) {
+            NSLog(@"GREAT");
+        }
+        else if(rank == GOOD){
+            NSLog(@"GOOD");
+        }
+        else if(rank == BAD){
+            NSLog(@"BAD");
+        }
+    }
+    
+    //update the time line
     [_timeline update:timeElapsed];
+    
     previousTime = currentTime;
+
+    
+}
+
+-(Command *)getLatestCommand{
+    
+    Command *command;
+    if(_btReceiver.receivedData.length != 0){
+        NSString *stringFromData = [[NSString alloc] initWithData:_btReceiver.receivedData encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", stringFromData);
+        command = [[Command alloc] initWithString:stringFromData];
+        [_btReceiver.receivedData setLength:0];
+    }
+    return command;
 }
 
 @end

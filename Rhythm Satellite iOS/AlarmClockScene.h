@@ -10,7 +10,7 @@
 #define Rhythm_Satellite_AlarmClockScene_h
 
 #import <SpriteKit/SpriteKit.h>
-#import <CoreMotion/CoreMotion.h>
+
 
 
 @interface AlarmClockScene : SKScene

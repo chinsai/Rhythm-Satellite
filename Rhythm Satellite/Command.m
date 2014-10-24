@@ -10,4 +10,28 @@
 
 @implementation Command
 
+-(Command *)initWithString: (NSString *)direction{
+    if (!self) {
+        self = [super init];
+    }
+    
+    if ([direction isEqualToString:@"UP"]) {
+        _input = COMMAND_UP;
+    }
+    else if ([direction isEqualToString:@"DOWN"]) {
+        _input = COMMAND_DOWN;
+    }
+    else if ([direction isEqualToString:@"LEFT"]) {
+        _input = COMMAND_LEFT;
+    }
+    else if ([direction isEqualToString:@"RIGHT"]) {
+        _input = COMMAND_RIGHT;
+    }
+    else{
+        _input = COMMAND_ANY;
+    }
+
+    return self;
+}
+
 @end

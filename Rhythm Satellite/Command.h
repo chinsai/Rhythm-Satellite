@@ -14,9 +14,13 @@ typedef enum commandTypes{
     COMMAND_RIGHT,
     COMMAND_DOWN,
     COMMAND_LEFT
-} MotionCommand;
+} InputCommand;
 
 
 @interface Command : NSObject
+
+@property (nonatomic) InputCommand             input;
+
+-(Command *)initWithString: (NSString *)direction;
 
 @end

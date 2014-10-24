@@ -11,4 +11,6 @@
 
 @interface BTCentralModule : NSObject
 
+@property (strong, nonatomic) NSMutableData             *receivedData;
+
 @end

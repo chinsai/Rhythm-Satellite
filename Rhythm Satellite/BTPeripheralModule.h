@@ -11,4 +11,11 @@
 
 @interface BTPeripheralModule : NSObject
 
+- (void)sendData;
+
+- (void)toggleAdvertising;
+
+@property (nonatomic, readwrite) BOOL                   isSubscribed;
+@property (strong, nonatomic) NSData                    *dataToSend;
+
 @end

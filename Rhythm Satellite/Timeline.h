@@ -8,6 +8,15 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "Note.h"
+#import "Command.h"
+
+
+typedef enum timingRanking{
+    NO_GRADE,
+    BAD,
+    GOOD,
+    GREAT
+} TimingType;
 
 @interface Timeline : SKSpriteNode
 
@@ -17,6 +26,6 @@
 -(Timeline *) initWithImageNamed: (NSString *)image andHitSpotImageNamed:(NSString *)spotImage;
 -(void) update: (NSTimeInterval)currentTime;
 -(void)initTimeline;
-
+-(TimingType) checkInput:(Command *)command;
 
 @end

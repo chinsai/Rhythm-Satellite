@@ -6,8 +6,11 @@
 //  Copyright (c) 2014年 Kiron. All rights reserved.
 //
 
+
+#import <CoreMotion/CoreMotion.h>
 #import "AlarmClockScene.h"
 #import "AppDelegate.h"
+
 
 #define DELTA_THRESHOLD 1
 #define REGISTER_INTERVAL 0.1
@@ -20,24 +23,25 @@ typedef enum alarmStateTypes{
     ALARM_OFF
 } AlarmState;
 
+
 @interface AlarmClockScene ()
-@property (nonatomic, weak) CMMotionManager *mManager;                  //CoreMotion Manager
-@property (nonatomic, weak) SKLabelNode *clockLabel;                     //label for the alarm
-@property (nonatomic, weak) SKLabelNode *hitLabel;                     //label for the hit times
-@property (nonatomic, weak) SKLabelNode *alarmLabel;                     //label for the alarm
-@property (nonatomic) double preAccelerationX;                          //previous Acceleration.X Value
-@property (nonatomic) CFTimeInterval stopRegisterTime;                  //time to avoid unwanted input
-@property (nonatomic) CFTimeInterval previousTime;                       //for recording the time of previous time
-@property (nonatomic) BOOL canRegister;                                 //determine whether a new motion can be register
-@property (nonatomic) NSDate *alarm;                                     //alarm
-@property (nonatomic) AlarmState alarmState;                             //whether the alarm is on or not
-@property (nonatomic) CFTimeInterval beatTimer;                         //timer for determining beat time
-@property (nonatomic) double bpm;                                          //bpm of the beat to be followed
-@property (nonatomic) int numberOfHits;                                 //number of hits to the beat
-@property (nonatomic) int hour;
-@property (nonatomic) int minute;
-@property (nonatomic) CGPoint prevLocation;
-@property (nonatomic) CGPoint newLocation;
+@property (nonatomic, strong) CMMotionManager               *mManager;          //CoreMotion Manager
+@property (nonatomic, strong) SKLabelNode                   *clockLabel;         //label for the alarm
+@property (nonatomic, strong) SKLabelNode                   *hitLabel;             //label for the hit times
+@property (nonatomic, strong) SKLabelNode                   *alarmLabel;          //label for the alarm
+@property (nonatomic) double                                preAccelerationX;      //previous Acceleration.X Value
+@property (nonatomic) NSTimeInterval                        stopRegisterTime;    //time to avoid unwanted input
+@property (nonatomic) NSTimeInterval                        previousTime;   //for recording the time of previous time
+@property (nonatomic) BOOL                                  canRegister;    //determine whether a new motion can be register
+@property (nonatomic) NSDate                                *alarm;         //alarm
+@property (nonatomic) AlarmState                            alarmState;     //whether the alarm is on or not
+@property (nonatomic) NSTimeInterval                        beatTimer;      //timer for determining beat time
+@property (nonatomic) double                                bpm;            //bpm of the beat to be followed
+@property (nonatomic) int                                   numberOfHits;   //number of hits to the beat
+@property (nonatomic) int                                   hour;
+@property (nonatomic) int                                   minute;
+@property (nonatomic) CGPoint                               prevLocation;
+@property (nonatomic) CGPoint                               newLocation;
 @end
 
 @implementation AlarmClockScene
@@ -91,6 +95,7 @@ typedef enum alarmStateTypes{
     _beatTimer = 0;
     _numberOfHits = 0;
     [self updateAlarm];
+
     
 }
 
@@ -142,10 +147,10 @@ typedef enum alarmStateTypes{
     
 }
 
--(void)update:(CFTimeInterval)currentTime {
+-(void)update:(NSTimeInterval)currentTime {
    
     /* Called before each frame is rendered */
-    CFTimeInterval deltaTime = currentTime - _previousTime;
+    NSTimeInterval deltaTime = currentTime - _previousTime;
     
     //update Accelerometer Values
     double newAccelerationX = _mManager.deviceMotion.userAcceleration.x;

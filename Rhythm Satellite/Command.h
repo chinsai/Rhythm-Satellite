@@ -13,7 +13,8 @@ typedef enum commandTypes{
     COMMAND_UP,
     COMMAND_RIGHT,
     COMMAND_DOWN,
-    COMMAND_LEFT
+    COMMAND_LEFT,
+    COMMAND_IDLE
 } InputCommand;
 
 
@@ -21,6 +22,10 @@ typedef enum commandTypes{
 
 @property (nonatomic) InputCommand             input;
 
+
+
+-(NSString *)inputInString;
 -(Command *)initWithString: (NSString *)direction;
+-(void)setInputWithString:(NSString *)direction;
 
 @end

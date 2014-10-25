@@ -8,6 +8,7 @@
 
 #import "GameControllerScene.h"
 #import "BTPeripheralModule.h"
+#import "MotionControllerModule.h"
 #import <CoreMotion/CoreMotion.h>
 #import "AppDelegate.h"
 
@@ -23,8 +24,7 @@
 }
 
 @property (nonatomic, strong) BTPeripheralModule            *btTransmitter;
-@property (nonatomic, strong) CMMotionManager               *mManager;                  //CoreMotion Manager
-@property (nonatomic) double                                preAccelerationX;                  //previous Acceleration.X Value
+@property (nonatomic, strong) MotionControllerModule        *controller;
 
 
 @end
@@ -38,14 +38,10 @@
         _btTransmitter = [[BTPeripheralModule alloc]init];
     }
     
-    //Set up motion sensor update interval
-    NSTimeInterval updateInterval = 0.01;
-    _mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
-    if ([_mManager isDeviceMotionAvailable] == YES) {
-        [_mManager setDeviceMotionUpdateInterval:updateInterval];
+    if(!_controller){
+        _controller = [[MotionControllerModule alloc]init];
     }
-    
-    _preAccelerationX = 0;
+
     canRegister = YES;
     stopRegisterTime = 0;
     previousTime = 0;
@@ -55,66 +51,29 @@
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (!_btTransmitter.isSubscribed) {
         [_btTransmitter toggleAdvertising];
-        [_mManager startDeviceMotionUpdates];
+        [_controller turnOn];
     }
     else{
-        
+        [_controller turnOff];
     }
 }
 
 
 -(void)update:(NSTimeInterval)currentTime {
     //update Accelerometer Values
-    if (_btTransmitter.isSubscribed) {
-        
-        NSTimeInterval deltaTime = currentTime - previousTime;
-        
-        double newAccelerationX = _mManager.deviceMotion.userAcceleration.x;
-        double deltaX = newAccelerationX - _preAccelerationX;
-        
-        double gravityX = _mManager.deviceMotion.gravity.x;
-        double gravityY = _mManager.deviceMotion.gravity.y;
-        double gravityZ = _mManager.deviceMotion.gravity.z;
-        
-        if(!canRegister){
-            if (stopRegisterTime > REGISTER_INTERVAL){
-                stopRegisterTime = 0;
-                canRegister = YES;
-            }
-            else{
-                stopRegisterTime += deltaTime;
-            }
-        }
-        else{
+    
+    [_controller update:currentTime];
+    
+    if (_btTransmitter.isSubscribed && _controller.enabled) {
 
-            if ( deltaX > DELTA_THRESHOLD){
-                
-                //stop registering unwanted commandes
-                if (gravityY < -GRAVITY_THRESHOLD) {
-                    _btTransmitter.dataToSend = [@"UP" dataUsingEncoding:NSUTF8StringEncoding];
-                }
-                else if (gravityX < -GRAVITY_THRESHOLD){
-                    _btTransmitter.dataToSend = [@"DOWN" dataUsingEncoding:NSUTF8StringEncoding];
-                }
-                else if (gravityZ > GRAVITY_THRESHOLD){
-                    _btTransmitter.dataToSend = [@"RIGHT" dataUsingEncoding:NSUTF8StringEncoding];
-                }
-                else if (gravityZ < -GRAVITY_THRESHOLD){
-                    _btTransmitter.dataToSend = [@"LEFT" dataUsingEncoding:NSUTF8StringEncoding];
-                }else{
-                    _btTransmitter.dataToSend = [@"UNKNOWN" dataUsingEncoding:NSUTF8StringEncoding];
-                }
-                
-                //avoid unintended iinput
-                canRegister = NO;
-                
-                [_btTransmitter sendData];
-//                NSLog(@"data sent");
-            }
-        
+//        NSTimeInterval deltaTime = currentTime - previousTime;
+
+        if( _controller.triggeredCommand.input != COMMAND_IDLE && _controller.canRegister){
+            _btTransmitter.dataToSend = [[_controller.triggeredCommand inputInString] dataUsingEncoding:NSUTF8StringEncoding];
+            [_btTransmitter sendData];
+//            NSLog(@"data sent: %@", [_controller.triggeredCommand inputInString] );
         }
-        
-        _preAccelerationX = newAccelerationX;
+
         previousTime = currentTime;
     }
     
@@ -124,9 +83,7 @@
 
 
 -(void)willMoveFromView:(SKView *)view{
-    if ([_mManager isAccelerometerActive] == YES) {
-        [_mManager stopDeviceMotionUpdates];
-    }
+    [_controller turnOff];
     
 }
 @end

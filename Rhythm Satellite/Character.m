@@ -9,11 +9,5 @@
 #import "Character.h"
 
 @implementation Character
-//Array of Dictionary that contains the number of commands for a game
-//Character level
-//Dictionary with skills and their respective level
-//equipped skills
-//equipped costume
-//color of the character
-//assembly time
+
 @end

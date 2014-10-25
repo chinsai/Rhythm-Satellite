@@ -9,20 +9,19 @@
 /* Begin PBXBuildFile section */
 		983BE0C919E7521E00147F39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0C819E7521E00147F39 /* AppDelegate.m */; };
 		983BE0CB19E7521E00147F39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0CA19E7521E00147F39 /* main.m */; };
-		983BE0CE19E7521E00147F39 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0CD19E7521E00147F39 /* GameScene.m */; };
 		983BE0D219E7521E00147F39 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D119E7521E00147F39 /* Images.xcassets */; };
 		983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D319E7521E00147F39 /* MainMenu.xib */; };
 		983BE0E119E7521E00147F39 /* Rhythm_SatelliteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0E019E7521E00147F39 /* Rhythm_SatelliteTests.m */; };
 		983BE0F419E753BB00147F39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0F319E753BB00147F39 /* main.m */; };
 		983BE0F719E753BB00147F39 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0F619E753BB00147F39 /* AppDelegate.m */; };
-		983BE0FA19E753BB00147F39 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0F919E753BB00147F39 /* GameScene.m */; };
 		983BE0FF19E753BB00147F39 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0FE19E753BB00147F39 /* GameViewController.m */; };
 		983BE10219E753BB00147F39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10019E753BB00147F39 /* Main.storyboard */; };
 		983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10519E753BB00147F39 /* LaunchScreen.xib */; };
 		983BE11319E753BB00147F39 /* Rhythm_Satellite_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */; };
 		984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 984BCD8019EE579200F90CAB /* AlarmClockScene.m */; };
 		98586BC119FB8DBA00FC345F /* MotionControllerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 98586BC019FB8DBA00FC345F /* MotionControllerModule.m */; };
-		9885E86D19FA3719004CFA61 /* GameControllerScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 9885E86C19FA3719004CFA61 /* GameControllerScene.m */; };
+		9885E86D19FA3719004CFA61 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 9885E86C19FA3719004CFA61 /* MainScene.m */; };
+		9885E87019FBE28B004CFA61 /* AlarmClockModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 9885E86F19FBE28B004CFA61 /* AlarmClockModule.m */; };
 		988DA19D19F491F200B01889 /* Timeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA19C19F491F200B01889 /* Timeline.m */; };
 		988DA1A019F497D600B01889 /* CharacterStage.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA19F19F497D600B01889 /* CharacterStage.m */; };
 		988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */; };
@@ -66,8 +65,6 @@
 		983BE0C719E7521E00147F39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		983BE0C819E7521E00147F39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		983BE0CA19E7521E00147F39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		983BE0CC19E7521E00147F39 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		983BE0CD19E7521E00147F39 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		983BE0D119E7521E00147F39 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
 		983BE0D419E7521E00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		983BE0DA19E7521E00147F39 /* Rhythm SatelliteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm SatelliteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,8 +75,6 @@
 		983BE0F219E753BB00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		983BE0F319E753BB00147F39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		983BE0F619E753BB00147F39 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		983BE0F819E753BB00147F39 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		983BE0F919E753BB00147F39 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		983BE0FD19E753BB00147F39 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		983BE0FE19E753BB00147F39 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		983BE10119E753BB00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,8 +87,10 @@
 		984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockScene.h; sourceTree = "<group>"; };
 		98586BBF19FB8DBA00FC345F /* MotionControllerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionControllerModule.h; sourceTree = "<group>"; };
 		98586BC019FB8DBA00FC345F /* MotionControllerModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionControllerModule.m; sourceTree = "<group>"; };
-		9885E86B19FA3719004CFA61 /* GameControllerScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameControllerScene.h; sourceTree = "<group>"; };
-		9885E86C19FA3719004CFA61 /* GameControllerScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameControllerScene.m; sourceTree = "<group>"; };
+		9885E86B19FA3719004CFA61 /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScene.h; sourceTree = "<group>"; };
+		9885E86C19FA3719004CFA61 /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScene.m; sourceTree = "<group>"; };
+		9885E86E19FBE28B004CFA61 /* AlarmClockModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockModule.h; sourceTree = "<group>"; };
+		9885E86F19FBE28B004CFA61 /* AlarmClockModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockModule.m; sourceTree = "<group>"; };
 		988DA19B19F491F200B01889 /* Timeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timeline.h; sourceTree = "<group>"; };
 		988DA19C19F491F200B01889 /* Timeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timeline.m; sourceTree = "<group>"; };
 		988DA19E19F497D600B01889 /* CharacterStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterStage.h; sourceTree = "<group>"; };
@@ -190,8 +187,6 @@
 				98F0FC2A19F38E300071768B /* AssemblyScene.m */,
 				988DA19B19F491F200B01889 /* Timeline.h */,
 				988DA19C19F491F200B01889 /* Timeline.m */,
-				983BE0CC19E7521E00147F39 /* GameScene.h */,
-				983BE0CD19E7521E00147F39 /* GameScene.m */,
 				983BE0D319E7521E00147F39 /* MainMenu.xib */,
 				983BE0C519E7521E00147F39 /* Supporting Files */,
 			);
@@ -231,16 +226,16 @@
 				983BE0F619E753BB00147F39 /* AppDelegate.m */,
 				984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */,
 				984BCD8019EE579200F90CAB /* AlarmClockScene.m */,
-				9885E86B19FA3719004CFA61 /* GameControllerScene.h */,
-				9885E86C19FA3719004CFA61 /* GameControllerScene.m */,
-				983BE0F819E753BB00147F39 /* GameScene.h */,
-				983BE0F919E753BB00147F39 /* GameScene.m */,
+				9885E86E19FBE28B004CFA61 /* AlarmClockModule.h */,
+				9885E86F19FBE28B004CFA61 /* AlarmClockModule.m */,
+				9885E86B19FA3719004CFA61 /* MainScene.h */,
+				9885E86C19FA3719004CFA61 /* MainScene.m */,
 				983BE0FD19E753BB00147F39 /* GameViewController.h */,
 				983BE0FE19E753BB00147F39 /* GameViewController.m */,
-				983BE10019E753BB00147F39 /* Main.storyboard */,
-				983BE10519E753BB00147F39 /* LaunchScreen.xib */,
 				98586BBF19FB8DBA00FC345F /* MotionControllerModule.h */,
 				98586BC019FB8DBA00FC345F /* MotionControllerModule.m */,
+				983BE10019E753BB00147F39 /* Main.storyboard */,
+				983BE10519E753BB00147F39 /* LaunchScreen.xib */,
 				983BE0F119E753BB00147F39 /* Supporting Files */,
 			);
 			path = "Rhythm Satellite iOS";
@@ -471,7 +466,6 @@
 				988DA1A019F497D600B01889 /* CharacterStage.m in Sources */,
 				988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
 				98F0FC2719F38D640071768B /* Character.m in Sources */,
-				983BE0CE19E7521E00147F39 /* GameScene.m in Sources */,
 				983BE0C919E7521E00147F39 /* AppDelegate.m in Sources */,
 				98F0FC3119F3E86D0071768B /* Note.m in Sources */,
 				98F0FC2319F38D260071768B /* Command.m in Sources */,
@@ -494,11 +488,11 @@
 				983BE0FF19E753BB00147F39 /* GameViewController.m in Sources */,
 				98F0FC2819F38D640071768B /* Character.m in Sources */,
 				98F0FC2419F38D260071768B /* Command.m in Sources */,
+				9885E87019FBE28B004CFA61 /* AlarmClockModule.m in Sources */,
 				988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
 				983BE0F719E753BB00147F39 /* AppDelegate.m in Sources */,
-				983BE0FA19E753BB00147F39 /* GameScene.m in Sources */,
 				98F0FC3619F3EB520071768B /* BTCentralModule.m in Sources */,
-				9885E86D19FA3719004CFA61 /* GameControllerScene.m in Sources */,
+				9885E86D19FA3719004CFA61 /* MainScene.m in Sources */,
 				983BE0F419E753BB00147F39 /* main.m in Sources */,
 				984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */,
 				98586BC119FB8DBA00FC345F /* MotionControllerModule.m in Sources */,

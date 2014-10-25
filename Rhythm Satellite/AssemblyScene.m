@@ -11,7 +11,8 @@
 #import "Command.h"
 
 typedef enum gameStateType{
-    IDLE,
+    SEARCHING,
+    WAITING,
     PLAYING,
     ENDED
 } GameState;
@@ -25,6 +26,9 @@ GameState           gameState;
 
 // array of character stage
 @property (nonatomic, strong) NSArray               *charactertStages;
+
+// array of character stage
+@property (nonatomic, strong) NSArray               *characters;
 
 // background
 @property (nonatomic, strong) SKSpriteNode          *background;
@@ -54,13 +58,9 @@ GameState           gameState;
     _timeline = [[Timeline alloc]initWithImageNamed:@"timeline" andHitSpotImageNamed:@"hitspot"];
     _timeline.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-_timeline.size.height/2-30);
     [self addChild:_timeline];
+
     
-    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: UP atTime: 1]];
-    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: UP atTime: 2]];
-    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: UP atTime: 3]];
-    [_timeline.notes addObject:[[ Note alloc ] initWithDirection: UP atTime: 4]];
     
-    [_timeline initTimeline];
     
     _btReceiver = [[BTCentralModule alloc] init];
     
@@ -69,6 +69,8 @@ GameState           gameState;
     timeElapsed = 0;
     previousTime = 0;
     
+    [self setupTimeline];
+    
 }
 
 
@@ -76,6 +78,7 @@ GameState           gameState;
     
     if(previousTime == 0)
         previousTime = currentTime;
+    
     timeElapsed += currentTime - previousTime;
     
     //update the command input
@@ -115,4 +118,13 @@ GameState           gameState;
     return command;
 }
 
+
+-(void)setupTimeline{
+    for (int i = 1; i<=64; i++) {
+        NoteType direction = (NoteType)arc4random_uniform(3)+1;
+        [_timeline.notes addObject:[[ Note alloc ] initWithDirection: direction atTime: i]];
+    }
+    //put the notes in place
+    [_timeline initTimeline];
+}
 @end

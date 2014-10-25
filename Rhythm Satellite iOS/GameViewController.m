@@ -9,7 +9,7 @@
 #import "GameViewController.h"
 #import "GameScene.h"
 #import "AlarmClockScene.h"
-#import "GameControllerScene.h"
+#import "MainScene.h"
 #import <AudioToolbox/AudioToolbox.h>
 
 @implementation SKScene (Unarchive)
@@ -46,7 +46,7 @@
     
     // Create and configure the scene.
 //    AlarmClockScene *scene = [AlarmClockScene unarchiveFromFile:@"AlarmClockScene"];
-    GameControllerScene *scene = [[GameControllerScene alloc]initWithSize:skView.bounds.size];
+    MainScene *scene = [[MainScene alloc]initWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.

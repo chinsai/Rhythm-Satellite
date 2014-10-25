@@ -6,18 +6,25 @@
 //  Copyright (c) 2014年 Kiron. All rights reserved.
 //
 
-#import "GameControllerScene.h"
+#import <CoreMotion/CoreMotion.h>
+#import "MainScene.h"
 #import "BTPeripheralModule.h"
 #import "MotionControllerModule.h"
-#import <CoreMotion/CoreMotion.h>
+#import "AlarmClockModule.h"
+#import "Character.h"
 #import "AppDelegate.h"
 
-#define DELTA_THRESHOLD 1
-#define REGISTER_INTERVAL 0.1
-#define GRAVITY_THRESHOLD 0.8
-#define INPUT_TOLERANCE 0.1
 
-@interface GameControllerScene(){
+typedef enum mainSceneStateType{
+    IDLE,
+    SLEEPING,
+    ALARM,
+    ADVERTISING,
+    CONNECTED,
+    GAMEOVER,
+} MainState;
+
+@interface MainScene(){
     BOOL                            canRegister;
     NSTimeInterval                  stopRegisterTime;    //time to avoid unwanted input
     NSTimeInterval                  previousTime;   //for recording the time of previous time
@@ -25,12 +32,14 @@
 
 @property (nonatomic, strong) BTPeripheralModule            *btTransmitter;
 @property (nonatomic, strong) MotionControllerModule        *controller;
+@property (nonatomic, strong) AlarmClockModule              *alarm;
+@property (nonatomic, strong) Character                     *character;
 
 
 @end
 
 
-@implementation GameControllerScene
+@implementation MainScene
 
 -(void)didMoveToView:(SKView *)view {
     

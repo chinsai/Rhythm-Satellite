@@ -33,6 +33,9 @@ GameState           gameState;
 // background
 @property (nonatomic, strong) SKSpriteNode          *background;
 
+// cover
+@property (nonatomic, strong) SKSpriteNode          *cover;
+
 // timeline
 @property (nonatomic, strong) Timeline              *timeline;
 

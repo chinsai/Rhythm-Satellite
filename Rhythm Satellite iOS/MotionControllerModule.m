@@ -110,7 +110,7 @@
             else if (gravityZ < -GRAVITY_THRESHOLD){
                 [self setInput:@"LEFT"];
             }else{
-                [self setInput:@"ANY"];
+                [self setInput:@"SHAKE"];
             }
             
             //avoid unintended iinput

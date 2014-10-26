@@ -33,7 +33,7 @@ typedef enum alarmStateTypes{
 @property (nonatomic) NSTimeInterval                        stopRegisterTime;    //time to avoid unwanted input
 @property (nonatomic) NSTimeInterval                        previousTime;   //for recording the time of previous time
 @property (nonatomic) BOOL                                  canRegister;    //determine whether a new motion can be register
-@property (nonatomic) NSDate                                *alarm;         //alarm
+@property (nonatomic, strong) NSDate                                *alarm;         //alarm
 @property (nonatomic) AlarmState                            alarmState;     //whether the alarm is on or not
 @property (nonatomic) NSTimeInterval                        beatTimer;      //timer for determining beat time
 @property (nonatomic) double                                bpm;            //bpm of the beat to be followed
@@ -95,7 +95,6 @@ typedef enum alarmStateTypes{
     _beatTimer = 0;
     _numberOfHits = 0;
     [self updateAlarm];
-
     
 }
 

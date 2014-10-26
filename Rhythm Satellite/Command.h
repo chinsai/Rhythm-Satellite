@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef enum commandTypes{
-    COMMAND_ANY,
+    COMMAND_SHAKE,
     COMMAND_UP,
     COMMAND_RIGHT,
     COMMAND_DOWN,

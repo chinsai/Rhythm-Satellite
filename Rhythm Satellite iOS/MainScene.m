@@ -22,7 +22,7 @@ typedef enum mainSceneStateType{
     ADVERTISING,
     CONNECTED,
     GAMEOVER,
-} MainState;
+} iOSGameState;
 
 @interface MainScene(){
     BOOL                            canRegister;
@@ -34,6 +34,7 @@ typedef enum mainSceneStateType{
 @property (nonatomic, strong) MotionControllerModule        *controller;
 @property (nonatomic, strong) AlarmClockModule              *alarm;
 @property (nonatomic, strong) Character                     *character;
+@property (nonatomic) iOSGameState                          *state;
 
 
 @end

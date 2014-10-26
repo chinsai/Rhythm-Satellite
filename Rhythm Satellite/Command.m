@@ -32,8 +32,11 @@
     else if ([direction isEqualToString:@"LEFT"]) {
         _input = COMMAND_LEFT;
     }
-    else if ([direction isEqualToString:@"ANY"]) {
-        _input = COMMAND_ANY;
+    else if ([direction isEqualToString:@"SHAKE"]) {
+        _input = COMMAND_SHAKE;
+    }
+    else if ([direction isEqualToString:@"START"]) {
+        _input = COMMAND_START;
     }
     else{
         _input = COMMAND_IDLE;
@@ -55,8 +58,11 @@
     else if ([direction isEqualToString:@"RIGHT"]) {
         _input = COMMAND_RIGHT;
     }
-    else if ([direction isEqualToString:@"ANY"]) {
-        _input = COMMAND_ANY;
+    else if ([direction isEqualToString:@"SHAKE"]) {
+        _input = COMMAND_SHAKE;
+    }
+    else if ([direction isEqualToString:@"START"]) {
+        _input = COMMAND_START;
     }
     else{
         _input = COMMAND_IDLE;
@@ -77,8 +83,11 @@
     else if(_input == COMMAND_RIGHT){
         return @"RIGHT";
     }
-    else if(_input == COMMAND_ANY){
-        return @"ANY";
+    else if(_input == COMMAND_SHAKE){
+        return @"SHAKE";
+    }
+    else if(_input == COMMAND_START){
+        return @"START";
     }
     else{
         return @"IDLE";

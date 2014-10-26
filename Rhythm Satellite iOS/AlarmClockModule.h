@@ -8,6 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum alarmStateTypes{
+    ALARM_ON,
+    ALARM_PLAYING,
+    ALARM_OFF
+} AlarmState;
+
+
 @interface AlarmClockModule : NSObject
+
+@property (nonatomic) int                           hour;
+@property (nonatomic) int                           minute;
+@property (nonatomic) AlarmState                    alarmState;     //whether the alarm is on or not
+
+-(NSString *)getCurrentTimeInString;
 
 @end

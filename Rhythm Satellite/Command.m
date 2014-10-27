@@ -18,25 +18,31 @@
     return self;
 }
 
--(Command *)initWithString: (NSString *)direction{
+-(Command *)initWithString: (NSString *)commandString{
     if (!self) {
         self = [super init];
     }
     
-    if ([direction isEqualToString:@"UP"]) {
+    if ([commandString isEqualToString:@"UP"]) {
         _input = COMMAND_UP;
     }
-    else if ([direction isEqualToString:@"DOWN"]) {
+    else if ([commandString isEqualToString:@"DOWN"]) {
         _input = COMMAND_DOWN;
     }
-    else if ([direction isEqualToString:@"LEFT"]) {
+    else if ([commandString isEqualToString:@"LEFT"]) {
         _input = COMMAND_LEFT;
     }
-    else if ([direction isEqualToString:@"SHAKE"]) {
+    else if ([commandString isEqualToString:@"RIGHT"]) {
+        _input = COMMAND_RIGHT;
+    }
+    else if ([commandString isEqualToString:@"SHAKE"]) {
         _input = COMMAND_SHAKE;
     }
-    else if ([direction isEqualToString:@"START"]) {
+    else if ([commandString isEqualToString:@"START"]) {
         _input = COMMAND_START;
+    }
+    else if ([commandString isEqualToString:@"TAP"]) {
+        _input = COMMAND_TAP;
     }
     else{
         _input = COMMAND_IDLE;
@@ -45,24 +51,27 @@
     return self;
 }
 
--(void)setInputWithString:(NSString *)direction{
-    if ([direction isEqualToString:@"UP"]) {
+-(void)setInputWithString:(NSString *)commandString{
+    if ([commandString isEqualToString:@"UP"]) {
         _input = COMMAND_UP;
     }
-    else if ([direction isEqualToString:@"DOWN"]) {
+    else if ([commandString isEqualToString:@"DOWN"]) {
         _input = COMMAND_DOWN;
     }
-    else if ([direction isEqualToString:@"LEFT"]) {
+    else if ([commandString isEqualToString:@"LEFT"]) {
         _input = COMMAND_LEFT;
     }
-    else if ([direction isEqualToString:@"RIGHT"]) {
+    else if ([commandString isEqualToString:@"RIGHT"]) {
         _input = COMMAND_RIGHT;
     }
-    else if ([direction isEqualToString:@"SHAKE"]) {
+    else if ([commandString isEqualToString:@"SHAKE"]) {
         _input = COMMAND_SHAKE;
     }
-    else if ([direction isEqualToString:@"START"]) {
+    else if ([commandString isEqualToString:@"START"]) {
         _input = COMMAND_START;
+    }
+    else if ([commandString isEqualToString:@"TAP"]) {
+        _input = COMMAND_TAP;
     }
     else{
         _input = COMMAND_IDLE;
@@ -88,6 +97,9 @@
     }
     else if(_input == COMMAND_START){
         return @"START";
+    }
+    else if(_input == COMMAND_TAP){
+        return @"TAP";
     }
     else{
         return @"IDLE";

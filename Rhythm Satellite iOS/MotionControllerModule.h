@@ -16,6 +16,8 @@
 
 @property (nonatomic) BOOL                          enabled;
 
+-(void)setInput: (NSString *)input;
+
 -(void)update:(NSTimeInterval)currentTime;
 -(void)turnOn;
 -(void)turnOff;

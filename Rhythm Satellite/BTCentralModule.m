@@ -30,6 +30,15 @@
     return self;
 }
 
+-(BOOL)hasConnectedPeripheral{
+    if (!_discoveredPeripheral) {
+        return NO;
+    }
+    else{
+        return YES;
+    }
+}
+
 
 /** centralManagerDidUpdateState is a required protocol method.
  *  Usually, you'd check for other states to make sure the current device supports LE, is powered on, etc.
@@ -57,6 +66,11 @@
                                                 options:@{ CBCentralManagerScanOptionAllowDuplicatesKey : @YES }];
     
     NSLog(@"Scanning started");
+}
+
+-(void)stopScan{
+    [self.centralManager stopScan];
+    NSLog(@"Scanning stopped");
 }
 
 
@@ -106,8 +120,7 @@
     NSLog(@"Peripheral Connected");
     
     //Stop scanning
-    [self.centralManager stopScan];
-    NSLog(@"Scanning stopped");
+    [self stopScan];
     
     //clear the data that we may already have
     [self.receivedData setLength:0];

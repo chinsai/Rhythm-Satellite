@@ -37,7 +37,7 @@ float velocity;
     
     [self addChild:_hitSpot];
     
-    velocity = (self.size.width/2 - _hitSpot.position.x) / 4;
+    velocity = (self.size.width/2 - _hitSpot.position.x) / 2;
     
     return self;
 

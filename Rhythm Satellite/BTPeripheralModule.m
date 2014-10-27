@@ -135,6 +135,16 @@
     }
     
 }
-
-
+-(void)startAdvertising{
+    if (!self.peripheralManager.isAdvertising) {
+        
+        // All we advertise is our service's UUID
+        [self.peripheralManager startAdvertising:@{ CBAdvertisementDataServiceUUIDsKey : @[[CBUUID UUIDWithString:TRANSFER_SERVICE_UUID]] }];
+        NSLog(@"advertising");
+    }
+}
+-(void)stopAdvertising{
+    [self.peripheralManager stopAdvertising];
+    NSLog(@"stop advertising");
+}
 @end

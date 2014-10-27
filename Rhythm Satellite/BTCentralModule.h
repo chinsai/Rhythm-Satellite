@@ -12,5 +12,9 @@
 @interface BTCentralModule : NSObject
 
 @property (strong, nonatomic) NSMutableData             *receivedData;
+@property (nonatomic) BOOL                              hasConnectedPeripheral;
 
+-(void)cleanup;
+-(void)scan;
+-(void)stopScan;
 @end

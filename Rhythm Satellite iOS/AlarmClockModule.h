@@ -19,6 +19,7 @@ typedef enum alarmStateTypes{
 
 @property (nonatomic) int                           hour;
 @property (nonatomic) int                           minute;
+@property (nonatomic, strong) NSDate                *alarmDate;         //alarm
 @property (nonatomic) AlarmState                    alarmState;     //whether the alarm is on or not
 
 -(NSString *)getCurrentTimeInString;

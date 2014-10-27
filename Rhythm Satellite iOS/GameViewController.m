@@ -7,8 +7,8 @@
 //
 
 #import "GameViewController.h"
-#import "GameScene.h"
-#import "AlarmClockScene.h"
+//#import "GameScene.h"
+//#import "AlarmClockScene.h"
 #import "MainScene.h"
 #import <AudioToolbox/AudioToolbox.h>
 

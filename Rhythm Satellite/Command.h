@@ -26,7 +26,7 @@ typedef enum commandTypes{
 @property (nonatomic) InputCommand             input;
 
 -(NSString *)inputInString;
--(Command *)initWithString: (NSString *)direction;
--(void)setInputWithString:(NSString *)direction;
+-(Command *)initWithString: (NSString *)commandString;
+-(void)setInputWithString:(NSString *)commandString;
 
 @end

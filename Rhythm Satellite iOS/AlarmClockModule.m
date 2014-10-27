@@ -7,6 +7,7 @@
 //
 
 #import "AlarmClockModule.h"
+#import "AppDelegate.h"
 
 @implementation AlarmClockModule
 
@@ -25,15 +26,15 @@
     [components setMinute: _minute];
     [components setSecond:0];
     
-    _alarm = [gregorian dateFromComponents: components];
-    if ([_alarm timeIntervalSinceNow] <= 0 ) {
+    _alarmDate = [gregorian dateFromComponents: components];
+    if ([_alarmDate timeIntervalSinceNow] <= 0 ) {
         NSDateComponents *dc = [[NSDateComponents alloc] init];
         [dc setDay:1];
-        _alarm = [[NSCalendar currentCalendar] dateByAddingComponents:dc toDate:_alarm options:0];
+        _alarmDate = [[NSCalendar currentCalendar] dateByAddingComponents:dc toDate:_alarmDate options:0];
     }
     
     if(_alarmState == ALARM_ON){
-        [self scheduleAlarmForDate:_alarm];
+        [self scheduleAlarmForDate:_alarmDate];
     }
 }
 
@@ -48,16 +49,16 @@
         [app cancelAllLocalNotifications];
     
     // Create a new notification.
-    UILocalNotification* alarm = [[UILocalNotification alloc] init];
-    if (alarm)
+    UILocalNotification* notification = [[UILocalNotification alloc] init];
+    if (notification)
     {
-        alarm.fireDate = theDate;
-        alarm.timeZone = [NSTimeZone defaultTimeZone];
-        alarm.repeatInterval = 0;
-        alarm.soundName = @"simplebeat.caf";
-        alarm.alertBody = @"It's almost time for NoriNori Assembly!";
-        alarm.alertAction = NSLocalizedString(@"Start Preparing", nil);
-        [app scheduleLocalNotification:alarm];
+        notification.fireDate = theDate;
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        notification.repeatInterval = 0;
+        notification.soundName = @"simplebeat.caf";
+        notification.alertBody = @"It's almost time for NoriNori Assembly!";
+        notification.alertAction = NSLocalizedString(@"Start Preparing", nil);
+        [app scheduleLocalNotification:notification];
     }
 }
 

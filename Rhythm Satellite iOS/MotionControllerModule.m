@@ -54,11 +54,13 @@
 
 -(void)turnOn{
     [_mManager startDeviceMotionUpdates];
+    NSLog(@"motion controller On");
 }
 
 -(void)turnOff{
     if ([_mManager isDeviceMotionActive] == YES) {
         [_mManager stopDeviceMotionUpdates];
+        NSLog(@"motion controller Off");
     }
 }
 
@@ -91,6 +93,7 @@
         }
         else{
             stopRegisterTime += deltaTime;
+            [self setInput:@"IDLE"];
         }
     }
     else{
@@ -114,6 +117,9 @@
             }
             
             //avoid unintended iinput
+            _canRegister = NO;
+        }
+        else if (self.triggeredCommand.input == COMMAND_TAP){
             _canRegister = NO;
         }
         else{

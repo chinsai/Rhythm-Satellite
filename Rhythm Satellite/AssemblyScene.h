@@ -7,9 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "Timeline.h"
-#import "BTCentralModule.h"
-#import "BTPeripheralModule.h"
+
 
 @interface AssemblyScene : SKScene
 

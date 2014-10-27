@@ -14,6 +14,8 @@
 - (void)sendData;
 
 - (void)toggleAdvertising;
+- (void)startAdvertising;
+- (void)stopAdvertising;
 
 @property (nonatomic, readwrite) BOOL                   isSubscribed;
 @property (strong, nonatomic) NSData                    *dataToSend;

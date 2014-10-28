@@ -79,7 +79,7 @@ GameState           gameState;
     _greatLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
     _greatLabel.text = @"SCORE";
     _greatLabel.fontSize = 24;
-    _greatLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-30);
+    _greatLabel.position = CGPointMake(140, _timeline.position.y - 120);
     [self addChild:_greatLabel];
     
     

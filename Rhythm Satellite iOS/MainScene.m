@@ -33,8 +33,10 @@ typedef enum mainSceneStateType{
 @property (nonatomic, strong) MotionControllerModule        *controller;
 @property (nonatomic, strong) AlarmClockModule              *alarm;
 @property (nonatomic, strong) Character                     *character;
+@property (nonatomic, strong) SKLabelNode                   *hitLabel;
 @property (nonatomic) iOSGameState                          state;
-@property (nonatomic) int                                   numBeatsToWakeUp;
+@property (nonatomic, readonly) int                         numBeatsToWakeUp;
+@property (nonatomic) int                                   numBeatsHit;
 
 
 @end
@@ -52,10 +54,19 @@ typedef enum mainSceneStateType{
         _controller = [[MotionControllerModule alloc]init];
     }
 
+    //HIT COUNT
+    _hitLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
+    _hitLabel.text = @"0";
+    _hitLabel.fontSize = 70;
+    _hitLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addChild:_hitLabel];
+
+    
     stopRegisterTime = 0;
     previousTime = 0;
     _numBeatsToWakeUp = 60;
-    _state = IDLE;
+    _numBeatsHit = 0;
+    _state = SLEEPING;
     
 }
 
@@ -67,6 +78,9 @@ typedef enum mainSceneStateType{
             _state = WAITING;
             break;
         case SLEEPING:
+            _state = ALARM;
+            [self playAlarm];
+            [_controller turnOn];
             break;
         case ALARM:
             break;
@@ -99,6 +113,14 @@ typedef enum mainSceneStateType{
         case SLEEPING:
             break;
         case ALARM:
+            [self wakeUpCharacter:currentTime];
+            _hitLabel.text = [NSString stringWithFormat:@"%d", _numBeatsHit];
+            if( _numBeatsHit >= _numBeatsToWakeUp){
+                [self stopAlarm];
+                _state = WAITING;
+                _numBeatsHit = 0;
+                [_controller turnOff];
+            }
             break;
         case WAITING:
             if(_btTransmitter.isSubscribed){
@@ -113,12 +135,12 @@ typedef enum mainSceneStateType{
             if(!_btTransmitter.isSubscribed){
                 [_controller turnOff];
                 [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
-                _state = IDLE;
-                NSLog(@"jump to IDLE");
+                _state = SLEEPING;
+                NSLog(@"jump to SLEEPING");
+                break;
             }
-            else{
-                [self updateCommandAndSend:currentTime];
-            }
+
+            [self updateCommandAndSend:currentTime];
             break;
         case GAMEOVER:
             break;
@@ -132,6 +154,7 @@ typedef enum mainSceneStateType{
 
 -(void)updateCommandAndSend:(NSTimeInterval) currentTime{
     
+    //first get the latest command
     [_controller update:currentTime];
     
     if (_btTransmitter.isSubscribed && _controller.enabled) {
@@ -144,6 +167,33 @@ typedef enum mainSceneStateType{
         
         
     }
+}
+
+-(void)wakeUpCharacter:(NSTimeInterval) currentTime{
+
+    //first get the latest command
+    [_controller update:currentTime];
+    
+    if (_controller.enabled) {
+                 NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
+        if( _controller.triggeredCommand.input != COMMAND_IDLE){
+
+            _numBeatsHit++;
+            
+        }
+    }
+
+    
+}
+
+-(void)playAlarm{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.bgmPlayer play];
+}
+-(void)stopAlarm{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.bgmPlayer stop];
+    appDelegate.bgmPlayer.currentTime = 0;
 }
 
 -(void)willMoveFromView:(SKView *)view{

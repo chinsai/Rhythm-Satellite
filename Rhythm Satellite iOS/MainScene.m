@@ -22,6 +22,7 @@ typedef enum mainSceneStateType{
     WAITING,
     CONNECTED,
     GAMEOVER,
+    MOTIONTEST
 } iOSGameState;
 
 @interface MainScene(){
@@ -66,7 +67,7 @@ typedef enum mainSceneStateType{
     previousTime = 0;
     _numBeatsToWakeUp = 60;
     _numBeatsHit = 0;
-    _state = SLEEPING;
+    _state = IDLE;
     
 }
 
@@ -103,12 +104,6 @@ typedef enum mainSceneStateType{
     
     switch (_state) {
         case IDLE:
-            if(_btTransmitter.isSubscribed){
-                [_controller turnOn];
-                _state = CONNECTED;
-                [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
-                NSLog(@"jump to CONNECTED");
-            }
             break;
         case SLEEPING:
             break;
@@ -144,6 +139,9 @@ typedef enum mainSceneStateType{
             break;
         case GAMEOVER:
             break;
+        case MOTIONTEST:
+            [self testMotion:currentTime];
+            break;
         default:
             break;
     }
@@ -166,6 +164,20 @@ typedef enum mainSceneStateType{
         }
         
         
+    }
+}
+
+-(void)testMotion:(NSTimeInterval) currentTime{
+    
+    if(!_controller.enabled){
+        [_controller turnOn];
+    }
+    
+    //first get the latest command
+    [_controller update:currentTime];
+    
+    if( _controller.triggeredCommand.input != COMMAND_IDLE){
+         NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
     }
 }
 
@@ -197,6 +209,8 @@ typedef enum mainSceneStateType{
 }
 
 -(void)willMoveFromView:(SKView *)view{
-    [_controller turnOff];
+    if (_controller.enabled) {
+        [_controller turnOff];
+    }
 }
 @end

@@ -24,6 +24,7 @@ typedef enum timingRanking{
 @property (nonatomic, strong) NSMutableArray          *notes;
 
 -(Timeline *) initWithImageNamed: (NSString *)image andHitSpotImageNamed:(NSString *)spotImage;
+//-(Timeline *) initWitHitSpotImageNamed:(NSString *)spotImage;
 -(void) update: (NSTimeInterval)currentTime;
 -(void)initTimeline;
 -(TimingType) checkInput:(Command *)command;

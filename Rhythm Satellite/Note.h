@@ -12,6 +12,8 @@
 typedef enum directions{
     NONE,
     UP,
+    UP_LEFT,
+    UP_RIGHT,
     RIGHT,
     DOWN,
     LEFT

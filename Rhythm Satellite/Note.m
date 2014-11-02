@@ -17,9 +17,19 @@
 
 -(Note *)initWithDirection: (NoteType)direction atTime:(NSTimeInterval) time{
     
-    self = [super initWithImageNamed:@"note"];
+    self = [super initWithImageNamed:@"solarball"];
     
     switch (direction) {
+        case UP:
+            _direction = UP;
+            break;
+        case UP_LEFT:
+            _direction = UP_LEFT;
+            break;
+        case UP_RIGHT:
+            _direction = UP_RIGHT;
+            break;
+            
         case RIGHT:
             self.zRotation = -M_PI_2;
             _direction = RIGHT;
@@ -49,6 +59,8 @@
     
 //    NSLog(@"input is %d, note is %d", command.input, _direction);
     if ((command.input == COMMAND_UP && _direction == UP) ||
+        (command.input == COMMAND_UP_LEFT && _direction == UP_LEFT) ||
+        (command.input == COMMAND_UP_RIGHT && _direction == UP_RIGHT) ||
         (command.input == COMMAND_DOWN && _direction == DOWN) ||
         (command.input == COMMAND_RIGHT && _direction == RIGHT) ||
         (command.input == COMMAND_LEFT && _direction == LEFT) ) {

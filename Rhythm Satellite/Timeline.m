@@ -19,7 +19,7 @@
 
 @end
 
-float startingX;
+float startingY;
 float velocity;
 
 
@@ -33,11 +33,11 @@ float velocity;
     
     //initializing the position of the hit spot, and place it on the left hand side
     _hitSpot = [SKSpriteNode spriteNodeWithImageNamed:spotImage];
-    _hitSpot.position = CGPointMake(-self.size.width/2+_hitSpot.size.width, 0);
+    _hitSpot.position = CGPointMake( 0 , -self.size.height/2);
     
     [self addChild:_hitSpot];
     
-    velocity = (self.size.width/2 - _hitSpot.position.x) / 2;
+    velocity = (self.size.height/2 - _hitSpot.position.y) / 2;
     
     return self;
 
@@ -48,8 +48,8 @@ float velocity;
         return;
     }
     for (Note * note in _notes) {
-        startingX = self.size.width/2 + note.size.width/2;
-        note.position = CGPointMake(startingX + note.time*velocity, 0);
+        startingY = self.size.height/2 + note.size.height/2;
+        note.position = CGPointMake(0, startingY + note.time*velocity);
         [self addChild:note];
 //        NSLog(@"x: %f, y:%f", note.position.x, note.position.y);
     }
@@ -64,11 +64,11 @@ float velocity;
         return;
     }
     for (Note * note in _notes) {
-        note.position = CGPointMake(startingX + (note.time-timeElapsed)*velocity, 0);
+        note.position = CGPointMake(0, startingY + (note.time-timeElapsed)*velocity);
 //        NSLog(@"x: %f, y:%f", note.position.x, note.position.y);
     }
     Note * note = _notes[0];
-    if( note.position.x < -self.size.width/2 - note.size.width/2){
+    if( note.position.y < -self.size.height/2 - note.size.height/2){
         [note removeFromParent];
         [_notes removeObject:note];
     }
@@ -84,10 +84,11 @@ float velocity;
     //check input timing for the closest note only
     int i = 0;
     Note* note = _notes[i];
-    while (note.position.x < _hitSpot.position.x - BAD_DELTA/2) {
+    while (note.position.y < _hitSpot.position.y - BAD_DELTA/2) {
         note = _notes[++i];
     }
-    float delta = fabsf(note.position.x - _hitSpot.position.x);
+    NSLog(@"command: %d", note.direction);
+    float delta = fabsf(note.position.y - _hitSpot.position.y);
     if (delta <= GREAT_DELTA){
         if( [note matchInput:command]){
             [note removeFromParent];

@@ -26,6 +26,12 @@
     if ([commandString isEqualToString:@"UP"]) {
         _input = COMMAND_UP;
     }
+    else if ([commandString isEqualToString:@"UP-LEFT"]) {
+        _input = COMMAND_UP_LEFT;
+    }
+    else if ([commandString isEqualToString:@"UP-RIGHT"]) {
+        _input = COMMAND_UP_RIGHT;
+    }
     else if ([commandString isEqualToString:@"DOWN"]) {
         _input = COMMAND_DOWN;
     }
@@ -55,6 +61,12 @@
     if ([commandString isEqualToString:@"UP"]) {
         _input = COMMAND_UP;
     }
+    else if ([commandString isEqualToString:@"UP-LEFT"]) {
+        _input = COMMAND_UP_LEFT;
+    }
+    else if ([commandString isEqualToString:@"UP-RIGHT"]) {
+        _input = COMMAND_UP_RIGHT;
+    }
     else if ([commandString isEqualToString:@"DOWN"]) {
         _input = COMMAND_DOWN;
     }
@@ -82,6 +94,12 @@
 -(NSString *)inputInString{
     if(_input == COMMAND_UP){
         return @"UP";
+    }
+    else if(_input == COMMAND_UP_LEFT){
+        return @"UP-LEFT";
+    }
+    else if(_input == COMMAND_UP_RIGHT){
+        return @"UP-RIGHT";
     }
     else if(_input == COMMAND_DOWN){
         return @"DOWN";

@@ -11,6 +11,8 @@
 typedef enum commandTypes{
     COMMAND_SHAKE,
     COMMAND_UP,
+    COMMAND_UP_LEFT,
+    COMMAND_UP_RIGHT,
     COMMAND_RIGHT,
     COMMAND_DOWN,
     COMMAND_LEFT,

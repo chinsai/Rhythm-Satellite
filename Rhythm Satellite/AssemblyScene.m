@@ -20,7 +20,8 @@ typedef enum gameStateType{
     WAITING,
     READY,
     PLAYING,
-    ENDED
+    ENDED,
+    GRAPHICSTEST
 } GameState;
 
 
@@ -49,8 +50,8 @@ GameState           gameState;
 // timing rank label
 @property (nonatomic, strong) SKLabelNode          *greatLabel;
 
-// timeline
-@property (nonatomic, strong) Timeline              *timeline;
+// timelines
+@property (nonatomic, strong) NSMutableArray        *timelines;
 
 // music
 @property (nonatomic, strong) AVAudioPlayer         *musicPlayer;
@@ -72,16 +73,27 @@ GameState           gameState;
     _background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:_background];
     
-    _timeline = [[Timeline alloc]initWithImageNamed:@"timeline" andHitSpotImageNamed:@"hitspot"];
-    _timeline.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-_timeline.size.height/2-30);
-    [self addChild:_timeline];
+    Timeline* lefttimeline = [[Timeline alloc]initWithImageNamed:@"invisibletimeline" andHitSpotImageNamed:@"hitspot"];
+    lefttimeline.position = CGPointMake(CGRectGetMidX(self.frame)-103, CGRectGetMaxY(self.frame) - lefttimeline.size.height/2);
+    [self addChild:lefttimeline];
+    Timeline* righttimeline = [[Timeline alloc]initWithImageNamed:@"invisibletimeline" andHitSpotImageNamed:@"hitspot"];
+    righttimeline.position = CGPointMake(CGRectGetMidX(self.frame)+103, CGRectGetMaxY(self.frame) - righttimeline.size.height/2);
+    [self addChild:righttimeline];
+    Timeline* centertimeline = [[Timeline alloc]initWithImageNamed:@"invisibletimeline" andHitSpotImageNamed:@"hitspot"];
+    centertimeline.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame) - centertimeline.size.height/2+55);
+    [self addChild:centertimeline];
+        
+    _timelines = [[NSMutableArray alloc]init];
+    [_timelines addObject:centertimeline];
+    [_timelines addObject:lefttimeline];
+    [_timelines addObject:righttimeline];
 
     _greatLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
     _greatLabel.text = @"SCORE";
     _greatLabel.fontSize = 24;
-    _greatLabel.position = CGPointMake(140, _timeline.position.y - 120);
+    _greatLabel.position = CGPointMake(140, 500);
     [self addChild:_greatLabel];
-    
+
     
     //music player
     [self setUpMusicPlayer];
@@ -127,12 +139,13 @@ GameState           gameState;
             }
             break;
         case PLAYING:
-            
+            //when the game is finished
             if (!_musicPlayer.isPlaying) {
                 timeElapsed = 0;
                 [_btReceiver cleanup];
                 [_btReceiver scan];
                 gameState = SCANNING;
+                break;
             }
             
             timeElapsed += currentTime - previousTime;
@@ -146,11 +159,26 @@ GameState           gameState;
             [self scoreWithTiming:quality];
             
             //update the time line
-            [_timeline update:timeElapsed];
-            
+            for (Timeline* tl in _timelines){
+                [tl update:timeElapsed];
+            }
             break;
             
         case ENDED:
+            break;
+        case GRAPHICSTEST:
+            if (timeElapsed == 0){
+                [self startGame];
+            }
+            if (!_musicPlayer.isPlaying) {
+                timeElapsed = 0;
+                gameState = ENDED;
+                break;
+            }
+            timeElapsed += currentTime - previousTime;
+            for (Timeline* tl in _timelines){
+                [tl update:timeElapsed];
+            }
             break;
         default:
             break;
@@ -164,25 +192,29 @@ GameState           gameState;
 -(TimingType)checkTiming:(Command *)command{
     
     if(command){
-        TimingType rank = [_timeline checkInput:command];
+        
+        int timelineNum = (int)command.input-1;
+        
+        if (timelineNum >2  || timelineNum < 0)
+            return NO_GRADE;
+        
+        TimingType rank = [_timelines[timelineNum] checkInput:command];
         if (rank == GREAT) {
-//            NSLog(@"GREAT");
             _greatLabel.text = @"GREAT";
             return GREAT;
         }
         else if(rank == GOOD){
             _greatLabel.text = @"GOOD";
-//            NSLog(@"GOOD");
             return GOOD;
         }
         else if(rank == BAD){
             _greatLabel.text = @"BAD";
-//            NSLog(@"BAD");
             return BAD;
         }
         else{
             _greatLabel.text = @"BAD";
         }
+        
     }
     
     
@@ -229,9 +261,12 @@ GameState           gameState;
 -(void)setupTimeline{
     for (int i = 1; i<=64; i++) {
         NoteType direction = (NoteType)arc4random_uniform(3)+1;
-        [_timeline.notes addObject:[[ Note alloc ] initWithDirection: direction atTime: i]];
+        Timeline* tl = (Timeline*)_timelines[direction-1];
+        [tl.notes addObject:[[ Note alloc ] initWithDirection: direction atTime: i]];
     }
     //put the notes in place
-    [_timeline initTimeline];
+    [_timelines[0] initTimeline];
+    [_timelines[1] initTimeline];
+    [_timelines[2] initTimeline];
 }
 @end

@@ -97,12 +97,19 @@
         }
     }
     else{
-        
+//        NSLog(@"Gravity X: %f", gravityX);
+//        NSLog(@"Gravity Y: %f", gravityY);
+//        NSLog(@"Gravity Z: %f", gravityZ);
         if ( deltaX > DELTA_THRESHOLD){
             
-            //stop registering unwanted commandes
-            if (gravityY < -GRAVITY_THRESHOLD) {
+            if (gravityY < -GRAVITY_THRESHOLD && gravityZ < GRAVITY_THRESHOLD/4 && gravityZ > -GRAVITY_THRESHOLD/4) {
                 [self setInput:@"UP"];
+            }
+            else if (gravityY < -GRAVITY_THRESHOLD/2 && gravityZ > GRAVITY_THRESHOLD/4 && gravityZ < GRAVITY_THRESHOLD) {
+                [self setInput:@"UP-LEFT"];
+            }
+            else if (gravityY < -GRAVITY_THRESHOLD/2 && gravityZ < -GRAVITY_THRESHOLD/4 && gravityZ > -GRAVITY_THRESHOLD ) {
+                [self setInput:@"UP-RIGHT"];
             }
             else if (gravityX < -GRAVITY_THRESHOLD){
                 [self setInput:@"DOWN"];

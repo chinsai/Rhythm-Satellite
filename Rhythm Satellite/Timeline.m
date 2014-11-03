@@ -34,10 +34,10 @@ float velocity;
     //initializing the position of the hit spot, and place it on the left hand side
     _hitSpot = [SKSpriteNode spriteNodeWithImageNamed:spotImage];
     _hitSpot.position = CGPointMake( 0 , -self.size.height/2);
-    
+//    _hitSpot.alpha = 0.0;
     [self addChild:_hitSpot];
     
-    velocity = (self.size.height/2 - _hitSpot.position.y) / 2;
+    velocity = (self.size.height/2 - _hitSpot.position.y);
     
     return self;
 
@@ -85,7 +85,8 @@ float velocity;
     int i = 0;
     Note* note = _notes[i];
     while (note.position.y < _hitSpot.position.y - BAD_DELTA/2) {
-        note = _notes[++i];
+        if(_notes.count > 1)
+            note = _notes[++i];
     }
     NSLog(@"command: %d", note.direction);
     float delta = fabsf(note.position.y - _hitSpot.position.y);

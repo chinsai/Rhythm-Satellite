@@ -28,6 +28,7 @@ typedef enum gameStateType{
 NSTimeInterval      timeElapsed;
 NSTimeInterval      previousTime;
 GameState           gameState;
+SKSpriteNode        *tempCharacter;
 
 //int                 numOfGreat;
 //int                 numOfGood;
@@ -94,6 +95,11 @@ GameState           gameState;
     _greatLabel.position = CGPointMake(140, 500);
     [self addChild:_greatLabel];
 
+    
+    tempCharacter = [SKSpriteNode spriteNodeWithImageNamed:@"nori_nod_0001"];
+    tempCharacter.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-100);
+    [self addChild:tempCharacter];
+    
     
     //music player
     [self setUpMusicPlayer];

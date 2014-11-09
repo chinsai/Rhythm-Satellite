@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define GREAT_TIMING_DELTA 0.1
+#define GOOD_TIMING_DELTA 0.2
+
+
 typedef enum commandTypes{
     COMMAND_SHAKE,
     COMMAND_UP,

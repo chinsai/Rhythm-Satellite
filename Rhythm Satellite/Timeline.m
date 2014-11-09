@@ -34,7 +34,7 @@ float velocity;
     //initializing the position of the hit spot, and place it on the left hand side
     _hitSpot = [SKSpriteNode spriteNodeWithImageNamed:spotImage];
     _hitSpot.position = CGPointMake( 0 , -self.size.height/2);
-//    _hitSpot.alpha = 0.0;
+    _hitSpot.alpha = 0.0;
     [self addChild:_hitSpot];
     
     velocity = (self.size.height/2 - _hitSpot.position.y);

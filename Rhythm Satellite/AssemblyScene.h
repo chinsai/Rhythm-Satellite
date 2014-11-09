@@ -7,8 +7,11 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "Action.h"
 
 
 @interface AssemblyScene : SKScene
+
++(Action *)getRandomAction;
 
 @end

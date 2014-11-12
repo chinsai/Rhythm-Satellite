@@ -118,9 +118,9 @@ BOOL                inputFailed;
     _btReceiver = [[BTCentralModule alloc] init];
     _isInputTiming = NO;
     _secPerBeat = 60.0/120.0;
-    _numOfRounds = 20;
+    _numOfRounds = 16;
     
-    gameState = GRAPHICSTEST;
+    gameState = SCANNING;
     timeElapsed = 0;
     previousTime = 0;
     inputFailed = NO;
@@ -205,6 +205,10 @@ BOOL                inputFailed;
                     }
                     
                     Command *targetCommand = _targetAction.commands[commandNumber];
+                    CommandNote *targetNote = _commandNotes[commandNumber];
+                    
+                    NSLog(@"input ok with Error %f", inputTimingError);
+                    NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
                     
                     if( latestCommand.input == NEUTRAL ){
                         //if no input
@@ -213,11 +217,7 @@ BOOL                inputFailed;
                         if ( timeElapsed > commandNumber*_secPerBeat + GOOD_TIMING_DELTA) {
                             //failed to input on time
                             
-                            //clear the input commands
-//                            [_inputCommands removeAllObjects];
-                            
-                            //turn to inputFail
-                            inputFailed = YES;
+//                            inputFailed = YES;
                             
                         }
 
@@ -227,9 +227,14 @@ BOOL                inputFailed;
                     else if( targetCommand.input == latestCommand.input && inputTimingError <= GOOD_TIMING_DELTA){
                         
                         //successful input
-//                        [_inputCommands addObject:latestCommand];
-                        NSLog(@"Successful Input");
+                        if(inputTimingError<=GREAT_TIMING_DELTA){
+                            [targetNote changeToGreatTiming];
+                        }
+                        else{
+                            [targetNote changeToGoodTiming];
+                        }
                         
+
                     }
                     else{
                         
@@ -255,7 +260,6 @@ BOOL                inputFailed;
                     CommandNote *note = _commandNotes[beatNumber];
                     if (note.isChangable){
                         [note changeTo:((Command*)_targetAction.commands[beatNumber]).input];
-                        NSLog(@"change to %d", ((Command*)_targetAction.commands[beatNumber]).input);
                         note.isChangable = NO;
                         int prevNumber = beatNumber - 1;
                         if(prevNumber < 0)
@@ -266,16 +270,6 @@ BOOL                inputFailed;
                 }
                 
             }
-            
-            
-            //when the game is finished
-//            if (!_musicPlayer.isPlaying) {
-//                timeElapsed = 0;
-//                [_btReceiver cleanup];
-//                [_btReceiver scan];
-//                gameState = SCANNING;
-//                break;
-//            }
             
             break;
             

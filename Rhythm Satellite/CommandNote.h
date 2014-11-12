@@ -30,6 +30,12 @@
 -(CommandNote *)initWithDirection: (CommandType)direction;
 
 -(void)changeTo: (CommandType) command;
-//changing texture functions
+
+-(void)changeToGoodTiming;
+-(void)changeToGreatTiming;
+-(void)changeToNeutral;
+    
+
+
 
 @end

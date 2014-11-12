@@ -63,4 +63,43 @@
     }
 }
 
+-(void)changeToGoodTiming{
+     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Note"];
+    switch (_command) {
+        case UP:
+            [self setTexture:[atlas textureNamed:@"note_0004"]];
+            break;
+        case SIDES:
+            [self setTexture:[atlas textureNamed:@"note_0005"]];
+            break;
+        case DOWN:
+            [self setTexture:[atlas textureNamed:@"note_0006"]];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)changeToGreatTiming{
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Note"];
+    switch (_command) {
+        case UP:
+            [self setTexture:[atlas textureNamed:@"note_0007"]];
+            break;
+        case SIDES:
+            [self setTexture:[atlas textureNamed:@"note_0008"]];
+            break;
+        case DOWN:
+            [self setTexture:[atlas textureNamed:@"note_0009"]];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)changeToNeutral{
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Note"];
+    [self setTexture:[atlas textureNamed:@"note_neutral"]];
+}
+
 @end

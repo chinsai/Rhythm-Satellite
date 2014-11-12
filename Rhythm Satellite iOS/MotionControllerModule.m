@@ -126,7 +126,7 @@
             //avoid unintended iinput
             _canRegister = NO;
         }
-        else if (self.triggeredCommand.input == COMMAND_TAP){
+        else if (self.triggeredCommand.input == TAP){
             _canRegister = NO;
         }
         else{

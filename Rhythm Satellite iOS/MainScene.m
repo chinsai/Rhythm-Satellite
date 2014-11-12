@@ -130,7 +130,8 @@ typedef enum mainSceneStateType{
             if(!_btTransmitter.isSubscribed){
                 [_controller turnOff];
                 [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
-                _state = SLEEPING;
+                _state = IDLE;
+                [_btTransmitter stopAdvertising];
                 NSLog(@"jump to SLEEPING");
                 break;
             }
@@ -157,7 +158,7 @@ typedef enum mainSceneStateType{
     
     if (_btTransmitter.isSubscribed && _controller.enabled) {
 //         NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
-        if( _controller.triggeredCommand.input != COMMAND_IDLE){
+        if( _controller.triggeredCommand.input != NEUTRAL){
             _btTransmitter.dataToSend = [[_controller.triggeredCommand inputInString] dataUsingEncoding:NSUTF8StringEncoding];
             [_btTransmitter sendData];
             // NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
@@ -176,7 +177,7 @@ typedef enum mainSceneStateType{
     //first get the latest command
     [_controller update:currentTime];
     
-    if( _controller.triggeredCommand.input != COMMAND_IDLE){
+    if( _controller.triggeredCommand.input != NEUTRAL){
          NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
     }
 }
@@ -188,7 +189,7 @@ typedef enum mainSceneStateType{
     
     if (_controller.enabled) {
                  NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
-        if( _controller.triggeredCommand.input != COMMAND_IDLE){
+        if( _controller.triggeredCommand.input != NEUTRAL){
 
             _numBeatsHit++;
             

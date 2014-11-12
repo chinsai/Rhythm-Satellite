@@ -83,7 +83,7 @@
         return @"TAP";
     }
     else{
-        return @"IDLE";
+        return @"NEUTRAL";
     }
 }
 @end

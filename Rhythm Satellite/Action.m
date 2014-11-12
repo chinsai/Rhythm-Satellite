@@ -27,58 +27,52 @@
 
 -(Action *)initWithAction:(ActionType) type{
     
-    if(!self){
-        self = [super init];
-    }
-    
-    
+    self = [self init];
     [self setActionWithType:type];
     
     return self;
 }
 
 -(Action *) initWithRandomAction{
-    if(!self){
-        self = [super init];
-    }
-    
-    [self setActionWithType:(CommandType)arc4random_uniform(3)+1];
+    self = [self init];
+
+    [self setActionWithType:(ActionType)arc4random_uniform(3)+1];
     
     return self;
+}
+
+-(void) randomAction{
+    [self setActionWithType:(ActionType)arc4random_uniform(3)+1];
 }
 
 -(void) setActionWithType: (ActionType) type{
     switch (type) {
         case ATTACK:
-            _commands = [NSArray arrayWithObjects:
-                         [[Command alloc] initWithString:@"UP"],
-                         [[Command alloc] initWithString:@"UP"],
-                         [[Command alloc] initWithString:@"RIGHT"],
-                         [[Command alloc] initWithString:@"UP"], nil];
+            ((Command*)_commands[0]).input = UP;
+            ((Command*)_commands[1]).input = UP;
+            ((Command*)_commands[2]).input = SIDES;
+            ((Command*)_commands[3]).input = UP;
             break;
             
         case BLOCK:
-            _commands = [NSArray arrayWithObjects:
-                         [[Command alloc] initWithString:@"DOWN"],
-                         [[Command alloc] initWithString:@"DOWN"],
-                         [[Command alloc] initWithString:@"DOWN"],
-                         [[Command alloc] initWithString:@"DOWN"], nil];
+            ((Command*)_commands[0]).input = DOWN;
+            ((Command*)_commands[1]).input = DOWN;
+            ((Command*)_commands[2]).input = DOWN;
+            ((Command*)_commands[3]).input = DOWN;
             break;
             
         case CHARGE:
-            _commands = [NSArray arrayWithObjects:
-                         [[Command alloc] initWithString:@"UP"],
-                         [[Command alloc] initWithString:@"UP"],
-                         [[Command alloc] initWithString:@"DOWN"],
-                         [[Command alloc] initWithString:@"DOWN"], nil];
+            ((Command*)_commands[0]).input = DOWN;
+            ((Command*)_commands[1]).input = DOWN;
+            ((Command*)_commands[2]).input = UP;
+            ((Command*)_commands[3]).input = UP;
             break;
             
         default:
-            _commands = [NSArray arrayWithObjects:
-                         [[Command alloc] initWithString:@"IDLE"],
-                         [[Command alloc] initWithString:@"IDLE"],
-                         [[Command alloc] initWithString:@"IDLE"],
-                         [[Command alloc] initWithString:@"IDLE"], nil];
+            ((Command*)_commands[0]).input = NEUTRAL;
+            ((Command*)_commands[1]).input = NEUTRAL;
+            ((Command*)_commands[2]).input = NEUTRAL;
+            ((Command*)_commands[3]).input = NEUTRAL;
             break;
     }
 

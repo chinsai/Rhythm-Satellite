@@ -27,4 +27,6 @@ typedef enum actions{
 -(Action *) init;
 -(Action *) initWithAction: (ActionType) action;
 -(Action *) initWithRandomAction;
+-(void) randomAction;
+-(void) setActionWithType: (ActionType) action;
 @end

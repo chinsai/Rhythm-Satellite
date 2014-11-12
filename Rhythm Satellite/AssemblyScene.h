@@ -12,6 +12,6 @@
 
 @interface AssemblyScene : SKScene
 
-+(Action *)getRandomAction;
+
 
 @end

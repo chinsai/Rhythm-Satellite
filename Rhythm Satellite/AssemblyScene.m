@@ -30,7 +30,7 @@ NSTimeInterval      timeElapsed;
 NSTimeInterval      previousTime;
 GameState           gameState;
 SKSpriteNode        *tempCharacter;
-BOOL                inputFailed;
+int                 numOfReadyRound;
 
 
 @interface AssemblyScene()
@@ -86,7 +86,7 @@ BOOL                inputFailed;
     _greatLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
     _greatLabel.text = @"SCORE";
     _greatLabel.fontSize = 24;
-    _greatLabel.position = CGPointMake(140, 500);
+    _greatLabel.position = CGPointMake(CGRectGetMidX(self.frame), 500);
     [self addChild:_greatLabel];
 
     
@@ -123,8 +123,7 @@ BOOL                inputFailed;
     gameState = SCANNING;
     timeElapsed = 0;
     previousTime = 0;
-    inputFailed = NO;
-    
+    numOfReadyRound = 1;
 
 }
 
@@ -186,60 +185,61 @@ BOOL                inputFailed;
                 if(timeElapsed >= _secPerBeat*4){
                     timeElapsed = 0;
                     _isInputTiming = NO;
-                    inputFailed = NO;
-                    _targetAction = [[Action alloc]initWithRandomAction];
                     _greatLabel.text = @"CANT INPUT NOW";
                     _numOfRounds --;
+                    //reset the notes to all gray
+                    for (CommandNote* note in _commandNotes) {
+                        note.isActive = NO;
+                        [note changeToNeutral];
+                    }
+                    //random the next target action
+                    if(!_targetAction){
+                        _targetAction = [[Action alloc]initWithRandomAction];
+                    }
+                    else{
+                        [_targetAction randomAction];
+                    }
                     break;
                 }
                 
-                //if no wrong input so far
-                if (!inputFailed) {
+
                     
-                    int commandNumber = timeElapsed/_secPerBeat;
-                    float inputTimingError = timeElapsed - commandNumber*_secPerBeat;
+                int commandNumber = timeElapsed/_secPerBeat;
+                float inputTimingError = timeElapsed - commandNumber*_secPerBeat;
+                
+                //remove negative number, get absolute value
+                if ( inputTimingError < 0){
+                    inputTimingError = -inputTimingError;
+                }
+                
+                Command *targetCommand = _targetAction.commands[commandNumber];
+                CommandNote *targetNote = _commandNotes[commandNumber];
+      
+                if( latestCommand.input == NEUTRAL ){
+                    //if no input
                     
-                    //remove negative number, get absolute value
-                    if ( inputTimingError < 0){
-                        inputTimingError = -inputTimingError;
-                    }
                     
-                    Command *targetCommand = _targetAction.commands[commandNumber];
-                    CommandNote *targetNote = _commandNotes[commandNumber];
-                    
-                    NSLog(@"input ok with Error %f", inputTimingError);
-                    NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
-                    
-                    if( latestCommand.input == NEUTRAL ){
-                        //if no input
-                        
-                        
-                        if ( timeElapsed > commandNumber*_secPerBeat + GOOD_TIMING_DELTA) {
-                            //failed to input on time
-                            
+                    if ( timeElapsed > commandNumber*_secPerBeat + GOOD_TIMING_DELTA) {
+                        //failed to input on time
 //                            inputFailed = YES;
-                            
-                        }
-
                         
                     }
-                    
-                    else if( targetCommand.input == latestCommand.input && inputTimingError <= GOOD_TIMING_DELTA){
-                        
-                        //successful input
-                        if(inputTimingError<=GREAT_TIMING_DELTA){
-                            [targetNote changeToGreatTiming];
-                        }
-                        else{
-                            [targetNote changeToGoodTiming];
-                        }
-                        
 
+                    
+                }
+                
+                else if( targetCommand.input == latestCommand.input && inputTimingError <= GOOD_TIMING_DELTA){
+                    
+                    //successful input
+                    if(inputTimingError<=GREAT_TIMING_DELTA){
+                        [targetNote changeToGreatTiming];
                     }
                     else{
-                        
+                        [targetNote changeToGoodTiming];
                     }
-                    
+                    NSLog(@"input ok with Error %f", inputTimingError);
+                    NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
+
                 }
                 
                 
@@ -251,15 +251,21 @@ BOOL                inputFailed;
                 if(timeElapsed >= _secPerBeat*4){
                     timeElapsed = 0;
                     _isInputTiming = YES;
+                    for (CommandNote* note in _commandNotes) {
+                        note.isActive = YES;
+                    }
                     _greatLabel.text = @"INPUT NOW";
                     break;
                 }
+                
                 //else show the commands that the player has to follow
                 else{
                     int beatNumber = timeElapsed/_secPerBeat;
                     CommandNote *note = _commandNotes[beatNumber];
                     if (note.isChangable){
                         [note changeTo:((Command*)_targetAction.commands[beatNumber]).input];
+                        
+                        //avoid unnecessary graphic updates
                         note.isChangable = NO;
                         int prevNumber = beatNumber - 1;
                         if(prevNumber < 0)
@@ -290,8 +296,14 @@ BOOL                inputFailed;
 -(void)startGame{
     gameState = PLAYING;
     
+    //reset the attribute
+    _numOfRounds = 16;
+    timeElapsed = 0;
+    previousTime = 0;
+    
     //todo
-    //get ready for gameplay
+    //reset the command notes
+    [_targetAction setActionWithType:NONE];
     
     //play the music once it starts
     [_musicPlayer play];
@@ -319,10 +331,4 @@ BOOL                inputFailed;
     [_musicPlayer prepareToPlay];
 }
 
-
-+(Action *)getRandomAction{
-    ActionType t = (ActionType)arc4random_uniform(3)+1;
-    Action *a = [[Action alloc]initWithAction:t];
-    return a;
-}
 @end

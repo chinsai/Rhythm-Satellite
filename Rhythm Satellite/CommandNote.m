@@ -61,6 +61,7 @@
             [self setTexture:[atlas textureNamed:@"note_neutral"]];
             break;
     }
+    [self runAction:[self popAction]];
 }
 
 -(void)changeToGoodTiming{
@@ -78,6 +79,7 @@
         default:
             break;
     }
+    [self runAction:[self popAction]];
 }
 
 -(void)changeToGreatTiming{
@@ -95,6 +97,7 @@
         default:
             break;
     }
+    [self runAction:[self popAction]];
 }
 
 -(void)changeToNeutral{
@@ -102,4 +105,21 @@
     [self setTexture:[atlas textureNamed:@"note_neutral"]];
 }
 
+-(SKAction *) popAction{
+    SKAction *big = [SKAction scaleTo:1.1 duration:0.05];
+    SKAction *small = [SKAction scaleTo:1 duration:0.05];
+    SKAction *action = [SKAction sequence:@[big, small]];
+    return action;
+}
+
+-(void) setIsActive:(BOOL)isActive{
+    if (isActive) {
+        self.color = [SKColor grayColor];
+        self.colorBlendFactor = 0.0;
+    }
+    else{
+        self.colorBlendFactor = 0.5;
+    }
+    _isActive = isActive;
+}
 @end

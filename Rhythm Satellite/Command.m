@@ -47,6 +47,9 @@
     else if ([commandString isEqualToString:@"RIGHT"]) {
         _input = SIDES;
     }
+    else if ([commandString isEqualToString:@"SIDES"]) {
+        _input = SIDES;
+    }
     else if ([commandString isEqualToString:@"SHAKE"]) {
         _input = SHAKE;
     }

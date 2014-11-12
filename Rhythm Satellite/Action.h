@@ -20,10 +20,11 @@ typedef enum actions{
 } ActionType;
 
 
-@interface Action : SKSpriteNode
+@interface Action : NSObject
 
 @property (nonatomic, strong) NSArray               *commands;
 
 -(Action *) init;
 -(Action *) initWithAction: (ActionType) action;
+-(Action *) initWithRandomAction;
 @end

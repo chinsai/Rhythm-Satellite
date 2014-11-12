@@ -13,24 +13,20 @@
 #define GOOD_TIMING_DELTA 0.2
 
 
-typedef enum commandTypes{
-    COMMAND_SHAKE,
-    COMMAND_UP,
-    COMMAND_UP_LEFT,
-    COMMAND_UP_RIGHT,
-    COMMAND_RIGHT,
-    COMMAND_DOWN,
-    COMMAND_LEFT,
-    COMMAND_TAP,
-    COMMAND_SLIDE,
-    COMMAND_START,
-    COMMAND_IDLE
-} InputCommand;
+typedef enum directions{
+    NEUTRAL,
+    UP,
+    SIDES,
+    DOWN,
+    SHAKE,
+    START,
+    TAP
+} CommandType;
 
 
 @interface Command : NSObject
 
-@property (nonatomic) InputCommand             input;
+@property (nonatomic) CommandType             input;
 
 -(NSString *)inputInString;
 -(Command *)initWithString: (NSString *)commandString;

@@ -18,6 +18,8 @@
 		983BE10219E753BB00147F39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10019E753BB00147F39 /* Main.storyboard */; };
 		983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10519E753BB00147F39 /* LaunchScreen.xib */; };
 		983BE11319E753BB00147F39 /* Rhythm_Satellite_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */; };
+		9847D9511A12E17700658D41 /* Note.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9847D9501A12E17700658D41 /* Note.atlas */; };
+		9847D9521A12E17700658D41 /* Note.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9847D9501A12E17700658D41 /* Note.atlas */; };
 		984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 984BCD8019EE579200F90CAB /* AlarmClockScene.m */; };
 		98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98540F0319FDC3C1000BAC9C /* RS1.m4a */; };
 		98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98540F0319FDC3C1000BAC9C /* RS1.m4a */; };
@@ -28,7 +30,6 @@
 		98586BC119FB8DBA00FC345F /* MotionControllerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 98586BC019FB8DBA00FC345F /* MotionControllerModule.m */; };
 		9885E86D19FA3719004CFA61 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 9885E86C19FA3719004CFA61 /* MainScene.m */; };
 		9885E87019FBE28B004CFA61 /* AlarmClockModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 9885E86F19FBE28B004CFA61 /* AlarmClockModule.m */; };
-		988DA19D19F491F200B01889 /* Timeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA19C19F491F200B01889 /* Timeline.m */; };
 		988DA1A019F497D600B01889 /* CharacterStage.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA19F19F497D600B01889 /* CharacterStage.m */; };
 		988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */; };
 		988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */; };
@@ -42,8 +43,8 @@
 		98F0FC2719F38D640071768B /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC2619F38D640071768B /* Character.m */; };
 		98F0FC2819F38D640071768B /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC2619F38D640071768B /* Character.m */; };
 		98F0FC2B19F38E300071768B /* AssemblyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC2A19F38E300071768B /* AssemblyScene.m */; };
-		98F0FC3119F3E86D0071768B /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC3019F3E86D0071768B /* Note.m */; };
-		98F0FC3219F3E86D0071768B /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC3019F3E86D0071768B /* Note.m */; };
+		98F0FC3119F3E86D0071768B /* CommandNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC3019F3E86D0071768B /* CommandNote.m */; };
+		98F0FC3219F3E86D0071768B /* CommandNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC3019F3E86D0071768B /* CommandNote.m */; };
 		98F0FC3519F3EB520071768B /* BTCentralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC3419F3EB520071768B /* BTCentralModule.m */; };
 		98F0FC3619F3EB520071768B /* BTCentralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC3419F3EB520071768B /* BTCentralModule.m */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		983BE11119E753BB00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Rhythm_Satellite_iOSTests.m; sourceTree = "<group>"; };
 		983BE11B19E7588C00147F39 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9847D9501A12E17700658D41 /* Note.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Note.atlas; sourceTree = "<group>"; };
 		984BCD8019EE579200F90CAB /* AlarmClockScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockScene.m; sourceTree = "<group>"; };
 		984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockScene.h; sourceTree = "<group>"; };
 		98540F0319FDC3C1000BAC9C /* RS1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = RS1.m4a; sourceTree = "<group>"; };
@@ -103,8 +105,6 @@
 		9885E86C19FA3719004CFA61 /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScene.m; sourceTree = "<group>"; };
 		9885E86E19FBE28B004CFA61 /* AlarmClockModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockModule.h; sourceTree = "<group>"; };
 		9885E86F19FBE28B004CFA61 /* AlarmClockModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockModule.m; sourceTree = "<group>"; };
-		988DA19B19F491F200B01889 /* Timeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timeline.h; sourceTree = "<group>"; };
-		988DA19C19F491F200B01889 /* Timeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timeline.m; sourceTree = "<group>"; };
 		988DA19E19F497D600B01889 /* CharacterStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterStage.h; sourceTree = "<group>"; };
 		988DA19F19F497D600B01889 /* CharacterStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterStage.m; sourceTree = "<group>"; };
 		988DA1A119F49D7D00B01889 /* BTPeripheralModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTPeripheralModule.h; path = "Rhythm Satellite/BTPeripheralModule.h"; sourceTree = "<group>"; };
@@ -117,8 +117,8 @@
 		98F0FC2619F38D640071768B /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = "Rhythm Satellite/Character.m"; sourceTree = "<group>"; };
 		98F0FC2919F38E300071768B /* AssemblyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssemblyScene.h; sourceTree = "<group>"; };
 		98F0FC2A19F38E300071768B /* AssemblyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssemblyScene.m; sourceTree = "<group>"; };
-		98F0FC2F19F3E86D0071768B /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Note.h; path = "Rhythm Satellite/Note.h"; sourceTree = "<group>"; };
-		98F0FC3019F3E86D0071768B /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Note.m; path = "Rhythm Satellite/Note.m"; sourceTree = "<group>"; };
+		98F0FC2F19F3E86D0071768B /* CommandNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandNote.h; path = "Rhythm Satellite/CommandNote.h"; sourceTree = "<group>"; };
+		98F0FC3019F3E86D0071768B /* CommandNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommandNote.m; path = "Rhythm Satellite/CommandNote.m"; sourceTree = "<group>"; };
 		98F0FC3319F3EB520071768B /* BTCentralModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTCentralModule.h; path = "Rhythm Satellite/BTCentralModule.h"; sourceTree = "<group>"; };
 		98F0FC3419F3EB520071768B /* BTCentralModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTCentralModule.m; path = "Rhythm Satellite/BTCentralModule.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -168,6 +168,7 @@
 		983BE0B919E7521E00147F39 = {
 			isa = PBXGroup;
 			children = (
+				9847D9531A12E53500658D41 /* Sprites */,
 				983BE11A19E7581F00147F39 /* Shared */,
 				983BE0C419E7521E00147F39 /* Rhythm Satellite */,
 				983BE0F019E753BB00147F39 /* Rhythm Satellite iOS */,
@@ -199,8 +200,6 @@
 				98F0FC2A19F38E300071768B /* AssemblyScene.m */,
 				98564E9C1A0F334100284333 /* BattleScene.h */,
 				98564E9D1A0F334100284333 /* BattleScene.m */,
-				988DA19B19F491F200B01889 /* Timeline.h */,
-				988DA19C19F491F200B01889 /* Timeline.m */,
 				983BE0D319E7521E00147F39 /* MainMenu.xib */,
 				983BE0C519E7521E00147F39 /* Supporting Files */,
 			);
@@ -289,10 +288,6 @@
 				98F0FC2219F38D260071768B /* Command.m */,
 				98564E9F1A0F35CE00284333 /* Action.h */,
 				98564EA01A0F35CE00284333 /* Action.m */,
-				98F0FC2F19F3E86D0071768B /* Note.h */,
-				98F0FC3019F3E86D0071768B /* Note.m */,
-				98F0FC2519F38D640071768B /* Character.h */,
-				98F0FC2619F38D640071768B /* Character.m */,
 				98F0FC3319F3EB520071768B /* BTCentralModule.h */,
 				98F0FC3419F3EB520071768B /* BTCentralModule.m */,
 				988DA1A119F49D7D00B01889 /* BTPeripheralModule.h */,
@@ -310,6 +305,17 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
+		9847D9531A12E53500658D41 /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				98F0FC2F19F3E86D0071768B /* CommandNote.h */,
+				98F0FC3019F3E86D0071768B /* CommandNote.m */,
+				98F0FC2519F38D640071768B /* Character.h */,
+				98F0FC2619F38D640071768B /* Character.m */,
+			);
+			name = Sprites;
+			sourceTree = "<group>";
+		};
 		98540EF919FD11D2000BAC9C /* Music */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +329,7 @@
 		98540F061A066BC2000BAC9C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9847D9501A12E17700658D41 /* Note.atlas */,
 				98540F071A066BEC000BAC9C /* Nori */,
 			);
 			name = Images;
@@ -462,6 +469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */,
+				9847D9511A12E17700658D41 /* Note.atlas in Resources */,
 				98540F091A066BEC000BAC9C /* Nori_Nod.atlas in Resources */,
 				98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */,
 				98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */,
@@ -484,6 +492,7 @@
 				98540F0A1A066BEC000BAC9C /* Nori_Nod.atlas in Resources */,
 				98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */,
 				98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */,
+				9847D9521A12E17700658D41 /* Note.atlas in Resources */,
 				983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */,
 				988DA1A519F4AC5900B01889 /* Images.xcassets in Resources */,
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
@@ -508,12 +517,11 @@
 				98F0FC2B19F38E300071768B /* AssemblyScene.m in Sources */,
 				98F0FC3519F3EB520071768B /* BTCentralModule.m in Sources */,
 				983BE0CB19E7521E00147F39 /* main.m in Sources */,
-				988DA19D19F491F200B01889 /* Timeline.m in Sources */,
 				988DA1A019F497D600B01889 /* CharacterStage.m in Sources */,
 				988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
 				98F0FC2719F38D640071768B /* Character.m in Sources */,
 				983BE0C919E7521E00147F39 /* AppDelegate.m in Sources */,
-				98F0FC3119F3E86D0071768B /* Note.m in Sources */,
+				98F0FC3119F3E86D0071768B /* CommandNote.m in Sources */,
 				98564EA11A0F35CE00284333 /* Action.m in Sources */,
 				98F0FC2319F38D260071768B /* Command.m in Sources */,
 				98564E9E1A0F334100284333 /* BattleScene.m in Sources */,
@@ -532,7 +540,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98F0FC3219F3E86D0071768B /* Note.m in Sources */,
+				98F0FC3219F3E86D0071768B /* CommandNote.m in Sources */,
 				983BE0FF19E753BB00147F39 /* GameViewController.m in Sources */,
 				98F0FC2819F38D640071768B /* Character.m in Sources */,
 				98F0FC2419F38D260071768B /* Command.m in Sources */,

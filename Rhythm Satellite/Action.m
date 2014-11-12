@@ -32,6 +32,22 @@
     }
     
     
+    [self setActionWithType:type];
+    
+    return self;
+}
+
+-(Action *) initWithRandomAction{
+    if(!self){
+        self = [super init];
+    }
+    
+    [self setActionWithType:(CommandType)arc4random_uniform(3)+1];
+    
+    return self;
+}
+
+-(void) setActionWithType: (ActionType) type{
     switch (type) {
         case ATTACK:
             _commands = [NSArray arrayWithObjects:
@@ -43,16 +59,16 @@
             
         case BLOCK:
             _commands = [NSArray arrayWithObjects:
-                         [[Command alloc] initWithString:@"RIGHT"],
                          [[Command alloc] initWithString:@"DOWN"],
-                         [[Command alloc] initWithString:@"RIGHT"],
+                         [[Command alloc] initWithString:@"DOWN"],
+                         [[Command alloc] initWithString:@"DOWN"],
                          [[Command alloc] initWithString:@"DOWN"], nil];
             break;
             
         case CHARGE:
             _commands = [NSArray arrayWithObjects:
-                         [[Command alloc] initWithString:@"DOWN"],
-                         [[Command alloc] initWithString:@"DOWN"],
+                         [[Command alloc] initWithString:@"UP"],
+                         [[Command alloc] initWithString:@"UP"],
                          [[Command alloc] initWithString:@"DOWN"],
                          [[Command alloc] initWithString:@"DOWN"], nil];
             break;
@@ -65,10 +81,7 @@
                          [[Command alloc] initWithString:@"IDLE"], nil];
             break;
     }
-    
-    
-    return self;
-}
 
+}
 
 @end

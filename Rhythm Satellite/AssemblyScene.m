@@ -31,6 +31,8 @@ NSTimeInterval      previousTime;
 GameState           gameState;
 SKSpriteNode        *tempCharacter;
 int                 numOfReadyRound;
+BOOL                readyFlag;
+NSTimeInterval      lastCommandTiming;
 
 
 @interface AssemblyScene()
@@ -124,6 +126,7 @@ int                 numOfReadyRound;
     timeElapsed = 0;
     previousTime = 0;
     numOfReadyRound = 1;
+    readyFlag = NO;
 
 }
 
@@ -202,7 +205,15 @@ int                 numOfReadyRound;
                     break;
                 }
                 
-
+                if(timeElapsed < _secPerBeat *3.8 && readyFlag){
+                    [self runAction:[SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO]];
+                    readyFlag = NO;
+                }
+                
+                if(timeElapsed >= _secPerBeat *3.8 && !readyFlag){
+                    [self runAction:[SKAction playSoundFileNamed:@"Ready.m4a" waitForCompletion:NO]];
+                    readyFlag = YES;
+                }
                     
                 int commandNumber = timeElapsed/_secPerBeat;
                 float inputTimingError = timeElapsed - commandNumber*_secPerBeat;
@@ -224,11 +235,20 @@ int                 numOfReadyRound;
 //                            inputFailed = YES;
                         
                     }
-
+                    break;
+                }
+                else{
+                    if (currentTime - lastCommandTiming < 0.2) {
+                        latestCommand.input = NEUTRAL;
+                        break;
+                    }
+                    lastCommandTiming = currentTime;
+                    NSLog(@"the gesture is %@", [latestCommand inputInString]);
                     
+    
                 }
                 
-                else if( targetCommand.input == latestCommand.input && inputTimingError <= GOOD_TIMING_DELTA){
+                if( targetCommand.input == latestCommand.input && inputTimingError <= GOOD_TIMING_DELTA){
                     
                     //successful input
                     if(inputTimingError<=GREAT_TIMING_DELTA){
@@ -239,9 +259,9 @@ int                 numOfReadyRound;
                     }
                     NSLog(@"input ok with Error %f", inputTimingError);
                     NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
-
+                    
                 }
-                
+                break;
                 
             }
             
@@ -260,6 +280,7 @@ int                 numOfReadyRound;
                 
                 //else show the commands that the player has to follow
                 else{
+                    
                     int beatNumber = timeElapsed/_secPerBeat;
                     CommandNote *note = _commandNotes[beatNumber];
                     if (note.isChangable){

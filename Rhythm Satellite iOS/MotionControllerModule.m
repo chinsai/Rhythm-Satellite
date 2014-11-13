@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 
 #define DELTA_THRESHOLD 1
+#define ACCELERATION_THRESHOLD -2
 #define REGISTER_INTERVAL 0.1
 #define GRAVITY_THRESHOLD 0.8
 
@@ -79,7 +80,7 @@
     NSTimeInterval deltaTime = currentTime - previousTime;
     
     double newAccelerationX = _mManager.deviceMotion.userAcceleration.x;
-    double deltaX = newAccelerationX - prevAccelerationX;
+//    double deltaX = newAccelerationX - prevAccelerationX;
     
     double gravityX = _mManager.deviceMotion.gravity.x;
     double gravityY = _mManager.deviceMotion.gravity.y;
@@ -100,8 +101,8 @@
 //        NSLog(@"Gravity X: %f", gravityX);
 //        NSLog(@"Gravity Y: %f", gravityY);
 //        NSLog(@"Gravity Z: %f", gravityZ);
-        if ( deltaX > DELTA_THRESHOLD){
-            
+//        if ( deltaX > DELTA_THRESHOLD){
+    if ( newAccelerationX < ACCELERATION_THRESHOLD){
             if (gravityY < -GRAVITY_THRESHOLD && gravityZ < GRAVITY_THRESHOLD/4 && gravityZ > -GRAVITY_THRESHOLD/4) {
                 [self setInput:@"UP"];
             }

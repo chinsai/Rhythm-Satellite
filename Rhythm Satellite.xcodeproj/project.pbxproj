@@ -37,6 +37,8 @@
 		988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */; };
 		988DA1A519F4AC5900B01889 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D119E7521E00147F39 /* Images.xcassets */; };
 		988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98F0FC1D19F2A89A0071768B /* simplebeat.caf */; };
+		98E3CE0A1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
+		98E3CE0B1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
 		98E7C26B19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
 		98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98F0FC1D19F2A89A0071768B /* simplebeat.caf */; };
@@ -113,6 +115,8 @@
 		988DA19F19F497D600B01889 /* CharacterStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterStage.m; sourceTree = "<group>"; };
 		988DA1A119F49D7D00B01889 /* BTPeripheralModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTPeripheralModule.h; path = "Rhythm Satellite/BTPeripheralModule.h"; sourceTree = "<group>"; };
 		988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTPeripheralModule.m; path = "Rhythm Satellite/BTPeripheralModule.m"; sourceTree = "<group>"; };
+		98E3CE081A157ADA00626D20 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = "Rhythm Satellite/Player.h"; sourceTree = "<group>"; };
+		98E3CE091A157ADA00626D20 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = "Rhythm Satellite/Player.m"; sourceTree = "<group>"; };
 		98E7C26919F0E1F8006397DF /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
 		98F0FC1D19F2A89A0071768B /* simplebeat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simplebeat.caf; sourceTree = "<group>"; };
 		98F0FC2119F38D260071768B /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Command.h; path = "Rhythm Satellite/Command.h"; sourceTree = "<group>"; };
@@ -293,6 +297,8 @@
 				98F0FC2219F38D260071768B /* Command.m */,
 				98564E9F1A0F35CE00284333 /* Action.h */,
 				98564EA01A0F35CE00284333 /* Action.m */,
+				98E3CE081A157ADA00626D20 /* Player.h */,
+				98E3CE091A157ADA00626D20 /* Player.m */,
 				98F0FC3319F3EB520071768B /* BTCentralModule.h */,
 				98F0FC3419F3EB520071768B /* BTCentralModule.m */,
 				988DA1A119F49D7D00B01889 /* BTPeripheralModule.h */,
@@ -534,6 +540,7 @@
 				98F0FC3519F3EB520071768B /* BTCentralModule.m in Sources */,
 				983BE0CB19E7521E00147F39 /* main.m in Sources */,
 				988DA1A019F497D600B01889 /* CharacterStage.m in Sources */,
+				98E3CE0A1A157ADA00626D20 /* Player.m in Sources */,
 				988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
 				98F0FC2719F38D640071768B /* Character.m in Sources */,
 				983BE0C919E7521E00147F39 /* AppDelegate.m in Sources */,
@@ -559,6 +566,7 @@
 				98F0FC3219F3E86D0071768B /* CommandNote.m in Sources */,
 				983BE0FF19E753BB00147F39 /* GameViewController.m in Sources */,
 				98F0FC2819F38D640071768B /* Character.m in Sources */,
+				98E3CE0B1A157ADA00626D20 /* Player.m in Sources */,
 				98F0FC2419F38D260071768B /* Command.m in Sources */,
 				9885E87019FBE28B004CFA61 /* AlarmClockModule.m in Sources */,
 				988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */,

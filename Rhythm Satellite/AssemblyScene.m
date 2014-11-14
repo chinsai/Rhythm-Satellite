@@ -15,7 +15,7 @@
 #import "Command.h"
 
 
-typedef enum gameStateType{
+typedef enum assemblyStateType{
     SCANNING,
     SEARCHING,
     WAITING,
@@ -23,12 +23,12 @@ typedef enum gameStateType{
     PLAYING,
     ENDED,
     GRAPHICSTEST
-} GameState;
+} AssemblyState;
 
 
 NSTimeInterval      timeElapsed;
 NSTimeInterval      previousTime;
-GameState           gameState;
+AssemblyState       gameState;
 SKSpriteNode        *tempCharacter;
 int                 numOfReadyRound;
 BOOL                readyFlag;
@@ -185,7 +185,7 @@ NSTimeInterval      lastCommandTiming;
                 
                 
                 //when finish one round of 4 beats
-                if(timeElapsed >= _secPerBeat*4){
+                if(timeElapsed >= _secPerBeat*3.98){
                     timeElapsed = 0;
                     _isInputTiming = NO;
                     _greatLabel.text = @"CANT INPUT NOW";
@@ -202,16 +202,13 @@ NSTimeInterval      lastCommandTiming;
                     else{
                         [_targetAction randomAction];
                     }
+                
                     break;
                 }
                 
-                if(timeElapsed < _secPerBeat *3.8 && readyFlag){
-                    [self runAction:[SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO]];
-                    readyFlag = NO;
-                }
                 
-                if(timeElapsed >= _secPerBeat *3.8 && !readyFlag){
-                    [self runAction:[SKAction playSoundFileNamed:@"Ready.m4a" waitForCompletion:NO]];
+                if(timeElapsed >= _secPerBeat *3 && !readyFlag){
+//                    [self runAction:[SKAction playSoundFileNamed:@"Ready.m4a" waitForCompletion:NO]];
                     readyFlag = YES;
                 }
                     
@@ -268,7 +265,7 @@ NSTimeInterval      lastCommandTiming;
              //when it is not the time for player commands
             else {
                 //if its time for switch
-                if(timeElapsed >= _secPerBeat*4){
+                if(timeElapsed >= _secPerBeat*3.98){
                     timeElapsed = 0;
                     _isInputTiming = YES;
                     for (CommandNote* note in _commandNotes) {
@@ -278,22 +275,24 @@ NSTimeInterval      lastCommandTiming;
                     break;
                 }
                 
-                //else show the commands that the player has to follow
-                else{
+                if(timeElapsed >= _secPerBeat *2.7 && readyFlag){
+                    [self runAction:[SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO]];
+                    readyFlag = NO;
+                }
+                
+                //show the commands that the player has to follo
                     
-                    int beatNumber = timeElapsed/_secPerBeat;
-                    CommandNote *note = _commandNotes[beatNumber];
-                    if (note.isChangable){
-                        [note changeTo:((Command*)_targetAction.commands[beatNumber]).input];
-                        
-                        //avoid unnecessary graphic updates
-                        note.isChangable = NO;
-                        int prevNumber = beatNumber - 1;
-                        if(prevNumber < 0)
-                            prevNumber = 3;
-                        ((CommandNote*)_commandNotes[prevNumber]).isChangable = YES;
-                    }
+                int beatNumber = timeElapsed/_secPerBeat;
+                CommandNote *note = _commandNotes[beatNumber];
+                if (note.isChangable){
+                    [note changeTo:((Command*)_targetAction.commands[beatNumber]).input];
                     
+                    //avoid unnecessary graphic updates
+                    note.isChangable = NO;
+                    int prevNumber = beatNumber - 1;
+                    if(prevNumber < 0)
+                        prevNumber = 3;
+                    ((CommandNote*)_commandNotes[prevNumber]).isChangable = YES;
                 }
                 
             }

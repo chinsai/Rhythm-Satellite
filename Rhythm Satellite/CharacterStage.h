@@ -7,7 +7,6 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import "Character.h"
 
 @interface CharacterStage : SKSpriteNode
 

@@ -13,9 +13,12 @@
 #import "CommandNote.h"
 #import "Action.h"
 #import "Command.h"
+#import <HueSDK_OSX/HueSDK.h>
 
+#define MAX_HUE 65536
 
 typedef enum assemblyStateType{
+    SETUP,
     SCANNING,
     SEARCHING,
     WAITING,
@@ -33,7 +36,9 @@ SKSpriteNode        *tempCharacter;
 int                 numOfReadyRound;
 BOOL                readyFlag;
 NSTimeInterval      lastCommandTiming;
-
+PHBridgeResourcesCache *cache;
+NSArray *lights;
+PHBridgeSendAPI *bridgeSendAPI;
 
 @interface AssemblyScene()
 
@@ -121,6 +126,8 @@ NSTimeInterval      lastCommandTiming;
     numOfReadyRound = 1;
     readyFlag = NO;
 
+    
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
 }
 
 
@@ -134,12 +141,15 @@ NSTimeInterval      lastCommandTiming;
     Command* latestCommand;
     
     switch (gameState) {
+        case SETUP:
+            break;
         case SCANNING:
             //if there is peripheral connected
             if(_btReceiver.hasConnectedPeripheral){
                 gameState = READY;
                 NSLog(@"go to READY");
             }
+            
             break;
         case SEARCHING:
             break;
@@ -150,8 +160,10 @@ NSTimeInterval      lastCommandTiming;
             latestCommand = [self getLatestCommand];
             if (latestCommand.input == TAP) {
                 [self startGame];
+//                gameState = GRAPHICSTEST;
                 NSLog(@"go to PLAYING");
             }
+            
             break;
             
         case PLAYING:
@@ -232,8 +244,6 @@ NSTimeInterval      lastCommandTiming;
                         break;
                     }
                     lastCommandTiming = currentTime;
-                    NSLog(@"the gesture is %@", [latestCommand inputInString]);
-                    
     
                 }
                 
@@ -246,8 +256,48 @@ NSTimeInterval      lastCommandTiming;
                     else{
                         [targetNote changeToGoodTiming];
                     }
+                    
+                    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+                    // And now you can get any resource you want, for example:
+                    lights = [cache.lights allValues];
+                    [((PHLight *)lights[0]).lightState setTransitionTime:0];
+//                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
+                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:25500]];
+                    [((PHLight *)lights[0]).lightState setBrightness:[NSNumber numberWithInt:128]];
+                    [((PHLight *)lights[0]).lightState setSaturation:[NSNumber numberWithInt:254]];
+                    
+                    
+                    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
+                        if (!errors){
+                            // Update successful
+                        } else {
+                            // Error occurred
+                        }
+                    }];
+                    
                     NSLog(@"input ok with Error %f", inputTimingError);
                     NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
+                    
+                }
+                else{
+                    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+                    // And now you can get any resource you want, for example:
+                    lights = [cache.lights allValues];
+                    
+                    if( !((PHLight *)lights[0]).lightState.on )
+                        break;
+                    [((PHLight *)lights[0]).lightState setTransitionTime:0];
+                    //                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
+                    [((PHLight *)lights[0]).lightState setOn:false];
+                    
+                    
+                    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
+                        if (!errors){
+                            // Update successful
+                        } else {
+                            // Error occurred
+                        }
+                    }];
                     
                 }
                 break;
@@ -284,6 +334,7 @@ NSTimeInterval      lastCommandTiming;
                     if(prevNumber < 0)
                         prevNumber = 3;
                     ((CommandNote*)_commandNotes[prevNumber]).isChangable = YES;
+                    
                 }
                 
             }
@@ -293,7 +344,12 @@ NSTimeInterval      lastCommandTiming;
         case ENDED:
             break;
         case GRAPHICSTEST:
-            [self startGame];
+            
+            if (latestCommand.input == TAP) {
+                // Get the cache
+                
+            }
+            
             break;
         default:
             break;

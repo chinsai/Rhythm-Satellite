@@ -9,9 +9,9 @@
 #import "CharacterStage.h"
 
 
-@interface Character()
+@interface CharacterStage()
 
-@property (nonatomic, strong) Character              *character;
+//@property (nonatomic, strong) Character              *character;
 @property (nonatomic, strong) SKLabelNode            *scoreLabel;
 @property (nonatomic, strong) SKLabelNode            *nameLabel;
 @property (nonatomic) int                            score;

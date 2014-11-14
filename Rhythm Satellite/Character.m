@@ -10,7 +10,7 @@
 
 @implementation Character
 
--(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(uint32_t)hp withMaxHp:(uint32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money withPlayer:(Player*)player{
+-(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(uint32_t)hp withMaxHp:(uint32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money{
     
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Nori.Nod"];
     SKTexture *texture = [atlas textureNamed:@"nori_nod_0001"];
@@ -23,7 +23,6 @@
     _att = att;
     _def = def;
     _money = money;
-    _player = player;
     
     
     return self;

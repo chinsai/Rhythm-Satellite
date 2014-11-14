@@ -37,6 +37,21 @@
 		988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */; };
 		988DA1A519F4AC5900B01889 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D119E7521E00147F39 /* Images.xcassets */; };
 		988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98F0FC1D19F2A89A0071768B /* simplebeat.caf */; };
+		98B4A6391A1629EA004935EF /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62B1A1629EA004935EF /* DDAbstractDatabaseLogger.m */; };
+		98B4A63A1A1629EA004935EF /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62B1A1629EA004935EF /* DDAbstractDatabaseLogger.m */; };
+		98B4A63B1A1629EA004935EF /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62D1A1629EA004935EF /* DDASLLogger.m */; };
+		98B4A63C1A1629EA004935EF /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62D1A1629EA004935EF /* DDASLLogger.m */; };
+		98B4A63D1A1629EA004935EF /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62F1A1629EA004935EF /* DDFileLogger.m */; };
+		98B4A63E1A1629EA004935EF /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62F1A1629EA004935EF /* DDFileLogger.m */; };
+		98B4A63F1A1629EA004935EF /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6311A1629EA004935EF /* DDLog.m */; };
+		98B4A6401A1629EA004935EF /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6311A1629EA004935EF /* DDLog.m */; };
+		98B4A6411A1629EA004935EF /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6331A1629EA004935EF /* DDTTYLogger.m */; };
+		98B4A6421A1629EA004935EF /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6331A1629EA004935EF /* DDTTYLogger.m */; };
+		98B4A6431A1629EA004935EF /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6361A1629EA004935EF /* ContextFilterLogFormatter.m */; };
+		98B4A6441A1629EA004935EF /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6361A1629EA004935EF /* ContextFilterLogFormatter.m */; };
+		98B4A6451A1629EA004935EF /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */; };
+		98B4A6461A1629EA004935EF /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */; };
+		98B4A6481A1629FE004935EF /* HueSDK_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */; };
 		98E3CE0A1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E3CE0B1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
@@ -111,10 +126,25 @@
 		9885E86C19FA3719004CFA61 /* MainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScene.m; sourceTree = "<group>"; };
 		9885E86E19FBE28B004CFA61 /* AlarmClockModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockModule.h; sourceTree = "<group>"; };
 		9885E86F19FBE28B004CFA61 /* AlarmClockModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockModule.m; sourceTree = "<group>"; };
-		988DA19E19F497D600B01889 /* CharacterStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterStage.h; sourceTree = "<group>"; };
-		988DA19F19F497D600B01889 /* CharacterStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterStage.m; sourceTree = "<group>"; };
+		988DA19E19F497D600B01889 /* CharacterStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CharacterStage.h; path = "Rhythm Satellite/CharacterStage.h"; sourceTree = "<group>"; };
+		988DA19F19F497D600B01889 /* CharacterStage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CharacterStage.m; path = "Rhythm Satellite/CharacterStage.m"; sourceTree = "<group>"; };
 		988DA1A119F49D7D00B01889 /* BTPeripheralModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTPeripheralModule.h; path = "Rhythm Satellite/BTPeripheralModule.h"; sourceTree = "<group>"; };
 		988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTPeripheralModule.m; path = "Rhythm Satellite/BTPeripheralModule.m"; sourceTree = "<group>"; };
+		98B4A62A1A1629EA004935EF /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		98B4A62B1A1629EA004935EF /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		98B4A62C1A1629EA004935EF /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		98B4A62D1A1629EA004935EF /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		98B4A62E1A1629EA004935EF /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		98B4A62F1A1629EA004935EF /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		98B4A6301A1629EA004935EF /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		98B4A6311A1629EA004935EF /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		98B4A6321A1629EA004935EF /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		98B4A6331A1629EA004935EF /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		98B4A6351A1629EA004935EF /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		98B4A6361A1629EA004935EF /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		98B4A6371A1629EA004935EF /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HueSDK_OSX.framework; sourceTree = "<group>"; };
 		98E3CE081A157ADA00626D20 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = "Rhythm Satellite/Player.h"; sourceTree = "<group>"; };
 		98E3CE091A157ADA00626D20 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = "Rhythm Satellite/Player.m"; sourceTree = "<group>"; };
 		98E7C26919F0E1F8006397DF /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
@@ -136,6 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98B4A6481A1629FE004935EF /* HueSDK_OSX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +215,7 @@
 				9805CF8E19E77048008C0DC3 /* Assets */,
 				983BE11C19E75C1000147F39 /* Tests */,
 				983BE0C319E7521E00147F39 /* Products */,
+				98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,8 +235,6 @@
 			children = (
 				983BE0C719E7521E00147F39 /* AppDelegate.h */,
 				983BE0C819E7521E00147F39 /* AppDelegate.m */,
-				988DA19E19F497D600B01889 /* CharacterStage.h */,
-				988DA19F19F497D600B01889 /* CharacterStage.m */,
 				98F0FC2919F38E300071768B /* AssemblyScene.h */,
 				98F0FC2A19F38E300071768B /* AssemblyScene.m */,
 				98564E9C1A0F334100284333 /* BattleScene.h */,
@@ -289,6 +319,7 @@
 		983BE11A19E7581F00147F39 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				98B4A6291A1629EA004935EF /* Lumberjack */,
 				983BE0EA19E752CA00147F39 /* TransferService.h */,
 				98F0FC2119F38D260071768B /* Command.h */,
 				98F0FC2219F38D260071768B /* Command.m */,
@@ -320,6 +351,8 @@
 				98F0FC3019F3E86D0071768B /* CommandNote.m */,
 				98F0FC2519F38D640071768B /* Character.h */,
 				98F0FC2619F38D640071768B /* Character.m */,
+				988DA19E19F497D600B01889 /* CharacterStage.h */,
+				988DA19F19F497D600B01889 /* CharacterStage.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -358,6 +391,35 @@
 				98564EA41A14A06700284333 /* Ready.m4a */,
 			);
 			name = SoundEffects;
+			sourceTree = "<group>";
+		};
+		98B4A6291A1629EA004935EF /* Lumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				98B4A62A1A1629EA004935EF /* DDAbstractDatabaseLogger.h */,
+				98B4A62B1A1629EA004935EF /* DDAbstractDatabaseLogger.m */,
+				98B4A62C1A1629EA004935EF /* DDASLLogger.h */,
+				98B4A62D1A1629EA004935EF /* DDASLLogger.m */,
+				98B4A62E1A1629EA004935EF /* DDFileLogger.h */,
+				98B4A62F1A1629EA004935EF /* DDFileLogger.m */,
+				98B4A6301A1629EA004935EF /* DDLog.h */,
+				98B4A6311A1629EA004935EF /* DDLog.m */,
+				98B4A6321A1629EA004935EF /* DDTTYLogger.h */,
+				98B4A6331A1629EA004935EF /* DDTTYLogger.m */,
+				98B4A6341A1629EA004935EF /* Extensions */,
+			);
+			path = Lumberjack;
+			sourceTree = "<group>";
+		};
+		98B4A6341A1629EA004935EF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				98B4A6351A1629EA004935EF /* ContextFilterLogFormatter.h */,
+				98B4A6361A1629EA004935EF /* ContextFilterLogFormatter.m */,
+				98B4A6371A1629EA004935EF /* DispatchQueueLogFormatter.h */,
+				98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		98E505E21A15DD10002BC958 /* old */ = {
@@ -548,14 +610,21 @@
 				98F0FC3519F3EB520071768B /* BTCentralModule.m in Sources */,
 				983BE0CB19E7521E00147F39 /* main.m in Sources */,
 				988DA1A019F497D600B01889 /* CharacterStage.m in Sources */,
+				98B4A6411A1629EA004935EF /* DDTTYLogger.m in Sources */,
+				98B4A63D1A1629EA004935EF /* DDFileLogger.m in Sources */,
 				98E3CE0A1A157ADA00626D20 /* Player.m in Sources */,
 				988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
 				98F0FC2719F38D640071768B /* Character.m in Sources */,
 				983BE0C919E7521E00147F39 /* AppDelegate.m in Sources */,
+				98B4A6451A1629EA004935EF /* DispatchQueueLogFormatter.m in Sources */,
 				98F0FC3119F3E86D0071768B /* CommandNote.m in Sources */,
+				98B4A6391A1629EA004935EF /* DDAbstractDatabaseLogger.m in Sources */,
 				98564EA11A0F35CE00284333 /* Action.m in Sources */,
+				98B4A63F1A1629EA004935EF /* DDLog.m in Sources */,
 				98F0FC2319F38D260071768B /* Command.m in Sources */,
+				98B4A63B1A1629EA004935EF /* DDASLLogger.m in Sources */,
 				98564E9E1A0F334100284333 /* BattleScene.m in Sources */,
+				98B4A6431A1629EA004935EF /* ContextFilterLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,9 +641,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				98F0FC3219F3E86D0071768B /* CommandNote.m in Sources */,
+				98B4A63E1A1629EA004935EF /* DDFileLogger.m in Sources */,
+				98B4A6441A1629EA004935EF /* ContextFilterLogFormatter.m in Sources */,
 				983BE0FF19E753BB00147F39 /* GameViewController.m in Sources */,
+				98B4A6421A1629EA004935EF /* DDTTYLogger.m in Sources */,
+				98B4A6461A1629EA004935EF /* DispatchQueueLogFormatter.m in Sources */,
 				98F0FC2819F38D640071768B /* Character.m in Sources */,
 				98E3CE0B1A157ADA00626D20 /* Player.m in Sources */,
+				98B4A63A1A1629EA004935EF /* DDAbstractDatabaseLogger.m in Sources */,
+				98B4A6401A1629EA004935EF /* DDLog.m in Sources */,
 				98F0FC2419F38D260071768B /* Command.m in Sources */,
 				9885E87019FBE28B004CFA61 /* AlarmClockModule.m in Sources */,
 				988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
@@ -584,6 +659,7 @@
 				983BE0F419E753BB00147F39 /* main.m in Sources */,
 				984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */,
 				98586BC119FB8DBA00FC345F /* MotionControllerModule.m in Sources */,
+				98B4A63C1A1629EA004935EF /* DDASLLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,8 +795,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Rhythm Satellite/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -730,8 +811,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Rhythm Satellite/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -786,6 +872,7 @@
 				INFOPLIST_FILE = "Rhythm Satellite iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -802,6 +889,7 @@
 				INFOPLIST_FILE = "Rhythm Satellite iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;

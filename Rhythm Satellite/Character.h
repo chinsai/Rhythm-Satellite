@@ -9,7 +9,6 @@
 #import <SpriteKit/SpriteKit.h>
 #import "Character.h"
 #import "Command.h"
-#import "Player.h"
 
 /* The different animation states of an animated character. */
 typedef enum : uint8_t {
@@ -38,12 +37,12 @@ typedef enum : uint8_t {
 @property (nonatomic) NoriAnimationState                animationState;
 @property (nonatomic) BOOL                              isAnimated;
 @property (nonatomic) uint8_t                           chargedEnergy;
-@property (nonatomic) Player                            *player;
+//@property (nonatomic) Player                            *player;
 
 
 
 
--(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(uint32_t)hp withMaxHp:(uint32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money withPlayer:(Player*)player;
+-(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(uint32_t)hp withMaxHp:(uint32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money;
 
 /* Reset a character for reuse. */
 - (void)reset;

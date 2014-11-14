@@ -17,8 +17,8 @@ typedef enum alarmStateTypes{
 
 @interface AlarmClockModule : NSObject
 
-@property (nonatomic) int                           hour;
-@property (nonatomic) int                           minute;
+@property (nonatomic) uint8_t                           hour;
+@property (nonatomic) uint8_t                           minute;
 @property (nonatomic, strong) NSDate                *alarmDate;         //alarm
 @property (nonatomic) AlarmState                    alarmState;     //whether the alarm is on or not
 

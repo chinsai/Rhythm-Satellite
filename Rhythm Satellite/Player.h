@@ -7,16 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Character.h"
 
 @interface Player : NSObject
 
 
 
 // NAME
-// LEVEL
-// EXP
-// ATTACK
-// DEFENCE
+@property (nonatomic, strong) NSString              *playerName;
+
+@property (nonatomic, strong) Character             *character;
+
+@property (nonatomic) uint8_t                       wakeupHour;
+@property (nonatomic) uint8_t                       wakeupMinutes;
 
 
 

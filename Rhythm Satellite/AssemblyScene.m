@@ -41,7 +41,9 @@ NSTimeInterval      lastCommandTiming;
 @property (nonatomic, strong) NSArray               *charactertStages;
 
 // array of character stage
-@property (nonatomic, strong) NSMutableArray        *characters;
+@property (nonatomic, strong) NSArray               *characters;
+
+@property (nonatomic, strong) NSArray               *player;
 
 // background
 @property (nonatomic, strong) SKSpriteNode          *background;
@@ -49,8 +51,6 @@ NSTimeInterval      lastCommandTiming;
 // cover
 @property (nonatomic, strong) SKSpriteNode          *cover;
 
-// timing rank label
-@property (nonatomic, strong) SKLabelNode          *greatLabel;
 
 @property (nonatomic, strong) NSMutableArray        *inputCommands;
 @property (nonatomic, strong) NSArray               *commandNotes;
@@ -84,13 +84,6 @@ NSTimeInterval      lastCommandTiming;
     _background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
     _background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:_background];
-
-    _greatLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
-    _greatLabel.text = @"SCORE";
-    _greatLabel.fontSize = 24;
-    _greatLabel.position = CGPointMake(CGRectGetMidX(self.frame), 500);
-    [self addChild:_greatLabel];
-
     
     tempCharacter = [SKSpriteNode spriteNodeWithImageNamed:@"nori_nod_0001"];
     tempCharacter.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-100);
@@ -188,7 +181,6 @@ NSTimeInterval      lastCommandTiming;
                 if(timeElapsed >= _secPerBeat*3.98){
                     timeElapsed = 0;
                     _isInputTiming = NO;
-                    _greatLabel.text = @"CANT INPUT NOW";
                     _numOfRounds --;
                     //reset the notes to all gray
                     for (CommandNote* note in _commandNotes) {
@@ -271,7 +263,6 @@ NSTimeInterval      lastCommandTiming;
                     for (CommandNote* note in _commandNotes) {
                         note.isActive = YES;
                     }
-                    _greatLabel.text = @"INPUT NOW";
                     break;
                 }
                 

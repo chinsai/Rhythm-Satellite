@@ -131,7 +131,7 @@
             _canRegister = NO;
         }
         else{
-            [self setInput:@"IDLE"];
+            [self setInput:@"NEUTRAL"];
         }
         
     }

@@ -10,4 +10,14 @@
 
 @interface Player : NSObject
 
+
+
+// NAME
+// LEVEL
+// EXP
+// ATTACK
+// DEFENCE
+
+
+
 @end

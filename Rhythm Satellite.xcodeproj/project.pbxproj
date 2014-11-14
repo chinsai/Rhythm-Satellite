@@ -244,16 +244,13 @@
 		983BE0F019E753BB00147F39 /* Rhythm Satellite iOS */ = {
 			isa = PBXGroup;
 			children = (
+				98E505E21A15DD10002BC958 /* old */,
 				983BE11B19E7588C00147F39 /* AppDelegate.h */,
 				983BE0F619E753BB00147F39 /* AppDelegate.m */,
-				984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */,
-				984BCD8019EE579200F90CAB /* AlarmClockScene.m */,
 				9885E86E19FBE28B004CFA61 /* AlarmClockModule.h */,
 				9885E86F19FBE28B004CFA61 /* AlarmClockModule.m */,
 				9885E86B19FA3719004CFA61 /* MainScene.h */,
 				9885E86C19FA3719004CFA61 /* MainScene.m */,
-				983BE0FD19E753BB00147F39 /* GameViewController.h */,
-				983BE0FE19E753BB00147F39 /* GameViewController.m */,
 				98586BBF19FB8DBA00FC345F /* MotionControllerModule.h */,
 				98586BC019FB8DBA00FC345F /* MotionControllerModule.m */,
 				983BE10019E753BB00147F39 /* Main.storyboard */,
@@ -361,6 +358,17 @@
 				98564EA41A14A06700284333 /* Ready.m4a */,
 			);
 			name = SoundEffects;
+			sourceTree = "<group>";
+		};
+		98E505E21A15DD10002BC958 /* old */ = {
+			isa = PBXGroup;
+			children = (
+				984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */,
+				984BCD8019EE579200F90CAB /* AlarmClockScene.m */,
+				983BE0FD19E753BB00147F39 /* GameViewController.h */,
+				983BE0FE19E753BB00147F39 /* GameViewController.m */,
+			);
+			name = old;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

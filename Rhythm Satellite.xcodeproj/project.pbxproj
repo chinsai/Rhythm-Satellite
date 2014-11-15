@@ -23,8 +23,6 @@
 		984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 984BCD8019EE579200F90CAB /* AlarmClockScene.m */; };
 		98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98540F0319FDC3C1000BAC9C /* RS1.m4a */; };
 		98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98540F0319FDC3C1000BAC9C /* RS1.m4a */; };
-		98540F091A066BEC000BAC9C /* Nori_Nod.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98540F081A066BEC000BAC9C /* Nori_Nod.atlas */; };
-		98540F0A1A066BEC000BAC9C /* Nori_Nod.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98540F081A066BEC000BAC9C /* Nori_Nod.atlas */; };
 		98564E9E1A0F334100284333 /* BattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 98564E9D1A0F334100284333 /* BattleScene.m */; };
 		98564EA11A0F35CE00284333 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 98564EA01A0F35CE00284333 /* Action.m */; };
 		98564EA51A14A06700284333 /* Go.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98564EA31A14A06700284333 /* Go.m4a */; };
@@ -54,6 +52,16 @@
 		98B4A6481A1629FE004935EF /* HueSDK_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */; };
 		98E3CE0A1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E3CE0B1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
+		98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0D1A17009800626D20 /* Nori_Down.atlas */; };
+		98E3CE131A17009800626D20 /* Nori_Down.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0D1A17009800626D20 /* Nori_Down.atlas */; };
+		98E3CE141A17009800626D20 /* Nori_Nod.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0E1A17009800626D20 /* Nori_Nod.atlas */; };
+		98E3CE151A17009800626D20 /* Nori_Nod.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0E1A17009800626D20 /* Nori_Nod.atlas */; };
+		98E3CE161A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0F1A17009800626D20 /* Nori_Ready_Nod.atlas */; };
+		98E3CE171A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0F1A17009800626D20 /* Nori_Ready_Nod.atlas */; };
+		98E3CE181A17009800626D20 /* Nori_Sides.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE101A17009800626D20 /* Nori_Sides.atlas */; };
+		98E3CE191A17009800626D20 /* Nori_Sides.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE101A17009800626D20 /* Nori_Sides.atlas */; };
+		98E3CE1A1A17009800626D20 /* Nori_Up.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE111A17009800626D20 /* Nori_Up.atlas */; };
+		98E3CE1B1A17009800626D20 /* Nori_Up.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE111A17009800626D20 /* Nori_Up.atlas */; };
 		98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
 		98E7C26B19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
 		98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98F0FC1D19F2A89A0071768B /* simplebeat.caf */; };
@@ -113,7 +121,6 @@
 		984BCD8019EE579200F90CAB /* AlarmClockScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockScene.m; sourceTree = "<group>"; };
 		984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockScene.h; sourceTree = "<group>"; };
 		98540F0319FDC3C1000BAC9C /* RS1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = RS1.m4a; sourceTree = "<group>"; };
-		98540F081A066BEC000BAC9C /* Nori_Nod.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Nod.atlas; sourceTree = "<group>"; };
 		98564E9C1A0F334100284333 /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleScene.h; sourceTree = "<group>"; };
 		98564E9D1A0F334100284333 /* BattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleScene.m; sourceTree = "<group>"; };
 		98564E9F1A0F35CE00284333 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = "Rhythm Satellite/Action.h"; sourceTree = "<group>"; };
@@ -147,6 +154,11 @@
 		98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HueSDK_OSX.framework; sourceTree = "<group>"; };
 		98E3CE081A157ADA00626D20 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = "Rhythm Satellite/Player.h"; sourceTree = "<group>"; };
 		98E3CE091A157ADA00626D20 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = "Rhythm Satellite/Player.m"; sourceTree = "<group>"; };
+		98E3CE0D1A17009800626D20 /* Nori_Down.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Down.atlas; sourceTree = "<group>"; };
+		98E3CE0E1A17009800626D20 /* Nori_Nod.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Nod.atlas; sourceTree = "<group>"; };
+		98E3CE0F1A17009800626D20 /* Nori_Ready_Nod.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Ready_Nod.atlas; sourceTree = "<group>"; };
+		98E3CE101A17009800626D20 /* Nori_Sides.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Sides.atlas; sourceTree = "<group>"; };
+		98E3CE111A17009800626D20 /* Nori_Up.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Up.atlas; sourceTree = "<group>"; };
 		98E7C26919F0E1F8006397DF /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
 		98F0FC1D19F2A89A0071768B /* simplebeat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simplebeat.caf; sourceTree = "<group>"; };
 		98F0FC2119F38D260071768B /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Command.h; path = "Rhythm Satellite/Command.h"; sourceTree = "<group>"; };
@@ -198,7 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				98564EA21A14A04F00284333 /* SoundEffects */,
-				98540F061A066BC2000BAC9C /* Images */,
+				98540F061A066BC2000BAC9C /* SpriteFiles */,
 				98540EF919FD11D2000BAC9C /* Music */,
 				983BE0D119E7521E00147F39 /* Images.xcassets */,
 			);
@@ -367,21 +379,13 @@
 			name = Music;
 			sourceTree = "<group>";
 		};
-		98540F061A066BC2000BAC9C /* Images */ = {
+		98540F061A066BC2000BAC9C /* SpriteFiles */ = {
 			isa = PBXGroup;
 			children = (
+				98E3CE0C1A17009800626D20 /* Nori */,
 				9847D9501A12E17700658D41 /* Note.atlas */,
-				98540F071A066BEC000BAC9C /* Nori */,
 			);
-			name = Images;
-			sourceTree = "<group>";
-		};
-		98540F071A066BEC000BAC9C /* Nori */ = {
-			isa = PBXGroup;
-			children = (
-				98540F081A066BEC000BAC9C /* Nori_Nod.atlas */,
-			);
-			path = Nori;
+			name = SpriteFiles;
 			sourceTree = "<group>";
 		};
 		98564EA21A14A04F00284333 /* SoundEffects */ = {
@@ -420,6 +424,18 @@
 				98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		98E3CE0C1A17009800626D20 /* Nori */ = {
+			isa = PBXGroup;
+			children = (
+				98E3CE0D1A17009800626D20 /* Nori_Down.atlas */,
+				98E3CE0E1A17009800626D20 /* Nori_Nod.atlas */,
+				98E3CE0F1A17009800626D20 /* Nori_Ready_Nod.atlas */,
+				98E3CE101A17009800626D20 /* Nori_Sides.atlas */,
+				98E3CE111A17009800626D20 /* Nori_Up.atlas */,
+			);
+			path = Nori;
 			sourceTree = "<group>";
 		};
 		98E505E21A15DD10002BC958 /* old */ = {
@@ -560,13 +576,17 @@
 			files = (
 				988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */,
 				9847D9511A12E17700658D41 /* Note.atlas in Resources */,
-				98540F091A066BEC000BAC9C /* Nori_Nod.atlas in Resources */,
 				98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */,
 				98564EA51A14A06700284333 /* Go.m4a in Resources */,
+				98E3CE161A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */,
+				98E3CE181A17009800626D20 /* Nori_Sides.atlas in Resources */,
+				98E3CE1A1A17009800626D20 /* Nori_Up.atlas in Resources */,
+				98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */,
 				983BE0D219E7521E00147F39 /* Images.xcassets in Resources */,
 				983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */,
 				98564EA61A14A06700284333 /* Ready.m4a in Resources */,
+				98E3CE141A17009800626D20 /* Nori_Nod.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,12 +601,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98540F0A1A066BEC000BAC9C /* Nori_Nod.atlas in Resources */,
+				98E3CE1B1A17009800626D20 /* Nori_Up.atlas in Resources */,
 				98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */,
+				98E3CE131A17009800626D20 /* Nori_Down.atlas in Resources */,
 				98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */,
 				9847D9521A12E17700658D41 /* Note.atlas in Resources */,
+				98E3CE151A17009800626D20 /* Nori_Nod.atlas in Resources */,
 				983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */,
 				988DA1A519F4AC5900B01889 /* Images.xcassets in Resources */,
+				98E3CE191A17009800626D20 /* Nori_Sides.atlas in Resources */,
+				98E3CE171A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
 				98E7C26B19F0E1F8006397DF /* bgm.mp3 in Resources */,
 			);

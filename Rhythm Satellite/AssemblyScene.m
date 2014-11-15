@@ -13,6 +13,7 @@
 #import "CommandNote.h"
 #import "Action.h"
 #import "Command.h"
+#import "Player.h"
 #import <HueSDK_OSX/HueSDK.h>
 
 #define MAX_HUE 65536
@@ -48,8 +49,9 @@ PHBridgeSendAPI *bridgeSendAPI;
 // array of character stage
 @property (nonatomic, strong) NSArray               *characters;
 
-@property (nonatomic, strong) NSArray               *player;
+@property (nonatomic, strong) NSArray               *players;
 
+@property (nonatomic, strong) Player                *defaultPlayer;
 // background
 @property (nonatomic, strong) SKSpriteNode          *background;
 
@@ -90,10 +92,6 @@ PHBridgeSendAPI *bridgeSendAPI;
     _background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:_background];
     
-    tempCharacter = [SKSpriteNode spriteNodeWithImageNamed:@"nori_nod_0001"];
-    tempCharacter.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-100);
-    [self addChild:tempCharacter];
-    
     _inputCommands = [[NSMutableArray alloc]init];
     _commandNotes = [NSArray arrayWithObjects:
                      [[CommandNote alloc] initWithDirection:NEUTRAL ],
@@ -110,6 +108,14 @@ PHBridgeSendAPI *bridgeSendAPI;
         a.position = CGPointMake(notestartx + (margin + a.size.width)*i, notestarty);
         [self addChild:a];
     }
+    
+    _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
+    _players = [NSArray arrayWithObjects:_defaultPlayer, nil];
+    _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:5 withMoney:1000];
+    _defaultPlayer.character.position = CGPointMake(200, CGRectGetMidY(self.frame)-100);
+    [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
+    [self addChild:_defaultPlayer.character];
+    
     
     
     //music player
@@ -188,7 +194,6 @@ PHBridgeSendAPI *bridgeSendAPI;
             //when is is the turn for player to input command
             if(_isInputTiming){
                 
-                
                 //when finish one round of 4 beats
                 if(timeElapsed >= _secPerBeat*3.98){
                     timeElapsed = 0;
@@ -212,7 +217,6 @@ PHBridgeSendAPI *bridgeSendAPI;
                 
                 
                 if(timeElapsed >= _secPerBeat *3 && !readyFlag){
-//                    [self runAction:[SKAction playSoundFileNamed:@"Ready.m4a" waitForCompletion:NO]];
                     readyFlag = YES;
                 }
                     
@@ -226,7 +230,7 @@ PHBridgeSendAPI *bridgeSendAPI;
                 
                 Command *targetCommand = _targetAction.commands[commandNumber];
                 CommandNote *targetNote = _commandNotes[commandNumber];
-      
+                
                 if( latestCommand.input == NEUTRAL ){
                     //if no input
                     
@@ -239,66 +243,70 @@ PHBridgeSendAPI *bridgeSendAPI;
                     break;
                 }
                 else{
+                    
+                    //if there is command, change characters animations
+                    [_defaultPlayer.character takeCommand:latestCommand.input];
+                    
                     if (currentTime - lastCommandTiming < 0.2) {
                         latestCommand.input = NEUTRAL;
                         break;
                     }
                     lastCommandTiming = currentTime;
-    
-                }
                 
-                if( targetCommand.input == latestCommand.input && inputTimingError <= GOOD_TIMING_DELTA){
-                    
-                    //successful input
-                    if(inputTimingError<=GREAT_TIMING_DELTA){
-                        [targetNote changeToGreatTiming];
+                
+                    if( targetCommand.input == latestCommand.input && inputTimingError <= GOOD_TIMING_DELTA){
+                        
+                        //successful input
+                        if(inputTimingError<=GREAT_TIMING_DELTA){
+                            [targetNote changeToGreatTiming];
+                        }
+                        else{
+                            [targetNote changeToGoodTiming];
+                        }
+                        
+    //                    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    //                    // And now you can get any resource you want, for example:
+    //                    lights = [cache.lights allValues];
+    //                    [((PHLight *)lights[0]).lightState setTransitionTime:0];
+    ////                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
+    //                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:25500]];
+    //                    [((PHLight *)lights[0]).lightState setBrightness:[NSNumber numberWithInt:128]];
+    //                    [((PHLight *)lights[0]).lightState setSaturation:[NSNumber numberWithInt:254]];
+    //                    
+    //                    
+    //                    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
+    //                        if (!errors){
+    //                            // Update successful
+    //                        } else {
+    //                            // Error occurred
+    //                        }
+    //                    }];
+                        
+                        NSLog(@"input ok with Error %f", inputTimingError);
+                        NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
+                        
                     }
                     else{
-                        [targetNote changeToGoodTiming];
+    //                    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    //                    // And now you can get any resource you want, for example:
+    //                    lights = [cache.lights allValues];
+    //                    
+    //                    if( !((PHLight *)lights[0]).lightState.on )
+    //                        break;
+    //                    [((PHLight *)lights[0]).lightState setTransitionTime:0];
+    //                    //                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
+    //                    [((PHLight *)lights[0]).lightState setOn:false];
+    //                    
+    //                    
+    //                    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
+    //                        if (!errors){
+    //                            // Update successful
+    //                        } else {
+    //                            // Error occurred
+    //                        }
+    //                    }];
+                        
                     }
-                    
-                    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
-                    // And now you can get any resource you want, for example:
-                    lights = [cache.lights allValues];
-                    [((PHLight *)lights[0]).lightState setTransitionTime:0];
-//                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
-                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:25500]];
-                    [((PHLight *)lights[0]).lightState setBrightness:[NSNumber numberWithInt:128]];
-                    [((PHLight *)lights[0]).lightState setSaturation:[NSNumber numberWithInt:254]];
-                    
-                    
-                    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
-                        if (!errors){
-                            // Update successful
-                        } else {
-                            // Error occurred
-                        }
-                    }];
-                    
-                    NSLog(@"input ok with Error %f", inputTimingError);
-                    NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
-                    
-                }
-                else{
-                    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
-                    // And now you can get any resource you want, for example:
-                    lights = [cache.lights allValues];
-                    
-                    if( !((PHLight *)lights[0]).lightState.on )
-                        break;
-                    [((PHLight *)lights[0]).lightState setTransitionTime:0];
-                    //                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
-                    [((PHLight *)lights[0]).lightState setOn:false];
-                    
-                    
-                    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
-                        if (!errors){
-                            // Update successful
-                        } else {
-                            // Error occurred
-                        }
-                    }];
-                    
                 }
                 break;
                 
@@ -335,6 +343,8 @@ PHBridgeSendAPI *bridgeSendAPI;
                         prevNumber = 3;
                     ((CommandNote*)_commandNotes[prevNumber]).isChangable = YES;
                     
+                    //character nodding according to the beat
+                    [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReadyNod];
                 }
                 
             }

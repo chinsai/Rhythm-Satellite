@@ -10,4 +10,10 @@
 
 @implementation Player
 
+-(id)initWithPlayerName: (NSString *) name{
+    self = [super init];
+    _playerName = name;
+    return self;
+}
+
 @end

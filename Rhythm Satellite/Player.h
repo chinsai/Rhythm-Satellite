@@ -22,5 +22,6 @@
 @property (nonatomic) uint8_t                       wakeupMinutes;
 
 
+-(id)initWithPlayerName: (NSString *) name;
 
 @end

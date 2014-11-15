@@ -13,15 +13,25 @@
 /* The different animation states of an animated character. */
 typedef enum : uint8_t {
     NoriAnimationStateIdle = 0,
+    NoriAnimationStateReady,
     NoriAnimationStateNod,
+    NoriAnimationStateReadyNod,
     NoriAnimationStateUp,
     NoriAnimationStateSides,
     NoriAnimationStateDown,
     NoriAnimationStateSleepy,
-    NoriAnimationStateSleeping
-    
+    NoriAnimationStateSleeping,
+    NoriAnimationStateAttack,
+    NoriAnimationStateBlock,
+    NoriAnimationStateCharge,
+    NoriAnimationStateUnknown
 } NoriAnimationState;
 
+typedef enum : uint8_t {
+    NoriColorWhite = 0,
+    NoriColorBlack = 0
+    
+} NoriBodyColor;
 
 @interface Character : SKSpriteNode
 
@@ -37,6 +47,7 @@ typedef enum : uint8_t {
 @property (nonatomic) NoriAnimationState                animationState;
 @property (nonatomic) BOOL                              isAnimated;
 @property (nonatomic) uint8_t                           chargedEnergy;
+@property (nonatomic) CGFloat                           animationSpeed;
 //@property (nonatomic) Player                            *player;
 
 
@@ -48,10 +59,9 @@ typedef enum : uint8_t {
 - (void)reset;
 
 - (void)takeCommand:(CommandType)command;
-
 - (uint32_t)attack;
 - (void)defendFor:(uint32_t)damage;
 - (void)charge;
 
-
+- (void)fireAnimationForState:(NoriAnimationState)state;
 @end

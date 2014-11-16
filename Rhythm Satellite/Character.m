@@ -261,7 +261,7 @@ NSArray *sidesAnimationFrames = nil;
     
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:atlasName];
     for (int i = 1; i <= numberOfFrames; i++) {
-        NSString *fileName = [NSString stringWithFormat:@"%@%04d.png", baseFileName, 5-i];
+        NSString *fileName = [NSString stringWithFormat:@"%@%04d.png", baseFileName, numberOfFrames+1-i];
         SKTexture *texture = [atlas textureNamed:fileName];
         [frames addObject:texture];
     }

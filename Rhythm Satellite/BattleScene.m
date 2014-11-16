@@ -242,15 +242,16 @@ BOOL                warmUp;
     
     SKAction *performAnimation =
     [SKAction runBlock:^(void){
+        NSLog(  @"Player 1 Perform Action: %@",[_defaultPlayer.character.nextAction toString] );
+        NSLog(  @"Player 2 Perform Action: %@",[_opponentPlayer.character.nextAction toString] );
         if(_defaultPlayer.character.nextAction){
             [_defaultPlayer.character updateCharge];
-            NSLog(  @"Player 1 Perform Action: %@",[_defaultPlayer.character.nextAction toString] );
-            NSLog(  @"Player 2 Perform Action: %@",[_opponentPlayer.character.nextAction toString] );
+            
             [_defaultPlayer.character compareResultFromCharacter:_opponentPlayer.character];
             _defaultPlayer.character.nextAction = nil;
-            NSLog(  @"Player 1 HP: %d Charge: %d",_defaultPlayer.character.hp, _defaultPlayer.character.chargedEnergy );
-            NSLog(  @"Player 2 HP: %d Charge: %d",_opponentPlayer.character.hp, _opponentPlayer.character.chargedEnergy );
         }
+        NSLog(  @"Player 1 HP: %d Charge: %d",_defaultPlayer.character.hp, _defaultPlayer.character.chargedEnergy );
+        NSLog(  @"Player 2 HP: %d Charge: %d",_opponentPlayer.character.hp, _opponentPlayer.character.chargedEnergy );
     }];
     
     //startoff with Warmup Beats

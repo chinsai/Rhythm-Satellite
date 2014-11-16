@@ -89,7 +89,7 @@ BOOL                warmUp;
     [self setUpMusicPlayer];
     if (!_defaultPlayer) {
         _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
-        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:5 withMoney:1000];
+        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000];
         _defaultPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-100);
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
         [self addChild:_defaultPlayer.character];
@@ -97,7 +97,7 @@ BOOL                warmUp;
     }
     
     _opponentPlayer = [[Player alloc]initWithPlayerName:@"OIKOS"];
-    _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:5 withMoney:1000];
+    _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000];
     _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-100);
     [_opponentPlayer.character fireAnimationForState:NoriAnimationStateReady];
     [self addChild:_opponentPlayer.character];
@@ -157,11 +157,7 @@ BOOL                warmUp;
             
             //if all the rounds are finished
             if( _numOfRounds == 0){
-                timeElapsed = 0;
-                previousTime = 0;
-                _gameState = SCANNING;
-                [self removeActionForKey:GoSoundKey];
-                [self removeActionForKey:InputAndAnimationKey];
+                [self battleEnded];
                 break;
             }
             
@@ -181,18 +177,7 @@ BOOL                warmUp;
 
                 
                 //CHECK INPUT
-                if( latestCommand.input == NEUTRAL ){
-                    //if no input
-                    
-                    
-                    if ( timeElapsed > commandNumber*_secPerBeat + errorTolerance) {
-                        //failed to input on time
-                        // inputFailed = YES;
-                        
-                    }
-                    break;
-                }
-                else{
+                if( latestCommand.input != NEUTRAL ){
                     //show animation of input
                     [_defaultPlayer.character takeCommand:latestCommand.input];
                     
@@ -213,23 +198,11 @@ BOOL                warmUp;
                 break;
                 
             }
-            
             //when it is not the time for player commands
             else {
+                //animation
+                //round result
                 
-//                NSLog(@"for showing result");
-                
-                if( timeElapsed == _secPerBeat*0 && beatTiming){
-                    //start of the animation period
-                    
-                    //if defaultplayer has the input
-                    if(_defaultPlayer.character.nextAction){
-                        NSLog(  @"Perform Action: %@",[_defaultPlayer.character.nextAction toString] );
-                        _defaultPlayer.character.nextAction = nil;
-                    }
-                    
-                }
-              
             }
             
             break;
@@ -270,8 +243,13 @@ BOOL                warmUp;
     SKAction *performAnimation =
     [SKAction runBlock:^(void){
         if(_defaultPlayer.character.nextAction){
-            NSLog(  @"Perform Action: %@",[_defaultPlayer.character.nextAction toString] );
+            [_defaultPlayer.character updateCharge];
+            NSLog(  @"Player 1 Perform Action: %@",[_defaultPlayer.character.nextAction toString] );
+            NSLog(  @"Player 2 Perform Action: %@",[_opponentPlayer.character.nextAction toString] );
+            [_defaultPlayer.character compareResultFromCharacter:_opponentPlayer.character];
             _defaultPlayer.character.nextAction = nil;
+            NSLog(  @"Player 1 HP: %d Charge: %d",_defaultPlayer.character.hp, _defaultPlayer.character.chargedEnergy );
+            NSLog(  @"Player 2 HP: %d Charge: %d",_opponentPlayer.character.hp, _opponentPlayer.character.chargedEnergy );
         }
     }];
     
@@ -279,40 +257,53 @@ BOOL                warmUp;
     [self runAction:[SKAction waitForDuration:_secPerBeat*8] completion: ^(void){
         warmUp = NO;
         //start main loop
-        SKAction *inputAndAnimationLoop = [SKAction sequence:@[
-                                                               [SKAction runBlock: ^(void){_isInputTiming = YES;
-                                                                                            timeElapsed = 0;
-                                                                                            _isInputTiming = YES;
-                                                                                            //clear out input commands
-                                                                                            [_inputCommands removeAllObjects];}],
-                                                               
-                                                               [SKAction waitForDuration:_secPerBeat*4],
-                                                               
-                                                               [SKAction runBlock: ^(void){_isInputTiming = NO;
-                                                                                            timeElapsed = 0;
-                                                                                            _isInputTiming = NO;
-                                                                                            _numOfRounds --;}],
-                                                               
-                                                               performAnimation,
-                                                               
-                                                               [SKAction waitForDuration:_secPerBeat*4]
-                                                               
-                                                               ]
-                                           ];
-        
-        
+        SKAction *inputAndAnimationLoop =
+        [SKAction sequence:@[
+                             
+                           [SKAction runBlock:
+                            ^(void){
+                                [self resetForInputTime];
+                                [_opponentPlayer.character animateMovesWithSecondsPerBeat:_secPerBeat];
+                            }],
+                           
+                           //4 beats for input
+                           [SKAction waitForDuration:_secPerBeat*4],
+                           
+                           [SKAction runBlock:
+                            ^(void){
+                                [self resetForAnimationTime];
+                            }],
+                           
+                           performAnimation,
+                           
+                           //4 beats for result, animation
+                           [SKAction waitForDuration:_secPerBeat*4]
+                           
+                           ]
+       ];
+
         [self runAction:[SKAction repeatActionForever:inputAndAnimationLoop] withKey:InputAndAnimationKey];
     }];
-
-    
-    
-    
-    
 }
+
+-(void)resetForInputTime{
+    _isInputTiming = YES;
+    timeElapsed = 0;
+    //clear out input commands
+    [_inputCommands removeAllObjects];
+    [_opponentPlayer.character generateAction];
+    _numOfRounds --;
+}
+
+-(void)resetForAnimationTime{
+    _isInputTiming = NO;
+    timeElapsed = 0;
+}
+
 
 -(void)resetBattle{
     //reset the attribute
-    _numOfRounds = 16;
+    _numOfRounds = 21;
     timeElapsed = 0;
     previousTime = 0;
     beatTick = _secPerBeat*0.98;
@@ -321,7 +312,13 @@ BOOL                warmUp;
     _isInputTiming = YES;
 }
 
-
+-(void) battleEnded{
+    timeElapsed = 0;
+    previousTime = 0;
+    _gameState = SCANNING;
+    [self removeActionForKey:GoSoundKey];
+    [self removeActionForKey:InputAndAnimationKey];
+}
 
 -(Command *)getLatestCommand{
     

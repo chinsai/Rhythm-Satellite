@@ -30,8 +30,7 @@ typedef enum : uint8_t {
 
 typedef enum : uint8_t {
     NoriColorWhite = 0,
-    NoriColorBlack = 0
-    
+    NoriColorBlack
 } NoriBodyColor;
 
 @interface Character : SKSpriteNode
@@ -50,7 +49,6 @@ typedef enum : uint8_t {
 @property (nonatomic) uint8_t                           chargedEnergy;
 @property (nonatomic) CGFloat                           animationSpeed;
 @property (nonatomic, strong) Action                      *nextAction;
-//@property (nonatomic) Player                            *player;
 
 
 
@@ -64,6 +62,9 @@ typedef enum : uint8_t {
 - (uint32_t)attack;
 - (void)defendFor:(uint32_t)damage;
 - (void)charge;
-
 - (void)fireAnimationForState:(NoriAnimationState)state;
+- (Action *)generateAction;
+-(void)updateCharge;
+- (void)compareResultFromCharacter: (Character*)character;
+-(void)animateMovesWithSecondsPerBeat:(float) sec;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "Character.h"
-
+#import "Command.h"
 
 #define nodFrames 2
 #define movementFrames 4
@@ -74,15 +74,15 @@ NSArray *sidesAnimationFrames = nil;
 }
 
 - (uint32_t)attack{
-    ;
+    _chargedEnergy--;
     return _att;
 }
 - (void)defendFor:(uint32_t)damage{
-    ;
+    _hp=_hp-(damage-_def);
 }
 
 - (void)charge{
-    
+    _chargedEnergy++;
 }
 
 - (void)fireAnimationForState:(NoriAnimationState)state{
@@ -169,12 +169,99 @@ NSArray *sidesAnimationFrames = nil;
 }
 
 
+- (Action *)generateAction{
+    if (!_nextAction) {
+        _nextAction = [[Action alloc]initWithRandomAction];
+    }else{
+        [_nextAction randomAction];
+    }
+    while (_nextAction.actionType == ATTACK && _chargedEnergy == 0) {
+        [_nextAction randomAction];
+    }
+    while (_nextAction.actionType == CHARGE && _chargedEnergy == 4) {
+        [_nextAction randomAction];
+    }
+    
+    [self updateCharge];
+    NSLog(@"%@", [_nextAction toString]);
+    return _nextAction;
+}
+
+-(void)updateCharge{
+    switch (_nextAction.actionType) {
+        case ATTACK:
+            if (_chargedEnergy == 0) {
+                [_nextAction setActionWithType:NONE];
+                return;
+            }
+            _chargedEnergy--;
+            break;
+        case CHARGE:
+            if(_chargedEnergy == 4){
+                return;
+            }
+            _chargedEnergy++;
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)animateMovesWithSecondsPerBeat:(float) sec{
+    if (!_nextAction){
+        return;
+    }
+    NSArray *temp =_nextAction.commands;
+    [self runAction:[SKAction sequence:@[
+                                         [SKAction runBlock:^(void){[self takeCommand:((Command*)temp[0]).input];}],
+                                         [SKAction waitForDuration: sec],
+                                         [SKAction runBlock:^(void){[self takeCommand:((Command*)temp[1]).input];}],
+                                         [SKAction waitForDuration: sec],
+                                         [SKAction runBlock:^(void){[self takeCommand:((Command*)temp[2]).input];}],
+                                         [SKAction waitForDuration: sec],
+                                         [SKAction runBlock:^(void){[self takeCommand:((Command*)temp[3]).input];}]
+                                         ]]];
+}
+
+- (void)compareResultFromCharacter: (Character*)character{
+    
+    switch (character.nextAction.actionType) {
+        case ATTACK:
+            if(!_nextAction){
+                _hp = _hp-character.att;
+            }
+            else if(_nextAction.actionType == BLOCK){
+                _hp = _hp - (character.att-_def);
+            }
+            else if(_nextAction.actionType == ATTACK){
+                ;
+            }
+            else{
+                _hp = _hp-character.att;
+            }
+            break;
+        case BLOCK:
+            if(_nextAction.actionType == ATTACK){
+                character.hp = character.hp - (_att-character.def);
+            }
+            break;
+        case CHARGE:
+            if(_nextAction.actionType == ATTACK){
+                character.hp = character.hp - _att;
+            }
+            break;
+        default:
+            break;
+    }
+    
+}
+
 - (NSArray *) loadFramesFromAtlas:(NSString *)atlasName withBaseFile:(NSString *)baseFileName Frames:(int) numberOfFrames {
     NSMutableArray *frames = [NSMutableArray arrayWithCapacity:numberOfFrames];
     
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:atlasName];
     for (int i = 1; i <= numberOfFrames; i++) {
-        NSString *fileName = [NSString stringWithFormat:@"%@%04d.png", baseFileName, i];
+        NSString *fileName = [NSString stringWithFormat:@"%@%04d.png", baseFileName, 5-i];
         SKTexture *texture = [atlas textureNamed:fileName];
         [frames addObject:texture];
     }

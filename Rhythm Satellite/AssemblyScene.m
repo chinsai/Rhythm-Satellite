@@ -17,6 +17,8 @@
 
 #define MAX_HUE 65536
 
+#define GoSoundKey @"gosound"
+
 typedef enum assemblyStateType{
     SETUP,
     SCANNING,
@@ -147,7 +149,7 @@ PHBridgeSendAPI *bridgeSendAPI;
         case SCANNING:
             //if there is peripheral connected
             if(_btReceiver.hasConnectedPeripheral){
-                gameState = ENDED;
+                gameState = READY;
                 NSLog(@"go to READY");
             }
             
@@ -172,16 +174,15 @@ PHBridgeSendAPI *bridgeSendAPI;
             timeElapsed += currentTime - previousTime;
 //            NSLog(@"timeElapsed: %f, SecPerBeat: %f, RoundsLeft: %d", timeElapsed, _secPerBeat, _numOfRounds);
             
-            //update the command input
-            latestCommand = [self getLatestCommand];
+//            //update the command input
+//            latestCommand = [self getLatestCommand];
             
             //if all the rounds are finished
             if( _numOfRounds == 0){
-//                [_btReceiver cleanup];
-//                [_btReceiver scan];
                 timeElapsed = 0;
                 previousTime = 0;
-                gameState = ENDED;
+                [self removeActionForKey:GoSoundKey];
+                gameState = SCANNING;
                 break;
             }
             
@@ -193,11 +194,13 @@ PHBridgeSendAPI *bridgeSendAPI;
                     timeElapsed = 0;
                     _isInputTiming = NO;
                     _numOfRounds --;
+                    
                     //reset the notes to all gray
                     for (CommandNote* note in _commandNotes) {
                         note.isActive = NO;
                         [note changeToNeutral];
                     }
+                    
                     //random the next target action
                     if(!_targetAction){
                         _targetAction = [[Action alloc]initWithRandomAction];
@@ -283,7 +286,7 @@ PHBridgeSendAPI *bridgeSendAPI;
                 }
                 
                 if(timeElapsed >= _secPerBeat *2.7 && readyFlag){
-                    [self runAction:[SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO]];
+//                    [self runAction:[SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO]];
                     readyFlag = NO;
                 }
                 
@@ -329,20 +332,35 @@ PHBridgeSendAPI *bridgeSendAPI;
     [self resetAssembly];
     
     //play the music once it starts
+    if([_musicPlayer isPlaying]){
+        [_musicPlayer stop];
+    }
     [_musicPlayer play];
+    
+    SKAction *go = [SKAction sequence:@[
+                                        [SKAction waitForDuration:_secPerBeat*7],
+                                        [SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO],
+                                        [SKAction waitForDuration:_secPerBeat]
+                                        ]
+                    ];
+    
+    [self runAction:[SKAction repeatActionForever:go] withKey:GoSoundKey];
+
+    
     
 }
 
 
 -(void)resetAssembly{
     //reset the attribute
-    _numOfRounds = 1;
+    _numOfRounds = 16;
     timeElapsed = 0;
     previousTime = 0;
     
     //todo
     //reset the command notes
     [_targetAction setActionWithType:NONE];
+       
 }
 
 -(Command *)getLatestCommand{

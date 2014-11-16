@@ -9,6 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "Character.h"
 #import "Command.h"
+#import "Action.h"
 
 /* The different animation states of an animated character. */
 typedef enum : uint8_t {
@@ -48,6 +49,7 @@ typedef enum : uint8_t {
 @property (nonatomic) BOOL                              isAnimated;
 @property (nonatomic) uint8_t                           chargedEnergy;
 @property (nonatomic) CGFloat                           animationSpeed;
+@property (nonatomic, strong) Action                      *nextAction;
 //@property (nonatomic) Player                            *player;
 
 

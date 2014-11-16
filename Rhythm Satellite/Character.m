@@ -46,7 +46,7 @@ NSArray *sidesAnimationFrames = nil;
     _bodyColor = NoriColorWhite;
     _chargedEnergy = 0;
     _animationSpeed = 1.0f/20.0f;;
-    
+    _nextAction = nil;
     
     
     return self;

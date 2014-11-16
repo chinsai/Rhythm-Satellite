@@ -23,10 +23,13 @@ typedef enum : uint8_t{
 @interface Action : NSObject
 
 @property (nonatomic, strong) NSArray               *commands;
+@property (nonatomic) ActionType                    actionType;
 
 -(Action *) init;
 -(Action *) initWithAction: (ActionType) action;
 -(Action *) initWithRandomAction;
 -(void) randomAction;
 -(void) setActionWithType: (ActionType) action;
+-(NSString *) toString;
++(Action *) retrieveActionFrom: (NSArray *)commands;
 @end

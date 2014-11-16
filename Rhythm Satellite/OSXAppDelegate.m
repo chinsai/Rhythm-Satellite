@@ -46,9 +46,14 @@
     
     _btReceiver = [[BTCentralModule alloc] init];
     
-    AssemblyScene *scene = [[AssemblyScene alloc] initWithSize:self.skView.bounds.size];
+//    AssemblyScene *scene = [[AssemblyScene alloc] initWithSize:self.skView.bounds.size];
 
+    
+    
 //    /* Set the scale mode to scale to fit the window */
+    BattleScene *scene = [self getBattleScene];
+//    AssemblyScene *scene = [self getAssemblyScene];
+    
     scene.scaleMode = SKSceneScaleModeAspectFit;
 
     [self.skView presentScene:scene];

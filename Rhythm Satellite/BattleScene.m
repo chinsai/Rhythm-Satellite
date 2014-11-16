@@ -14,8 +14,9 @@
 
 #import "OSXAppDelegate.h"
 
-#define errorTolerance 0.3
-
+#define errorTolerance 0.2
+#define GoSoundKey @"gosound"
+#define InputAndAnimationKey @"inputandanimation"
 
 typedef enum : uint8_t {
     SCANNING,
@@ -39,6 +40,9 @@ NSTimeInterval      lastCommandTiming;
 NSTimeInterval      beatTick;
 int                 warmUpBeats;
 BOOL                beatTiming;
+BOOL                warmUp;
+
+
 @interface BattleScene()
 
 @property (nonatomic, strong) NSArray               *players;
@@ -105,14 +109,13 @@ BOOL                beatTiming;
     _isInputTiming = NO;
     _secPerBeat = 60.0/120.0;
     _numOfRounds = 0;
-    _gameState = GRAPHICSTEST;
+    _gameState = SCANNING;
 
     timeElapsed = 0;
     previousTime = 0;
     numOfReadyRound = 1;
-    beatTick = 0;
-    warmUpBeats = 8;
     beatTiming = NO;
+    warmUp = YES;
 }
 
 -(void)update:(NSTimeInterval)currentTime{
@@ -147,47 +150,25 @@ BOOL                beatTiming;
         case PLAYING:
 
             timeElapsed += currentTime - previousTime;
-            beatTick += currentTime - previousTime;
-            
-            if(beatTick> _secPerBeat*0.98){
-                //reset beat tick
-                beatTick = 0.0;
-                beatTiming = YES;
-            }else{
-                beatTiming = NO;
-            }
 
-            
-            if(warmUpBeats>0){
-                if (beatTiming) {
-                    NSLog(@"Countdown: %d", warmUpBeats);
-                    warmUpBeats--;
-                    break;
-                }
+            if(warmUp){
+                break;
             }
-            
             
             //if all the rounds are finished
             if( _numOfRounds == 0){
                 timeElapsed = 0;
                 previousTime = 0;
                 _gameState = SCANNING;
+                [self removeActionForKey:GoSoundKey];
+                [self removeActionForKey:InputAndAnimationKey];
                 break;
             }
             
             //when is is the turn for player to input command
             if(_isInputTiming){
+//                NSLog(@"user input");
                 
-                
-                //when finish one round of 4 beats
-                if(timeElapsed >= _secPerBeat*3.98){
-                    timeElapsed = 0;
-                    _isInputTiming = NO;
-                    _numOfRounds --;
-
-                    
-                    break;
-                }
                 
                 
                 int commandNumber = timeElapsed/_secPerBeat;
@@ -199,11 +180,12 @@ BOOL                beatTiming;
                 }
 
                 
+                //CHECK INPUT
                 if( latestCommand.input == NEUTRAL ){
                     //if no input
                     
                     
-                    if ( timeElapsed > commandNumber*_secPerBeat + GOOD_TIMING_DELTA) {
+                    if ( timeElapsed > commandNumber*_secPerBeat + errorTolerance) {
                         //failed to input on time
                         // inputFailed = YES;
                         
@@ -211,33 +193,42 @@ BOOL                beatTiming;
                     break;
                 }
                 else{
+                    //show animation of input
+                    [_defaultPlayer.character takeCommand:latestCommand.input];
                     
-                    
+                    if( inputTimingError <= errorTolerance){
+                        NSLog(@"successful input");
+                        [_inputCommands addObject:latestCommand];
+                        
+                        //if there are 4 commands, create an action for the character
+                        if( [_inputCommands count] == 4){
+                            _defaultPlayer.character.nextAction = [Action retrieveActionFrom:_inputCommands];
+
+                        }
+                    }
                     
                 }
                 
-                if( inputTimingError <= GOOD_TIMING_DELTA){
-                    
-                    
-                }
+                
                 break;
                 
             }
             
             //when it is not the time for player commands
             else {
-                //if its time for switch
-                if(timeElapsed >= _secPerBeat*3.98){
-                    timeElapsed = 0;
-                    _isInputTiming = YES;
-                    
-                    break;
-                }
                 
-                if(timeElapsed >= _secPerBeat *2.7){
-//                    [self runAction:[SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO]];
+//                NSLog(@"for showing result");
+                
+                if( timeElapsed == _secPerBeat*0 && beatTiming){
+                    //start of the animation period
+                    
+                    //if defaultplayer has the input
+                    if(_defaultPlayer.character.nextAction){
+                        NSLog(  @"Perform Action: %@",[_defaultPlayer.character.nextAction toString] );
+                        _defaultPlayer.character.nextAction = nil;
+                    }
+                    
                 }
-
               
             }
             
@@ -265,16 +256,69 @@ BOOL                beatTiming;
     //play the music once it starts
     [_musicPlayer play];
     
+    //Loop for GO signal
+    SKAction *go = [SKAction sequence:@[
+                                        [SKAction waitForDuration:_secPerBeat*7],
+                                        [SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO],
+                                        [SKAction waitForDuration:_secPerBeat]
+                                        ]
+                     ];
+    
+    [self runAction:[SKAction repeatActionForever:go] withKey:GoSoundKey];
+    
+    
+    SKAction *performAnimation =
+    [SKAction runBlock:^(void){
+        if(_defaultPlayer.character.nextAction){
+            NSLog(  @"Perform Action: %@",[_defaultPlayer.character.nextAction toString] );
+            _defaultPlayer.character.nextAction = nil;
+        }
+    }];
+    
+    //startoff with Warmup Beats
+    [self runAction:[SKAction waitForDuration:_secPerBeat*8] completion: ^(void){
+        warmUp = NO;
+        //start main loop
+        SKAction *inputAndAnimationLoop = [SKAction sequence:@[
+                                                               [SKAction runBlock: ^(void){_isInputTiming = YES;
+                                                                                            timeElapsed = 0;
+                                                                                            _isInputTiming = YES;
+                                                                                            //clear out input commands
+                                                                                            [_inputCommands removeAllObjects];}],
+                                                               
+                                                               [SKAction waitForDuration:_secPerBeat*4],
+                                                               
+                                                               [SKAction runBlock: ^(void){_isInputTiming = NO;
+                                                                                            timeElapsed = 0;
+                                                                                            _isInputTiming = NO;
+                                                                                            _numOfRounds --;}],
+                                                               
+                                                               performAnimation,
+                                                               
+                                                               [SKAction waitForDuration:_secPerBeat*4]
+                                                               
+                                                               ]
+                                           ];
+        
+        
+        [self runAction:[SKAction repeatActionForever:inputAndAnimationLoop] withKey:InputAndAnimationKey];
+    }];
+
+    
+    
+    
+    
 }
 
 -(void)resetBattle{
     //reset the attribute
-    _numOfRounds = 20;
+    _numOfRounds = 16;
     timeElapsed = 0;
     previousTime = 0;
-    beatTick = 0;
+    beatTick = _secPerBeat*0.98;
     warmUpBeats = 8;
-    beatTiming;
+    beatTiming = NO;
+    _isInputTiming = YES;
 }
 
 

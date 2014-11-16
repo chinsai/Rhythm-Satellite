@@ -12,7 +12,7 @@
 #import "MotionControllerModule.h"
 #import "AlarmClockModule.h"
 #import "Character.h"
-#import "AppDelegate.h"
+#import "iOSAppDelegate.h"
 
 
 typedef enum mainSceneStateType{
@@ -200,11 +200,11 @@ typedef enum mainSceneStateType{
 }
 
 -(void)playAlarm{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.bgmPlayer play];
 }
 -(void)stopAlarm{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.bgmPlayer stop];
     appDelegate.bgmPlayer.currentTime = 0;
 }

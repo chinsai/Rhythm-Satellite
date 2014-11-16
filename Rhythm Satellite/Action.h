@@ -9,7 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 
 
-typedef enum actions{
+typedef enum : uint8_t{
     NONE,
     ATTACK,
     BLOCK,

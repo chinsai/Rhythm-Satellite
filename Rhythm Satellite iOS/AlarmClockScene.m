@@ -9,7 +9,7 @@
 
 #import <CoreMotion/CoreMotion.h>
 #import "AlarmClockScene.h"
-#import "AppDelegate.h"
+#import "iOSAppDelegate.h"
 
 
 #define DELTA_THRESHOLD 1
@@ -54,7 +54,7 @@ typedef enum alarmStateTypes{
     
     //Set up motion sensor update interval
     NSTimeInterval updateInterval = 0.01;
-    _mManager = [(AppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
+    _mManager = [(iOSAppDelegate *)[[UIApplication sharedApplication] delegate] sharedManager];
     if ([_mManager isDeviceMotionAvailable] == YES) {
         [_mManager setDeviceMotionUpdateInterval:updateInterval];
         [_mManager startDeviceMotionUpdates];
@@ -257,11 +257,11 @@ typedef enum alarmStateTypes{
 }
 
 -(void)playBGM{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.bgmPlayer play];
 }
 -(void)stopBGM{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.bgmPlayer stop];
     appDelegate.bgmPlayer.currentTime = 0;
 }

@@ -13,7 +13,7 @@
 #define GOOD_TIMING_DELTA 0.2
 
 
-typedef enum directions{
+typedef enum : uint8_t{
     NEUTRAL,
     UP,
     SIDES,

@@ -62,10 +62,10 @@
             break;
             
         case CHARGE:
-            ((Command*)_commands[0]).input = DOWN;
-            ((Command*)_commands[1]).input = DOWN;
-            ((Command*)_commands[2]).input = UP;
-            ((Command*)_commands[3]).input = UP;
+            ((Command*)_commands[0]).input = UP;
+            ((Command*)_commands[1]).input = UP;
+            ((Command*)_commands[2]).input = DOWN;
+            ((Command*)_commands[3]).input = DOWN;
             break;
             
         default:

@@ -11,7 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BTPeripheralModule.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface iOSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow                      *window;
 @property (strong, nonatomic, readonly) CMMotionManager     *sharedManager;

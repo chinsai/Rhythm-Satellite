@@ -121,7 +121,7 @@
                 </constraints>
             </view>
         </window>
-        <customObject id="494" customClass="AppDelegate">
+        <customObject id="494" customClass="OSXAppDelegate">
             <connections>
                 <outlet property="skView" destination="539" id="540"/>
                 <outlet property="window" destination="371" id="532"/>

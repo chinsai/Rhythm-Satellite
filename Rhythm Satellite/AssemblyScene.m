@@ -8,13 +8,12 @@
 
 #import "AssemblyScene.h"
 #import <AVFoundation/AVFoundation.h>
-#import "BTCentralModule.h"
-#import "BTPeripheralModule.h"
 #import "CommandNote.h"
 #import "Action.h"
 #import "Command.h"
 #import "Player.h"
 #import <HueSDK_OSX/HueSDK.h>
+#import "OSXAppDelegate.h"
 
 #define MAX_HUE 65536
 
@@ -43,16 +42,11 @@ PHBridgeSendAPI *bridgeSendAPI;
 
 @interface AssemblyScene()
 
-// array of character stage
-@property (nonatomic, strong) NSArray               *charactertStages;
-
-// array of character stage
-@property (nonatomic, strong) NSArray               *characters;
 
 @property (nonatomic, strong) NSArray               *players;
 
 @property (nonatomic, strong) Player                *defaultPlayer;
-// background
+
 @property (nonatomic, strong) SKSpriteNode          *background;
 
 // cover
@@ -114,6 +108,7 @@ PHBridgeSendAPI *bridgeSendAPI;
     _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:5 withMoney:1000];
     _defaultPlayer.character.position = CGPointMake(200, CGRectGetMidY(self.frame)-100);
     [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
+    [_defaultPlayer.character setScale:0.7f];
     [self addChild:_defaultPlayer.character];
     
     
@@ -121,10 +116,10 @@ PHBridgeSendAPI *bridgeSendAPI;
     //music player
     [self setUpMusicPlayer];
 
-    _btReceiver = [[BTCentralModule alloc] init];
+    _btReceiver = ((OSXAppDelegate *)[[NSApplication sharedApplication] delegate]).btReceiver;
     _isInputTiming = NO;
     _secPerBeat = 60.0/120.0;
-    _numOfRounds = 16;
+    _numOfRounds = 0;
     
     gameState = SCANNING;
     timeElapsed = 0;
@@ -144,7 +139,7 @@ PHBridgeSendAPI *bridgeSendAPI;
     
     
     
-    Command* latestCommand;
+    Command* latestCommand =[self getLatestCommand];;
     
     switch (gameState) {
         case SETUP:
@@ -152,7 +147,7 @@ PHBridgeSendAPI *bridgeSendAPI;
         case SCANNING:
             //if there is peripheral connected
             if(_btReceiver.hasConnectedPeripheral){
-                gameState = READY;
+                gameState = ENDED;
                 NSLog(@"go to READY");
             }
             
@@ -163,7 +158,6 @@ PHBridgeSendAPI *bridgeSendAPI;
             break;
         case READY:
             //update the command input to look for a TAP command
-            latestCommand = [self getLatestCommand];
             if (latestCommand.input == TAP) {
                 [self startGame];
 //                gameState = GRAPHICSTEST;
@@ -183,11 +177,11 @@ PHBridgeSendAPI *bridgeSendAPI;
             
             //if all the rounds are finished
             if( _numOfRounds == 0){
-                [_btReceiver cleanup];
-                [_btReceiver scan];
+//                [_btReceiver cleanup];
+//                [_btReceiver scan];
                 timeElapsed = 0;
                 previousTime = 0;
-                gameState = SCANNING;
+                gameState = ENDED;
                 break;
             }
             
@@ -264,47 +258,11 @@ PHBridgeSendAPI *bridgeSendAPI;
                             [targetNote changeToGoodTiming];
                         }
                         
-    //                    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
-    //                    // And now you can get any resource you want, for example:
-    //                    lights = [cache.lights allValues];
-    //                    [((PHLight *)lights[0]).lightState setTransitionTime:0];
-    ////                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
-    //                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:25500]];
-    //                    [((PHLight *)lights[0]).lightState setBrightness:[NSNumber numberWithInt:128]];
-    //                    [((PHLight *)lights[0]).lightState setSaturation:[NSNumber numberWithInt:254]];
-    //                    
-    //                    
-    //                    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
-    //                        if (!errors){
-    //                            // Update successful
-    //                        } else {
-    //                            // Error occurred
-    //                        }
-    //                    }];
-                        
                         NSLog(@"input ok with Error %f", inputTimingError);
                         NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
                         
                     }
                     else{
-    //                    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
-    //                    // And now you can get any resource you want, for example:
-    //                    lights = [cache.lights allValues];
-    //                    
-    //                    if( !((PHLight *)lights[0]).lightState.on )
-    //                        break;
-    //                    [((PHLight *)lights[0]).lightState setTransitionTime:0];
-    //                    //                    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
-    //                    [((PHLight *)lights[0]).lightState setOn:false];
-    //                    
-    //                    
-    //                    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
-    //                        if (!errors){
-    //                            // Update successful
-    //                        } else {
-    //                            // Error occurred
-    //                        }
-    //                    }];
                         
                     }
                 }
@@ -352,14 +310,9 @@ PHBridgeSendAPI *bridgeSendAPI;
             break;
             
         case ENDED:
+            [self toTournament:latestCommand];
             break;
         case GRAPHICSTEST:
-            
-            if (latestCommand.input == TAP) {
-                // Get the cache
-                
-            }
-            
             break;
         default:
             break;
@@ -373,18 +326,23 @@ PHBridgeSendAPI *bridgeSendAPI;
 -(void)startGame{
     gameState = PLAYING;
     
+    [self resetAssembly];
+    
+    //play the music once it starts
+    [_musicPlayer play];
+    
+}
+
+
+-(void)resetAssembly{
     //reset the attribute
-    _numOfRounds = 16;
+    _numOfRounds = 1;
     timeElapsed = 0;
     previousTime = 0;
     
     //todo
     //reset the command notes
     [_targetAction setActionWithType:NONE];
-    
-    //play the music once it starts
-    [_musicPlayer play];
-    
 }
 
 -(Command *)getLatestCommand{
@@ -398,6 +356,43 @@ PHBridgeSendAPI *bridgeSendAPI;
         [_btReceiver.receivedData setLength:0];
     }
     return command;
+}
+
+-(void)sendHueChange{
+    
+    cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    [((PHLight *)lights[0]).lightState setTransitionTime:0];
+    // [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:arc4random() % MAX_HUE]];
+    [((PHLight *)lights[0]).lightState setHue:[NSNumber numberWithInt:25500]];
+    [((PHLight *)lights[0]).lightState setBrightness:[NSNumber numberWithInt:128]];
+    [((PHLight *)lights[0]).lightState setSaturation:[NSNumber numberWithInt:254]];
+
+
+    [bridgeSendAPI updateLightStateForId:((PHLight *)lights[0]).identifier withLightState:((PHLight *)lights[0]).lightState completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+        } else {
+            // Error occurred
+        }
+    }];
+
+}
+
+-(void)toTournament:(Command *)cmd{
+    
+    if(cmd.input == UP){
+        NSLog(@"going to battle scene");
+        [_musicPlayer stop];
+        BattleScene *bs = NSAppDelegate.battleScene;
+        [bs transferPlayer:_defaultPlayer];
+        SKTransition *transition = [SKTransition doorsCloseHorizontalWithDuration:0.5];
+        [self.view presentScene:bs transition:transition];
+        
+        
+    }
+    
 }
 
 -(void)setUpMusicPlayer{

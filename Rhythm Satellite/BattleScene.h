@@ -7,7 +7,13 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "Player.h"
 
 @interface BattleScene : SKScene
+
+
+-(void)transferPlayer:(Player*)player;
+
+
 
 @end

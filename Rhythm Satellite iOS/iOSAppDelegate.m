@@ -6,16 +6,16 @@
 //  Copyright (c) 2014年 Kiron. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "iOSAppDelegate.h"
 
-@interface AppDelegate (){
+@interface iOSAppDelegate (){
 
     CMMotionManager *motionmanager;
 }
 
 @end
 
-@implementation AppDelegate
+@implementation iOSAppDelegate
 
 
 - (CMMotionManager *)sharedManager

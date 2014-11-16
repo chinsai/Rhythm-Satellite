@@ -7,7 +7,7 @@
 //
 
 #import "AlarmClockModule.h"
-#import "AppDelegate.h"
+#import "iOSAppDelegate.h"
 
 @implementation AlarmClockModule
 

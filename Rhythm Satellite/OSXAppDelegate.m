@@ -6,11 +6,11 @@
 //  Copyright (c) 2014年 Kiron. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "OSXAppDelegate.h"
 #import "AssemblyScene.h"
 
 
-@interface AppDelegate()
+@interface OSXAppDelegate()
 @property (nonatomic, strong) NSAlert *noConnectionAlert;
 @property (nonatomic, strong) NSAlert *noBridgeFoundAlert;
 @property (nonatomic, strong) NSAlert *authenticationFailedAlert;
@@ -37,11 +37,14 @@
 
 @end
 
-@implementation AppDelegate
+@implementation OSXAppDelegate
 
 @synthesize window = _window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    
+    
+    _btReceiver = [[BTCentralModule alloc] init];
     
     AssemblyScene *scene = [[AssemblyScene alloc] initWithSize:self.skView.bounds.size];
 
@@ -54,12 +57,24 @@
     self.skView.ignoresSiblingOrder = YES;
     
     self.skView.showsFPS = YES;
-    self.skView.showsNodeCount = YES;
+//    self.skView.showsNodeCount = YES;
     
-    [self setUpHue];
+//    [self setUpHue];
     
 }
 
+-(BattleScene *)getBattleScene{
+    if(!_battleScene){
+        _battleScene = [[BattleScene alloc] initWithSize:self.skView.bounds.size];
+    }
+    return _battleScene;
+}
+-(AssemblyScene *)getAssemblyScene{
+    if(!_assemblyScene){
+        _assemblyScene = [[AssemblyScene alloc] initWithSize:self.skView.bounds.size];
+    }
+    return _assemblyScene;
+}
 
 -(void)setUpHue{
     /* HUE setup */

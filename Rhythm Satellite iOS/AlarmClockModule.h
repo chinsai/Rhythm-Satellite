@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum alarmStateTypes{
+typedef enum  : uint8_t{
     ALARM_ON,
     ALARM_PLAYING,
     ALARM_OFF

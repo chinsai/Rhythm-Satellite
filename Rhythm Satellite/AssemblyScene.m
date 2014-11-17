@@ -18,7 +18,7 @@
 #define MAX_HUE 65536
 
 #define GoSoundKey @"gosound"
-#define InputAndAnimationKey @"inputandanimation"
+#define InputAndDemoKey @"inputanddemo"
 
 typedef enum assemblyStateType{
     SETUP,
@@ -34,7 +34,7 @@ typedef enum assemblyStateType{
 typedef enum : uint8_t {
     NotTiming,
     GoodTiming,
-    PerfectTiming
+    GreatTiming
 } TimingGrade;
 
 NSTimeInterval      timeElapsed;
@@ -43,6 +43,9 @@ SKSpriteNode        *tempCharacter;
 int                 numOfReadyRound;
 BOOL                readyFlag;
 NSTimeInterval      lastCommandTiming;
+int                 commandNumber;
+
+
 PHBridgeResourcesCache *cache;
 NSArray *lights;
 PHBridgeSendAPI *bridgeSendAPI;
@@ -59,8 +62,6 @@ PHBridgeSendAPI *bridgeSendAPI;
 // cover
 @property (nonatomic, strong) SKSpriteNode          *cover;
 
-
-@property (nonatomic, strong) NSMutableArray        *inputCommands;
 @property (nonatomic, strong) NSArray               *commandNotes;
 
 // music
@@ -83,6 +84,7 @@ PHBridgeSendAPI *bridgeSendAPI;
 @property (nonatomic) AssemblyState                 gameState;
 
 @property (nonatomic) TimingGrade                    timing;
+
 @end
 
 
@@ -96,7 +98,6 @@ PHBridgeSendAPI *bridgeSendAPI;
     _background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:_background];
     
-    _inputCommands = [[NSMutableArray alloc]init];
     _commandNotes = [NSArray arrayWithObjects:
                      [[CommandNote alloc] initWithDirection:NEUTRAL ],
                      [[CommandNote alloc] initWithDirection:NEUTRAL ],
@@ -197,79 +198,26 @@ PHBridgeSendAPI *bridgeSendAPI;
             //when is is the turn for player to input command
             if(_isInputTiming){
                 
-                //when finish one round of 4 beats
-                if(timeElapsed >= _secPerBeat*3.98){
-                    timeElapsed = 0;
-                    _isInputTiming = NO;
-                    _numOfRounds --;
-                    
-                    //reset the notes to all gray
-                    for (CommandNote* note in _commandNotes) {
-                        note.isActive = NO;
-                        [note changeToNeutral];
-                    }
-                    
-                    //random the next target action
-                    if(!_targetAction){
-                        _targetAction = [[Action alloc]initWithRandomAction];
-                    }
-                    else{
-                        [_targetAction randomAction];
-                    }
-                
-                    break;
-                }
-                
-                
-                if(timeElapsed >= _secPerBeat *3 && !readyFlag){
-                    readyFlag = YES;
-                }
-                    
-                int commandNumber = timeElapsed/_secPerBeat;
-                float inputTimingError = timeElapsed - commandNumber*_secPerBeat;
-                
-                //remove negative number, get absolute value
-                if ( inputTimingError < 0){
-                    inputTimingError = -inputTimingError;
-                }
-                
-                Command *targetCommand = _targetAction.commands[commandNumber];
-                CommandNote *targetNote = _commandNotes[commandNumber];
-                
-                if( latestCommand.input == NEUTRAL ){
+                if( !latestCommand.input == NEUTRAL ){
                     //if no input
-                    
-                    
-                    if ( timeElapsed > commandNumber*_secPerBeat + GOOD_TIMING_DELTA) {
-                        //failed to input on time
-//                            inputFailed = YES;
-                        
-                    }
-                    break;
-                }
-                else{
                     
                     //if there is command, change characters animations
                     [_defaultPlayer.character takeCommand:latestCommand.input];
+                
+                    Command *targetCommand = _targetAction.commands[commandNumber];
+                    CommandNote *targetNote = _commandNotes[commandNumber];
                     
-                    if (currentTime - lastCommandTiming < 0.2) {
-                        latestCommand.input = NEUTRAL;
-                        break;
-                    }
-                    lastCommandTiming = currentTime;
-                
-                
-                    if( targetCommand.input == latestCommand.input && inputTimingError <= GOOD_TIMING_DELTA){
+                    if( targetCommand.input == latestCommand.input){
                         
                         //successful input
-                        if(inputTimingError<=GREAT_TIMING_DELTA){
+                        if(_timing == GreatTiming){
                             [targetNote changeToGreatTiming];
                         }
-                        else{
+                        else if(_timing == GoodTiming){
                             [targetNote changeToGoodTiming];
                         }
                         
-                        NSLog(@"input ok with Error %f", inputTimingError);
+//                        NSLog(@"input ok with Error %f", inputTimingError);
                         NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
                         
                     }
@@ -280,44 +228,6 @@ PHBridgeSendAPI *bridgeSendAPI;
                 break;
                 
             }
-            
-             //when it is not the time for player commands
-            else {
-                //if its time for switch
-                if(timeElapsed >= _secPerBeat*3.98){
-                    timeElapsed = 0;
-                    _isInputTiming = YES;
-                    for (CommandNote* note in _commandNotes) {
-                        note.isActive = YES;
-                    }
-                    break;
-                }
-                
-                if(timeElapsed >= _secPerBeat *2.7 && readyFlag){
-//                    [self runAction:[SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO]];
-                    readyFlag = NO;
-                }
-                
-                //show the commands that the player has to follo
-                    
-                int beatNumber = timeElapsed/_secPerBeat;
-                CommandNote *note = _commandNotes[beatNumber];
-                if (note.isChangable){
-                    [note changeTo:((Command*)_targetAction.commands[beatNumber]).input];
-                    
-                    //avoid unnecessary graphic updates
-                    note.isChangable = NO;
-                    int prevNumber = beatNumber - 1;
-                    if(prevNumber < 0)
-                        prevNumber = 3;
-                    ((CommandNote*)_commandNotes[prevNumber]).isChangable = YES;
-                    
-                    //character nodding according to the beat
-                    [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReadyNod];
-                }
-                
-            }
-            
             break;
             
         case ENDED:
@@ -341,10 +251,9 @@ PHBridgeSendAPI *bridgeSendAPI;
     
     //play the music once it starts
     [_musicPlayer play];
-    
-    [self runAction:[SKAction repeatActionForever:[self soundEffectGoAction]] completion: ^(void){
+    [self runAction:[self soundEffectGoAction] completion: ^(void){
         //start main loop
-        [self runAction:[SKAction repeatActionForever:[self mainLoop]] withKey:InputAndAnimationKey];
+        [self runAction:[SKAction repeatActionForever:[self mainLoop]] withKey:InputAndDemoKey];
     }];
 
     
@@ -354,29 +263,25 @@ PHBridgeSendAPI *bridgeSendAPI;
 
 -(SKAction *)mainLoop{
     return [SKAction sequence:@[
+                                //DEMO
+                                [SKAction runBlock:
+                                 ^(void){
+                                     [self resetForDemoTime];
+                                 }],
+                                
+                                //4 beats for input
+                                [self performDemo],
+                                
+                                //USER INPUT
                                 
                                 [SKAction runBlock:
                                  ^(void){
                                      [self resetForInputTime];
-                                     
-                                    //get input for 4 beats
-                                     [self runAction:[SKAction repeatAction:[self checkInputSequence] count:4]];
-                                     
-                                     
                                  }],
                                 
-                                //4 beats for input
-                                [SKAction waitForDuration:_secPerBeat*4],
-                                
-                                [SKAction runBlock:
-                                 ^(void){
-                                     [self resetForAnimationTime];
-                                 }],
-                                
-                                [self performAnimation],
-                                
-                                //4 beats for result, animation
-                                [SKAction waitForDuration:_secPerBeat*4]
+                                //get input for 4 beats
+                                [SKAction repeatAction:[self checkInputSequence] count:4]
+
                                 
                                 ]
             ];
@@ -394,52 +299,82 @@ PHBridgeSendAPI *bridgeSendAPI;
 
 -(SKAction *)checkInputSequence{
     return [SKAction sequence:@[
-                                [SKAction runBlock:^{_timing = GoodTiming;}],
+                                [SKAction runBlock:^{_timing = GreatTiming;}],
                                 
+                                [SKAction waitForDuration:GREAT_TIMING_DELTA],
+                                [SKAction runBlock:^{_timing = GoodTiming;}],
                                 [SKAction waitForDuration:GOOD_TIMING_DELTA],
-                                [SKAction runBlock:^{_timing = NotTiming;}],
-                                [SKAction waitForDuration:_secPerBeat - GOOD_TIMING_DELTA]
+                                [SKAction runBlock:^{_timing = NotTiming;commandNumber++;}],
+                                [SKAction waitForDuration:_secPerBeat - GOOD_TIMING_DELTA - GREAT_TIMING_DELTA]
                                 
                                 ]
             ];
 }
 
--(SKAction *)performAnimation{
-    return [SKAction runBlock:^(void){
-        [self processResult];
-    }];
+
+-(SKAction *)performDemo{
+    
+    return [SKAction sequence:@[
+                                [SKAction repeatAction:[self demoSequence] count:3],
+                                [SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO],
+                                [self demoSequence]
+                                ]];
+    
 }
 
--(void)processResult{
-//    if(!_defaultPlayer.character.nextAction){
-//        _defaultPlayer.character.nextAction = [[Action alloc]initWithAction:NONE];
-//    }
-//    [_defaultPlayer.character updateCharge];
-//    
-//    [_defaultPlayer.character compareResultFromCharacter:_opponentPlayer.character];
-//    _defaultPlayer.character.nextAction = nil;
+-(SKAction *)demoSequence{
+    return [SKAction sequence:@[
+                                [self changeNote],
+                                [SKAction waitForDuration:_secPerBeat],
+                                [SKAction runBlock:^{commandNumber++;}]
+                                ]
+            ];
+}
+
+
+
+
+-(SKAction *)changeNote{
+    return [SKAction runBlock:^(void){
+        CommandNote *note = _commandNotes[commandNumber];
+        [note changeTo:((Command*)_targetAction.commands[commandNumber]).input];
+        [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReadyNod];
+    }];
 }
 
 -(void)resetForInputTime{
     _isInputTiming = YES;
     timeElapsed = 0;
-    //clear out input commands
-//    [_inputCommands removeAllObjects];
+    commandNumber = 0;
     _numOfRounds --;
 }
 
--(void)resetForAnimationTime{
+-(void)resetForDemoTime{
     _isInputTiming = NO;
     timeElapsed = 0;
+    commandNumber = 0;
+    
+    //reset the notes to all gray
+    for (CommandNote* note in _commandNotes) {
+        [note changeToNeutral];
+    }
+    
+    //random the next target action
+    if(!_targetAction){
+        _targetAction = [[Action alloc]initWithRandomAction];
+    }
+    else{
+        [_targetAction randomAction];
+    }
+    
 }
 
 
 -(void)resetAssembly{
     //reset the attribute
-    _numOfRounds = 10;
+    _numOfRounds = 16;
     timeElapsed = 0;
-    previousTime = 0;
-    _isInputTiming = YES;
+    _isInputTiming = NO;
 }
 
 -(void)assemblyEnded{
@@ -448,7 +383,7 @@ PHBridgeSendAPI *bridgeSendAPI;
     _gameState = SCANNING;
     [self doVolumeFade];
     [self removeActionForKey:GoSoundKey];
-    [self removeActionForKey:InputAndAnimationKey];
+    [self removeActionForKey:InputAndDemoKey];
 }
 
 -(Command *)getLatestCommand{
@@ -472,15 +407,6 @@ PHBridgeSendAPI *bridgeSendAPI;
         [_defaultPlayer.character removeFromParent];
         [self addChild:_defaultPlayer.character];
     }
-}
-
-
--(void)setUpMusicPlayer{
-    NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RS1" withExtension:@"m4a"];
-    _musicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-    _musicPlayer.numberOfLoops = 0;
-    [_musicPlayer prepareToPlay];
 }
 
 -(void)doVolumeFade

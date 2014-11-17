@@ -236,6 +236,7 @@ NSTimeInterval      lastCommandTiming;
 -(SKAction *)mainLoop{
     return [SKAction sequence:@[
                                 
+                                //reset blocks
                                 [SKAction runBlock:
                                  ^(void){
                                      [self resetForInputTime];

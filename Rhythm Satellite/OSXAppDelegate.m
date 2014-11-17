@@ -51,8 +51,8 @@
     
     
 //    /* Set the scale mode to scale to fit the window */
-    BattleScene *scene = [self getBattleScene];
-//    AssemblyScene *scene = [self getAssemblyScene];
+//    BattleScene *scene = [self getBattleScene];
+    AssemblyScene *scene = [self getAssemblyScene];
     
     scene.scaleMode = SKSceneScaleModeAspectFit;
 
@@ -60,6 +60,8 @@
 
     /* Sprite Kit applies additional optimizations to improve rendering performance */
     self.skView.ignoresSiblingOrder = YES;
+    
+//    self.skView.frameInterval = 2;
     
     self.skView.showsFPS = YES;
 //    self.skView.showsNodeCount = YES;

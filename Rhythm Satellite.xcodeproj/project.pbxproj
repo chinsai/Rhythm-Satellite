@@ -64,6 +64,10 @@
 		98E3CE1B1A17009800626D20 /* Nori_Up.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE111A17009800626D20 /* Nori_Up.atlas */; };
 		98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
 		98E7C26B19F0E1F8006397DF /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 98E7C26919F0E1F8006397DF /* bgm.mp3 */; };
+		98ED635F1A196EBD00A9182B /* hill.png in Resources */ = {isa = PBXBuildFile; fileRef = 98ED635B1A196EBD00A9182B /* hill.png */; };
+		98ED63601A196EBD00A9182B /* hill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98ED635C1A196EBD00A9182B /* hill@2x.png */; };
+		98ED63651A1970E400A9182B /* hill_zoomed.png in Resources */ = {isa = PBXBuildFile; fileRef = 98ED63631A1970E400A9182B /* hill_zoomed.png */; };
+		98ED63661A1970E400A9182B /* hill_zoomed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98ED63641A1970E400A9182B /* hill_zoomed@2x.png */; };
 		98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98F0FC1D19F2A89A0071768B /* simplebeat.caf */; };
 		98F0FC2319F38D260071768B /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC2219F38D260071768B /* Command.m */; };
 		98F0FC2419F38D260071768B /* Command.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0FC2219F38D260071768B /* Command.m */; };
@@ -160,6 +164,10 @@
 		98E3CE101A17009800626D20 /* Nori_Sides.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Sides.atlas; sourceTree = "<group>"; };
 		98E3CE111A17009800626D20 /* Nori_Up.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Up.atlas; sourceTree = "<group>"; };
 		98E7C26919F0E1F8006397DF /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
+		98ED635B1A196EBD00A9182B /* hill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hill.png; sourceTree = "<group>"; };
+		98ED635C1A196EBD00A9182B /* hill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hill@2x.png"; sourceTree = "<group>"; };
+		98ED63631A1970E400A9182B /* hill_zoomed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hill_zoomed.png; path = ../hill_zoomed.png; sourceTree = "<group>"; };
+		98ED63641A1970E400A9182B /* hill_zoomed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hill_zoomed@2x.png"; path = "../hill_zoomed@2x.png"; sourceTree = "<group>"; };
 		98F0FC1D19F2A89A0071768B /* simplebeat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simplebeat.caf; sourceTree = "<group>"; };
 		98F0FC2119F38D260071768B /* Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Command.h; path = "Rhythm Satellite/Command.h"; sourceTree = "<group>"; };
 		98F0FC2219F38D260071768B /* Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Command.m; path = "Rhythm Satellite/Command.m"; sourceTree = "<group>"; };
@@ -382,6 +390,7 @@
 		98540F061A066BC2000BAC9C /* SpriteFiles */ = {
 			isa = PBXGroup;
 			children = (
+				98ED635A1A196EBD00A9182B /* scene */,
 				98E3CE0C1A17009800626D20 /* Nori */,
 				9847D9501A12E17700658D41 /* Note.atlas */,
 			);
@@ -447,6 +456,17 @@
 				983BE0FE19E753BB00147F39 /* GameViewController.m */,
 			);
 			name = old;
+			sourceTree = "<group>";
+		};
+		98ED635A1A196EBD00A9182B /* scene */ = {
+			isa = PBXGroup;
+			children = (
+				98ED63631A1970E400A9182B /* hill_zoomed.png */,
+				98ED63641A1970E400A9182B /* hill_zoomed@2x.png */,
+				98ED635B1A196EBD00A9182B /* hill.png */,
+				98ED635C1A196EBD00A9182B /* hill@2x.png */,
+			);
+			path = scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -575,17 +595,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */,
+				98ED63601A196EBD00A9182B /* hill@2x.png in Resources */,
 				9847D9511A12E17700658D41 /* Note.atlas in Resources */,
 				98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */,
 				98564EA51A14A06700284333 /* Go.m4a in Resources */,
 				98E3CE161A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */,
 				98E3CE181A17009800626D20 /* Nori_Sides.atlas in Resources */,
+				98ED63651A1970E400A9182B /* hill_zoomed.png in Resources */,
 				98E3CE1A1A17009800626D20 /* Nori_Up.atlas in Resources */,
 				98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */,
 				983BE0D219E7521E00147F39 /* Images.xcassets in Resources */,
 				983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */,
+				98ED63661A1970E400A9182B /* hill_zoomed@2x.png in Resources */,
 				98564EA61A14A06700284333 /* Ready.m4a in Resources */,
+				98ED635F1A196EBD00A9182B /* hill.png in Resources */,
 				98E3CE141A17009800626D20 /* Nori_Nod.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

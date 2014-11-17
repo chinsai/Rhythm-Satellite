@@ -53,8 +53,13 @@ NSArray *sidesAnimationFrames = nil;
 }
 
 
-- (void)reset{
+- (void)resetAnimation{
     [self fireAnimationForState:NoriAnimationStateIdle];;
+}
+
+- (void)resetAttributes{
+    _hp = _maxHp;
+    _chargedEnergy = 0;
 }
 
 - (void)takeCommand:(CommandType)command{
@@ -253,8 +258,14 @@ NSArray *sidesAnimationFrames = nil;
         default:
             break;
     }
-    
+    if(_hp < 0){
+        _hp = 0;
+    }
+    if(character.hp <0){
+        character.hp = 0;
+    }
 }
+
 
 - (NSArray *) loadFramesFromAtlas:(NSString *)atlasName withBaseFile:(NSString *)baseFileName Frames:(int) numberOfFrames {
     NSMutableArray *frames = [NSMutableArray arrayWithCapacity:numberOfFrames];

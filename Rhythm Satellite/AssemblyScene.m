@@ -18,6 +18,7 @@
 #define MAX_HUE 65536
 
 #define GoSoundKey @"gosound"
+#define InputAndAnimationKey @"inputandanimation"
 
 typedef enum assemblyStateType{
     SETUP,
@@ -30,10 +31,14 @@ typedef enum assemblyStateType{
     GRAPHICSTEST
 } AssemblyState;
 
+typedef enum : uint8_t {
+    NotTiming,
+    GoodTiming,
+    PerfectTiming
+} TimingGrade;
 
 NSTimeInterval      timeElapsed;
 NSTimeInterval      previousTime;
-AssemblyState       gameState;
 SKSpriteNode        *tempCharacter;
 int                 numOfReadyRound;
 BOOL                readyFlag;
@@ -75,6 +80,9 @@ PHBridgeSendAPI *bridgeSendAPI;
 
 @property (nonatomic, strong) Action                *targetAction;
 
+@property (nonatomic) AssemblyState                 gameState;
+
+@property (nonatomic) TimingGrade                    timing;
 @end
 
 
@@ -84,7 +92,7 @@ PHBridgeSendAPI *bridgeSendAPI;
 
 -(void)didMoveToView:(SKView *)view {
 
-    _background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+    _background = [SKSpriteNode spriteNodeWithImageNamed:@"hill"];
     _background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild:_background];
     
@@ -123,7 +131,7 @@ PHBridgeSendAPI *bridgeSendAPI;
     _secPerBeat = 60.0/120.0;
     _numOfRounds = 0;
     
-    gameState = SCANNING;
+    _gameState = SCANNING;
     timeElapsed = 0;
     previousTime = 0;
     numOfReadyRound = 1;
@@ -143,13 +151,13 @@ PHBridgeSendAPI *bridgeSendAPI;
     
     Command* latestCommand =[self getLatestCommand];;
     
-    switch (gameState) {
+    switch (_gameState) {
         case SETUP:
             break;
         case SCANNING:
             //if there is peripheral connected
             if(_btReceiver.hasConnectedPeripheral){
-                gameState = READY;
+                _gameState = READY;
                 NSLog(@"go to READY");
             }
             
@@ -182,7 +190,7 @@ PHBridgeSendAPI *bridgeSendAPI;
                 timeElapsed = 0;
                 previousTime = 0;
                 [self removeActionForKey:GoSoundKey];
-                gameState = SCANNING;
+                _gameState = SCANNING;
                 break;
             }
             
@@ -327,40 +335,120 @@ PHBridgeSendAPI *bridgeSendAPI;
 }
 
 -(void)startGame{
-    gameState = PLAYING;
+    _gameState = PLAYING;
     
     [self resetAssembly];
     
     //play the music once it starts
-    if([_musicPlayer isPlaying]){
-        [_musicPlayer stop];
-    }
     [_musicPlayer play];
     
-    SKAction *go = [SKAction sequence:@[
-                                        [SKAction waitForDuration:_secPerBeat*7],
-                                        [SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO],
-                                        [SKAction waitForDuration:_secPerBeat]
-                                        ]
-                    ];
-    
-    [self runAction:[SKAction repeatActionForever:go] withKey:GoSoundKey];
+    [self runAction:[SKAction repeatActionForever:[self soundEffectGoAction]] completion: ^(void){
+        //start main loop
+        [self runAction:[SKAction repeatActionForever:[self mainLoop]] withKey:InputAndAnimationKey];
+    }];
 
     
     
 }
 
 
+-(SKAction *)mainLoop{
+    return [SKAction sequence:@[
+                                
+                                [SKAction runBlock:
+                                 ^(void){
+                                     [self resetForInputTime];
+                                     
+                                    //get input for 4 beats
+                                     [self runAction:[SKAction repeatAction:[self checkInputSequence] count:4]];
+                                     
+                                     
+                                 }],
+                                
+                                //4 beats for input
+                                [SKAction waitForDuration:_secPerBeat*4],
+                                
+                                [SKAction runBlock:
+                                 ^(void){
+                                     [self resetForAnimationTime];
+                                 }],
+                                
+                                [self performAnimation],
+                                
+                                //4 beats for result, animation
+                                [SKAction waitForDuration:_secPerBeat*4]
+                                
+                                ]
+            ];
+}
+
+
+-(SKAction *)soundEffectGoAction{
+    return [SKAction sequence:@[
+                                [SKAction waitForDuration:_secPerBeat*7],
+                                [SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO],
+                                [SKAction waitForDuration:_secPerBeat]
+                                ]
+            ];
+}
+
+-(SKAction *)checkInputSequence{
+    return [SKAction sequence:@[
+                                [SKAction runBlock:^{_timing = GoodTiming;}],
+                                
+                                [SKAction waitForDuration:GOOD_TIMING_DELTA],
+                                [SKAction runBlock:^{_timing = NotTiming;}],
+                                [SKAction waitForDuration:_secPerBeat - GOOD_TIMING_DELTA]
+                                
+                                ]
+            ];
+}
+
+-(SKAction *)performAnimation{
+    return [SKAction runBlock:^(void){
+        [self processResult];
+    }];
+}
+
+-(void)processResult{
+//    if(!_defaultPlayer.character.nextAction){
+//        _defaultPlayer.character.nextAction = [[Action alloc]initWithAction:NONE];
+//    }
+//    [_defaultPlayer.character updateCharge];
+//    
+//    [_defaultPlayer.character compareResultFromCharacter:_opponentPlayer.character];
+//    _defaultPlayer.character.nextAction = nil;
+}
+
+-(void)resetForInputTime{
+    _isInputTiming = YES;
+    timeElapsed = 0;
+    //clear out input commands
+//    [_inputCommands removeAllObjects];
+    _numOfRounds --;
+}
+
+-(void)resetForAnimationTime{
+    _isInputTiming = NO;
+    timeElapsed = 0;
+}
+
+
 -(void)resetAssembly{
     //reset the attribute
-    _numOfRounds = 16;
+    _numOfRounds = 10;
     timeElapsed = 0;
     previousTime = 0;
-    
-    //todo
-    //reset the command notes
-    [_targetAction setActionWithType:NONE];
-       
+    _isInputTiming = YES;
+}
+
+-(void)assemblyEnded{
+    timeElapsed = 0;
+    previousTime = 0;
+    _gameState = SCANNING;
+    [self doVolumeFade];
+    [self removeActionForKey:GoSoundKey];
+    [self removeActionForKey:InputAndAnimationKey];
 }
 
 -(Command *)getLatestCommand{
@@ -374,6 +462,39 @@ PHBridgeSendAPI *bridgeSendAPI;
         [_btReceiver.receivedData setLength:0];
     }
     return command;
+}
+
+-(void)transferPlayer:(Player*)player{
+    if (player) {
+        _defaultPlayer = player;
+        [_defaultPlayer.character setScale:1.00f];
+        _defaultPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-100);
+        [_defaultPlayer.character removeFromParent];
+        [self addChild:_defaultPlayer.character];
+    }
+}
+
+
+-(void)setUpMusicPlayer{
+    NSError *error;
+    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RS1" withExtension:@"m4a"];
+    _musicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+    _musicPlayer.numberOfLoops = 0;
+    [_musicPlayer prepareToPlay];
+}
+
+-(void)doVolumeFade
+{
+    if (_musicPlayer.volume > 0.1) {
+        _musicPlayer.volume = _musicPlayer.volume - 0.1;
+        [self performSelector:@selector(doVolumeFade) withObject:nil afterDelay:0.1];
+    } else {
+        // Stop and get the sound ready for playing again
+        [_musicPlayer stop];
+        _musicPlayer.currentTime = 0;
+        [_musicPlayer prepareToPlay];
+        _musicPlayer.volume = 1.0;
+    }
 }
 
 -(void)sendHueChange{

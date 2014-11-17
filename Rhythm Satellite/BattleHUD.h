@@ -10,15 +10,22 @@
 
 @interface BattleHUD : NSObject
 
+//@property (nonatomic) NSArray              *hpBar;
+//@property (nonatomic) NSArray              *chargeBar;
 
-//HP BARx2
-//Chargesx2
+
+@property (nonatomic) NSArray              *hpBar;
+@property (nonatomic) NSArray              *chargeBar;
 
 //UpIcon
 //SIDESIcon
 //DOWNIcon
-
+@property (nonatomic) SKScene              *scene;
 //ActionIcon
 
 //update
+
+
+-(id)initWithScene: (SKScene *)scene;
+
 @end

@@ -15,7 +15,7 @@
 
 #import "OSXAppDelegate.h"
 
-#define errorTolerance 0.3
+#define errorTolerance 0.1
 #define GoSoundKey @"gosound"
 #define InputAndAnimationKey @"inputandanimation"
 
@@ -40,11 +40,6 @@ typedef enum : uint8_t {
     FreePlayBattle,
     TournamentBattle
 }   GameMode;
-
-NSTimeInterval      timeElapsed;
-NSTimeInterval      previousTime;
-int                 numOfReadyRound;
-NSTimeInterval      lastCommandTiming;
 
 
 @interface BattleScene()
@@ -98,7 +93,7 @@ NSTimeInterval      lastCommandTiming;
     if (!_defaultPlayer) {
         _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
         _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:40 withDef:15 withMoney:1000];
-        _defaultPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-80);
+        _defaultPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-40);
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
         [self addChild:_defaultPlayer.character];
 
@@ -106,7 +101,7 @@ NSTimeInterval      lastCommandTiming;
     
     _opponentPlayer = [[Player alloc]initWithPlayerName:@"OIKOS"];
     _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000];
-    _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-80);
+    _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-40);
     [_opponentPlayer.character fireAnimationForState:NoriAnimationStateReady];
     [self addChild:_opponentPlayer.character];
 
@@ -116,25 +111,16 @@ NSTimeInterval      lastCommandTiming;
     
     
     _btReceiver = NSAppDelegate.btReceiver;
-    _isInputTiming = NO;
     _secPerBeat = 60.0/120.0;
-    _numOfRounds = 0;
     _gameState = SCANNING;
-
-    timeElapsed = 0;
-    previousTime = 0;
-    numOfReadyRound = 1;
-    _timing = NotTiming;
+    _numOfRounds = 0;
+    [_hud setRound:_numOfRounds];
 }
 
 -(void)update:(NSTimeInterval)currentTime{
     
-    if(previousTime == 0)
-        previousTime = currentTime;
-    
-    
     //update the command input
-    Command* latestCommand = [self getLatestCommand];;
+    Command* latestCommand = [self getLatestCommand];
     
     switch (_gameState) {
         case SCANNING:
@@ -158,8 +144,6 @@ NSTimeInterval      lastCommandTiming;
             
         case PLAYING:
 
-            timeElapsed += currentTime - previousTime;
-
             //if all the rounds are finished
             if( _numOfRounds == 0 || _defaultPlayer.character.hp == 0 || _opponentPlayer.character.hp == 0){
                 [self battleEnded];
@@ -178,6 +162,7 @@ NSTimeInterval      lastCommandTiming;
                     if( _timing == GoodTiming ){
                         NSLog(@"successful input");
                         [_inputCommands addObject:latestCommand];
+//                        [_defaultPlayer.character voiceForCommand:latestCommand.input];
                         
                         //if there are 4 commands, create an action for the character
                         if( [_inputCommands count] == 4){
@@ -209,8 +194,7 @@ NSTimeInterval      lastCommandTiming;
         default:
             break;
     }
-    
-    previousTime = currentTime;
+
     
     
 }
@@ -240,7 +224,7 @@ NSTimeInterval      lastCommandTiming;
                                 //reset blocks
                                 [SKAction runBlock:
                                  ^(void){
-                                     [self resetForInputTime];
+                                    [_opponentPlayer.character generateAction];
                                      
                                      //animate the Opponent player (CPU)
                                      [_opponentPlayer.character animateMovesWithSecondsPerBeat:_secPerBeat];
@@ -262,7 +246,12 @@ NSTimeInterval      lastCommandTiming;
                                 [self performAnimation],
                                 
                                 //4 beats for result, animation
-                                [SKAction waitForDuration:_secPerBeat*4]
+                                [SKAction waitForDuration:_secPerBeat*4-GOOD_TIMING_DELTA],
+                                
+                                //allow earlier beat input before switching to input session
+                                [SKAction runBlock:^{_timing = GoodTiming;[self resetForInputTime];}],
+                                [SKAction waitForDuration:GOOD_TIMING_DELTA],
+                                
                                 
                                 ]
             ];
@@ -279,11 +268,12 @@ NSTimeInterval      lastCommandTiming;
 }
 -(SKAction *)checkInputSequence{
     return [SKAction sequence:@[
-                                [SKAction runBlock:^{_timing = GoodTiming;}],
+                                
                                 [SKAction waitForDuration:GOOD_TIMING_DELTA],
                                 [SKAction runBlock:^{_timing = NotTiming;}],
-                                [SKAction waitForDuration:_secPerBeat - GOOD_TIMING_DELTA]
-                                
+                                [SKAction waitForDuration:_secPerBeat - GOOD_TIMING_DELTA*2],
+                                [SKAction runBlock:^{_timing = GoodTiming;}],
+                                [SKAction waitForDuration:GOOD_TIMING_DELTA],
                                 ]
             ];
 }
@@ -299,8 +289,6 @@ NSTimeInterval      lastCommandTiming;
         NSLog(  @"Player 2 HP: %d Charge: %d",_opponentPlayer.character.hp, _opponentPlayer.character.chargedEnergy );
         [_hud updateHPWithLeft:(float)_defaultPlayer.character.hp/_defaultPlayer.character.maxHp
                       andRight:(float)_opponentPlayer.character.hp/_opponentPlayer.character.maxHp];
-        ((SKLabelNode*)_hud.chargeBar[0]).text = [NSString stringWithFormat:@"Charge: %d", _defaultPlayer.character.chargedEnergy];
-        ((SKLabelNode*)_hud.chargeBar[1]).text = [NSString stringWithFormat:@"Charge: %d", _opponentPlayer.character.chargedEnergy];
     }];
 }
 
@@ -309,41 +297,36 @@ NSTimeInterval      lastCommandTiming;
         _defaultPlayer.character.nextAction = [[Action alloc]initWithAction:NONE];
     }
     [_defaultPlayer.character updateCharge];
+    [_hud updateChargeOfLeftCharacter:_defaultPlayer.character];
+    [_hud updateChargeOfRightCharacter:_opponentPlayer.character];
     [_defaultPlayer.character compareResultFromCharacter:_opponentPlayer.character];
     _defaultPlayer.character.nextAction = nil;
 }
 
 -(void)resetForInputTime{
     _isInputTiming = YES;
-    timeElapsed = 0;
     //clear out input commands
     [_inputCommands removeAllObjects];
-    [_opponentPlayer.character generateAction];
     _numOfRounds --;
+    [_hud setRound:_numOfRounds];
 }
 
 -(void)resetForAnimationTime{
     _isInputTiming = NO;
-    timeElapsed = 0;
 }
 
 
 -(void)resetBattle{
     //reset the attribute
-    _numOfRounds = 21;
-    timeElapsed = 0;
-    previousTime = 0;
+    _numOfRounds = 16;
     _isInputTiming = YES;
     [_defaultPlayer.character resetAttributes];
     [_opponentPlayer.character resetAttributes];
-    [_hud updateHPWithLeft:1.0 andRight:1.0];
-    ((SKLabelNode*)_hud.chargeBar[0]).text = [NSString stringWithFormat:@"Charge: %d", _defaultPlayer.character.chargedEnergy];
-    ((SKLabelNode*)_hud.chargeBar[1]).text = [NSString stringWithFormat:@"Charge: %d", _opponentPlayer.character.chargedEnergy];
+    [_hud resetAll];
+    [_hud setRound:_numOfRounds];
 }
 
 -(void) battleEnded{
-    timeElapsed = 0;
-    previousTime = 0;
     _gameState = SCANNING;
     [self doVolumeFade];
     [self removeActionForKey:GoSoundKey];

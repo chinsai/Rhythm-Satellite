@@ -8,17 +8,20 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "RSHPBar.h"
+#import "RSChargeIcon.h"
+#import "Character.h"
 
 @interface BattleHUD : NSObject
-
-//@property (nonatomic) NSArray              *hpBar;
-//@property (nonatomic) NSArray              *chargeBar;
 
 @property (nonatomic) SKLabelNode           *leftPlayerNameLabel;
 @property (nonatomic) SKLabelNode           *rightPlayerNameLabel;
 @property (nonatomic) RSHPBar               *leftHP;
 @property (nonatomic) RSHPBar               *rightHP;
-@property (nonatomic) NSArray              *chargeBar;
+@property (nonatomic) SKSpriteNode          *leftChargeBar;
+@property (nonatomic) SKSpriteNode          *rightChargeBar;
+@property (nonatomic) SKSpriteNode          *roundBoard;
+@property (nonatomic) SKLabelNode           *roundLabel;
+
 
 //UpIcon
 //SIDESIcon
@@ -26,11 +29,17 @@
 @property (nonatomic) SKScene              *scene;
 //ActionIcon
 
+-(id)initWithScene: (SKScene *)scene;
+
 //update
 -(void)updateHPWithLeft:(CGFloat) leftratio andRight:(CGFloat) rightratio;
 -(void)setLeftName:(NSString *)name;
 -(void)setRightName:(NSString *)name;
-
--(id)initWithScene: (SKScene *)scene;
+-(void)setRound:(int)round;
+-(void)chargeWithCharacterLeft:(Character*)character;
+-(void)chargeWithCharacterRight:(Character*)character;
+-(void)updateChargeOfLeftCharacter:(Character*)character;
+-(void)updateChargeOfRightCharacter:(Character*)character;
+-(void)resetAll;
 
 @end

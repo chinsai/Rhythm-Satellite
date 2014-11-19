@@ -21,6 +21,18 @@
 		9847D9511A12E17700658D41 /* Note.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9847D9501A12E17700658D41 /* Note.atlas */; };
 		9847D9521A12E17700658D41 /* Note.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9847D9501A12E17700658D41 /* Note.atlas */; };
 		984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 984BCD8019EE579200F90CAB /* AlarmClockScene.m */; };
+		985048201A1C635E0066FA31 /* Charge.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9850481F1A1C635E0066FA31 /* Charge.atlas */; };
+		985048211A1C635E0066FA31 /* Charge.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9850481F1A1C635E0066FA31 /* Charge.atlas */; };
+		985048241A1C638E0066FA31 /* RSChargeIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 985048231A1C638E0066FA31 /* RSChargeIcon.m */; };
+		985048251A1C638E0066FA31 /* RSChargeIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 985048231A1C638E0066FA31 /* RSChargeIcon.m */; };
+		985048321A1C9D5E0066FA31 /* da.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9850482F1A1C9D5E0066FA31 /* da.wav */; };
+		985048331A1C9D5E0066FA31 /* da.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9850482F1A1C9D5E0066FA31 /* da.wav */; };
+		985048341A1C9D5E0066FA31 /* a.wav in Resources */ = {isa = PBXBuildFile; fileRef = 985048301A1C9D5E0066FA31 /* a.wav */; };
+		985048351A1C9D5E0066FA31 /* a.wav in Resources */ = {isa = PBXBuildFile; fileRef = 985048301A1C9D5E0066FA31 /* a.wav */; };
+		985048361A1C9D5E0066FA31 /* sa.wav in Resources */ = {isa = PBXBuildFile; fileRef = 985048311A1C9D5E0066FA31 /* sa.wav */; };
+		985048371A1C9D5E0066FA31 /* sa.wav in Resources */ = {isa = PBXBuildFile; fileRef = 985048311A1C9D5E0066FA31 /* sa.wav */; };
+		9850483A1A1CA16D0066FA31 /* round.png in Resources */ = {isa = PBXBuildFile; fileRef = 985048381A1CA16D0066FA31 /* round.png */; };
+		9850483B1A1CA16D0066FA31 /* round@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 985048391A1CA16D0066FA31 /* round@2x.png */; };
 		98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98540F0319FDC3C1000BAC9C /* RS1.m4a */; };
 		98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98540F0319FDC3C1000BAC9C /* RS1.m4a */; };
 		98564E9E1A0F334100284333 /* BattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 98564E9D1A0F334100284333 /* BattleScene.m */; };
@@ -121,6 +133,14 @@
 		9847D9501A12E17700658D41 /* Note.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Note.atlas; sourceTree = "<group>"; };
 		984BCD8019EE579200F90CAB /* AlarmClockScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockScene.m; sourceTree = "<group>"; };
 		984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockScene.h; sourceTree = "<group>"; };
+		9850481F1A1C635E0066FA31 /* Charge.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Charge.atlas; sourceTree = "<group>"; };
+		985048221A1C638E0066FA31 /* RSChargeIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSChargeIcon.h; sourceTree = "<group>"; };
+		985048231A1C638E0066FA31 /* RSChargeIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSChargeIcon.m; sourceTree = "<group>"; };
+		9850482F1A1C9D5E0066FA31 /* da.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = da.wav; sourceTree = "<group>"; };
+		985048301A1C9D5E0066FA31 /* a.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = a.wav; sourceTree = "<group>"; };
+		985048311A1C9D5E0066FA31 /* sa.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sa.wav; sourceTree = "<group>"; };
+		985048381A1CA16D0066FA31 /* round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round.png; sourceTree = "<group>"; };
+		985048391A1CA16D0066FA31 /* round@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round@2x.png"; sourceTree = "<group>"; };
 		98540F0319FDC3C1000BAC9C /* RS1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = RS1.m4a; sourceTree = "<group>"; };
 		98564E9C1A0F334100284333 /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleScene.h; sourceTree = "<group>"; };
 		98564E9D1A0F334100284333 /* BattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleScene.m; sourceTree = "<group>"; };
@@ -375,6 +395,8 @@
 				98F0FC2619F38D640071768B /* Character.m */,
 				989102861A1C21BC006F0CA4 /* RSHPBar.h */,
 				989102871A1C21BC006F0CA4 /* RSHPBar.m */,
+				985048221A1C638E0066FA31 /* RSChargeIcon.h */,
+				985048231A1C638E0066FA31 /* RSChargeIcon.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -392,6 +414,9 @@
 		98540F061A066BC2000BAC9C /* SpriteFiles */ = {
 			isa = PBXGroup;
 			children = (
+				985048381A1CA16D0066FA31 /* round.png */,
+				985048391A1CA16D0066FA31 /* round@2x.png */,
+				9850481F1A1C635E0066FA31 /* Charge.atlas */,
 				989102891A1C29F8006F0CA4 /* HP.atlas */,
 				98ED635A1A196EBD00A9182B /* scene */,
 				98E3CE0C1A17009800626D20 /* Nori */,
@@ -403,6 +428,9 @@
 		98564EA21A14A04F00284333 /* SoundEffects */ = {
 			isa = PBXGroup;
 			children = (
+				9850482F1A1C9D5E0066FA31 /* da.wav */,
+				985048301A1C9D5E0066FA31 /* a.wav */,
+				985048311A1C9D5E0066FA31 /* sa.wav */,
 				98E3CE1C1A1A216600626D20 /* Go.wav */,
 				98564EA31A14A06700284333 /* Go.m4a */,
 				98564EA41A14A06700284333 /* Ready.m4a */,
@@ -607,16 +635,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				985048341A1C9D5E0066FA31 /* a.wav in Resources */,
 				9891028A1A1C29F8006F0CA4 /* HP.atlas in Resources */,
+				985048201A1C635E0066FA31 /* Charge.atlas in Resources */,
 				988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */,
 				98ED63601A196EBD00A9182B /* hill@2x.png in Resources */,
 				9847D9511A12E17700658D41 /* Note.atlas in Resources */,
 				98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */,
 				98564EA51A14A06700284333 /* Go.m4a in Resources */,
+				9850483B1A1CA16D0066FA31 /* round@2x.png in Resources */,
 				98E3CE161A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */,
 				98E3CE181A17009800626D20 /* Nori_Sides.atlas in Resources */,
 				98ED63651A1970E400A9182B /* hill_zoomed.png in Resources */,
+				9850483A1A1CA16D0066FA31 /* round.png in Resources */,
+				985048361A1C9D5E0066FA31 /* sa.wav in Resources */,
+				985048321A1C9D5E0066FA31 /* da.wav in Resources */,
 				98E3CE1A1A17009800626D20 /* Nori_Up.atlas in Resources */,
 				98E3CE1D1A1A216600626D20 /* Go.wav in Resources */,
 				98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */,
@@ -646,12 +680,16 @@
 				98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */,
 				9847D9521A12E17700658D41 /* Note.atlas in Resources */,
 				98E3CE151A17009800626D20 /* Nori_Nod.atlas in Resources */,
+				985048371A1C9D5E0066FA31 /* sa.wav in Resources */,
 				983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */,
 				988DA1A519F4AC5900B01889 /* Images.xcassets in Resources */,
 				98E3CE191A17009800626D20 /* Nori_Sides.atlas in Resources */,
+				985048351A1C9D5E0066FA31 /* a.wav in Resources */,
 				98E3CE171A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
+				985048331A1C9D5E0066FA31 /* da.wav in Resources */,
 				98E7C26B19F0E1F8006397DF /* bgm.mp3 in Resources */,
+				985048211A1C635E0066FA31 /* Charge.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,6 +717,7 @@
 				988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
 				98F0FC2719F38D640071768B /* Character.m in Sources */,
 				983BE0C919E7521E00147F39 /* OSXAppDelegate.m in Sources */,
+				985048241A1C638E0066FA31 /* RSChargeIcon.m in Sources */,
 				989102881A1C21BC006F0CA4 /* RSHPBar.m in Sources */,
 				98B4A6451A1629EA004935EF /* DispatchQueueLogFormatter.m in Sources */,
 				98F0FC3119F3E86D0071768B /* CommandNote.m in Sources */,
@@ -714,6 +753,7 @@
 				988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
 				983BE0F719E753BB00147F39 /* iOSAppDelegate.m in Sources */,
 				98F0FC3619F3EB520071768B /* BTCentralModule.m in Sources */,
+				985048251A1C638E0066FA31 /* RSChargeIcon.m in Sources */,
 				9885E86D19FA3719004CFA61 /* MainScene.m in Sources */,
 				983BE0F419E753BB00147F39 /* main.m in Sources */,
 				984BCD8119EE579200F90CAB /* AlarmClockScene.m in Sources */,

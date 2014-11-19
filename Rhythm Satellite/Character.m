@@ -63,6 +63,7 @@ NSArray *sidesAnimationFrames = nil;
 }
 
 - (void)takeCommand:(CommandType)command{
+    [self voiceForCommand:command];
     switch (command) {
         case UP:
             [self fireAnimationForState:NoriAnimationStateUp];
@@ -272,12 +273,29 @@ NSArray *sidesAnimationFrames = nil;
     
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:atlasName];
     for (int i = 1; i <= numberOfFrames; i++) {
-        NSString *fileName = [NSString stringWithFormat:@"%@%04d.png", baseFileName, numberOfFrames+1-i];
+        //todo fix the sequence of the animation
+        NSString *fileName = [NSString stringWithFormat:@"%@%04d", baseFileName, numberOfFrames+1-i];
         SKTexture *texture = [atlas textureNamed:fileName];
         [frames addObject:texture];
     }
     
     return frames;
+}
+
+-(void)voiceForCommand:(CommandType)command{
+    switch (command) {
+        case UP:
+            [self runAction:[SKAction playSoundFileNamed:@"a.wav" waitForCompletion:NO]];
+            break;
+        case DOWN:
+            [self runAction:[SKAction playSoundFileNamed:@"da.wav" waitForCompletion:NO]];
+            break;
+        case SIDES:
+            [self runAction:[SKAction playSoundFileNamed:@"sa.wav" waitForCompletion:NO]];
+            break;
+        default:
+            break;
+    }
 }
 
 @end

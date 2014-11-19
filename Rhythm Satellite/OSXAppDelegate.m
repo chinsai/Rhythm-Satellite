@@ -51,8 +51,8 @@
     
     
 //    /* Set the scale mode to scale to fit the window */
-//    BattleScene *scene = [self getBattleScene];
-    AssemblyScene *scene = [self getAssemblyScene];
+    BattleScene *scene = [self getBattleScene];
+//    AssemblyScene *scene = [self getAssemblyScene];
     
     scene.scaleMode = SKSceneScaleModeAspectFit;
 

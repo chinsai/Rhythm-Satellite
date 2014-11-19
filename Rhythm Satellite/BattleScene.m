@@ -98,7 +98,7 @@ NSTimeInterval      lastCommandTiming;
     if (!_defaultPlayer) {
         _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
         _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:40 withDef:15 withMoney:1000];
-        _defaultPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-100);
+        _defaultPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-80);
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
         [self addChild:_defaultPlayer.character];
 
@@ -106,12 +106,13 @@ NSTimeInterval      lastCommandTiming;
     
     _opponentPlayer = [[Player alloc]initWithPlayerName:@"OIKOS"];
     _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000];
-    _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-100);
+    _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-80);
     [_opponentPlayer.character fireAnimationForState:NoriAnimationStateReady];
     [self addChild:_opponentPlayer.character];
 
     _hud = [[BattleHUD alloc]initWithScene:self];
-    
+    [_hud setLeftName:_defaultPlayer.playerName];
+    [_hud setRightName:_opponentPlayer.playerName];
     
     
     _btReceiver = NSAppDelegate.btReceiver;
@@ -279,7 +280,6 @@ NSTimeInterval      lastCommandTiming;
 -(SKAction *)checkInputSequence{
     return [SKAction sequence:@[
                                 [SKAction runBlock:^{_timing = GoodTiming;}],
-                                
                                 [SKAction waitForDuration:GOOD_TIMING_DELTA],
                                 [SKAction runBlock:^{_timing = NotTiming;}],
                                 [SKAction waitForDuration:_secPerBeat - GOOD_TIMING_DELTA]
@@ -297,8 +297,8 @@ NSTimeInterval      lastCommandTiming;
         
         NSLog(  @"Player 1 HP: %d Charge: %d",_defaultPlayer.character.hp, _defaultPlayer.character.chargedEnergy );
         NSLog(  @"Player 2 HP: %d Charge: %d",_opponentPlayer.character.hp, _opponentPlayer.character.chargedEnergy );
-        ((SKLabelNode*)_hud.hpBar[0]).text = [NSString stringWithFormat:@"HP: %d", _defaultPlayer.character.hp];
-        ((SKLabelNode*)_hud.hpBar[1]).text = [NSString stringWithFormat:@"HP: %d", _opponentPlayer.character.hp];
+        [_hud updateHPWithLeft:(float)_defaultPlayer.character.hp/_defaultPlayer.character.maxHp
+                      andRight:(float)_opponentPlayer.character.hp/_opponentPlayer.character.maxHp];
         ((SKLabelNode*)_hud.chargeBar[0]).text = [NSString stringWithFormat:@"Charge: %d", _defaultPlayer.character.chargedEnergy];
         ((SKLabelNode*)_hud.chargeBar[1]).text = [NSString stringWithFormat:@"Charge: %d", _opponentPlayer.character.chargedEnergy];
     }];
@@ -309,7 +309,6 @@ NSTimeInterval      lastCommandTiming;
         _defaultPlayer.character.nextAction = [[Action alloc]initWithAction:NONE];
     }
     [_defaultPlayer.character updateCharge];
-    
     [_defaultPlayer.character compareResultFromCharacter:_opponentPlayer.character];
     _defaultPlayer.character.nextAction = nil;
 }
@@ -337,8 +336,7 @@ NSTimeInterval      lastCommandTiming;
     _isInputTiming = YES;
     [_defaultPlayer.character resetAttributes];
     [_opponentPlayer.character resetAttributes];
-    ((SKLabelNode*)_hud.hpBar[0]).text = [NSString stringWithFormat:@"HP: %d", _defaultPlayer.character.hp];
-    ((SKLabelNode*)_hud.hpBar[1]).text = [NSString stringWithFormat:@"HP: %d", _opponentPlayer.character.hp];
+    [_hud updateHPWithLeft:1.0 andRight:1.0];
     ((SKLabelNode*)_hud.chargeBar[0]).text = [NSString stringWithFormat:@"Charge: %d", _defaultPlayer.character.chargedEnergy];
     ((SKLabelNode*)_hud.chargeBar[1]).text = [NSString stringWithFormat:@"Charge: %d", _opponentPlayer.character.chargedEnergy];
 }

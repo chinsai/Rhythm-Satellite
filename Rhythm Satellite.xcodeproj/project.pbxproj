@@ -35,6 +35,8 @@
 		988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */; };
 		988DA1A519F4AC5900B01889 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D119E7521E00147F39 /* Images.xcassets */; };
 		988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98F0FC1D19F2A89A0071768B /* simplebeat.caf */; };
+		989102881A1C21BC006F0CA4 /* RSHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 989102871A1C21BC006F0CA4 /* RSHPBar.m */; };
+		9891028A1A1C29F8006F0CA4 /* HP.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 989102891A1C29F8006F0CA4 /* HP.atlas */; };
 		98B4A6391A1629EA004935EF /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62B1A1629EA004935EF /* DDAbstractDatabaseLogger.m */; };
 		98B4A63B1A1629EA004935EF /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62D1A1629EA004935EF /* DDASLLogger.m */; };
 		98B4A63D1A1629EA004935EF /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A62F1A1629EA004935EF /* DDFileLogger.m */; };
@@ -136,6 +138,9 @@
 		988DA19F19F497D600B01889 /* BattleHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleHUD.m; sourceTree = "<group>"; };
 		988DA1A119F49D7D00B01889 /* BTPeripheralModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTPeripheralModule.h; path = "Rhythm Satellite/BTPeripheralModule.h"; sourceTree = "<group>"; };
 		988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTPeripheralModule.m; path = "Rhythm Satellite/BTPeripheralModule.m"; sourceTree = "<group>"; };
+		989102861A1C21BC006F0CA4 /* RSHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSHPBar.h; sourceTree = "<group>"; };
+		989102871A1C21BC006F0CA4 /* RSHPBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSHPBar.m; sourceTree = "<group>"; };
+		989102891A1C29F8006F0CA4 /* HP.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = HP.atlas; sourceTree = "<group>"; };
 		98B4A62A1A1629EA004935EF /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		98B4A62B1A1629EA004935EF /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		98B4A62C1A1629EA004935EF /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
@@ -368,6 +373,8 @@
 				98F0FC3019F3E86D0071768B /* CommandNote.m */,
 				98F0FC2519F38D640071768B /* Character.h */,
 				98F0FC2619F38D640071768B /* Character.m */,
+				989102861A1C21BC006F0CA4 /* RSHPBar.h */,
+				989102871A1C21BC006F0CA4 /* RSHPBar.m */,
 			);
 			name = Sprites;
 			sourceTree = "<group>";
@@ -385,6 +392,7 @@
 		98540F061A066BC2000BAC9C /* SpriteFiles */ = {
 			isa = PBXGroup;
 			children = (
+				989102891A1C29F8006F0CA4 /* HP.atlas */,
 				98ED635A1A196EBD00A9182B /* scene */,
 				98E3CE0C1A17009800626D20 /* Nori */,
 				9847D9501A12E17700658D41 /* Note.atlas */,
@@ -599,6 +607,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9891028A1A1C29F8006F0CA4 /* HP.atlas in Resources */,
 				988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */,
 				98ED63601A196EBD00A9182B /* hill@2x.png in Resources */,
 				9847D9511A12E17700658D41 /* Note.atlas in Resources */,
@@ -670,6 +679,7 @@
 				988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */,
 				98F0FC2719F38D640071768B /* Character.m in Sources */,
 				983BE0C919E7521E00147F39 /* OSXAppDelegate.m in Sources */,
+				989102881A1C21BC006F0CA4 /* RSHPBar.m in Sources */,
 				98B4A6451A1629EA004935EF /* DispatchQueueLogFormatter.m in Sources */,
 				98F0FC3119F3E86D0071768B /* CommandNote.m in Sources */,
 				98B4A6391A1629EA004935EF /* DDAbstractDatabaseLogger.m in Sources */,

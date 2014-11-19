@@ -15,39 +15,40 @@
     self = [super init];
     _scene  = scene;
     
-    SKLabelNode *hplabel1 = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
-    SKLabelNode *hplabel2 = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
-    hplabel1.text = @"HP: 100";
-    hplabel1.fontColor = [SKColor blackColor];
-    hplabel2.text = @"HP: 100";
-    hplabel2.fontColor = [SKColor blackColor];
-    hplabel1.fontSize = 36;
-    hplabel2.fontSize = 36;
-    hplabel1.position = CGPointMake(CGRectGetMidX(scene.frame)-400, CGRectGetMidY(scene.frame)+200);
-    hplabel2.position = CGPointMake(CGRectGetMidX(scene.frame)+400, CGRectGetMidY(scene.frame)+200);
-    [scene addChild:hplabel1];
-    [scene addChild:hplabel2];
-    
-    SKLabelNode *chargelabel1 = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
-    SKLabelNode *chargelabel2 = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
-    chargelabel1.text = @"Charge: 0";
-    chargelabel1.fontColor = [SKColor blackColor];
-    chargelabel2.text = @"Charge: 0";
-    chargelabel2.fontColor = [SKColor blackColor];
-    chargelabel1.fontSize = 36;
-    chargelabel2.fontSize = 36;
-    chargelabel1.position = CGPointMake(CGRectGetMidX(scene.frame)-400, CGRectGetMidY(scene.frame)+160);
-    chargelabel2.position = CGPointMake(CGRectGetMidX(scene.frame)+400, CGRectGetMidY(scene.frame)+160);
-    [scene addChild:chargelabel1];
-    [scene addChild:chargelabel2];
 
+    _leftHP = [[RSHPBar alloc]init];
+    _rightHP = [[RSHPBar alloc]init];
+    _rightHP.xScale = -1;
+    _leftHP.position = CGPointMake(CGRectGetMidX(scene.frame)-300, CGRectGetMidY(scene.frame)+280);
+    _rightHP.position = CGPointMake(CGRectGetMidX(scene.frame)+300, CGRectGetMidY(scene.frame)+280);
+    [_scene addChild:_leftHP];
+    [_scene addChild:_rightHP];
     
+    _leftPlayerNameLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
+    _rightPlayerNameLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
+    _leftPlayerNameLabel.fontColor = [SKColor colorWithRed:39.0/256 green:49.0/256 blue:79.0/256 alpha:1.0];
+    _rightPlayerNameLabel.fontColor = [SKColor colorWithRed:39.0/256 green:49.0/256 blue:79.0/256 alpha:1.0];
+    _leftPlayerNameLabel.fontSize = 30;
+    _rightPlayerNameLabel.fontSize = 30;
+    _leftPlayerNameLabel.position = CGPointMake(CGRectGetMidX(scene.frame)-480, CGRectGetMidY(scene.frame)+230);
+    _rightPlayerNameLabel.position = CGPointMake(CGRectGetMidX(scene.frame)+480, CGRectGetMidY(scene.frame)+230);
+    [_scene addChild:_leftPlayerNameLabel];
+    [_scene addChild:_rightPlayerNameLabel];
     
-    _hpBar = [NSArray arrayWithObjects:hplabel1,hplabel2, nil];
-    _chargeBar = [NSArray arrayWithObjects:chargelabel1,chargelabel2, nil];
     
     
     return self;
+}
+
+-(void)setLeftName:(NSString *)name{
+    _leftPlayerNameLabel.text = name;
+}
+-(void)setRightName:(NSString *)name{
+    _rightPlayerNameLabel.text = name;;
+}
+-(void)updateHPWithLeft:(CGFloat) leftratio andRight:(CGFloat) rightratio{
+    _leftHP.crop.xScale = leftratio;
+    _rightHP.crop.xScale = rightratio;
 }
 
 @end

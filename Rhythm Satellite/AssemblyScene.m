@@ -17,7 +17,6 @@
 
 #define MAX_HUE 65536
 
-#define GoSoundKey @"gosound"
 #define InputAndDemoKey @"inputanddemo"
 
 typedef enum assemblyStateType{
@@ -44,7 +43,7 @@ int                 numOfReadyRound;
 BOOL                readyFlag;
 NSTimeInterval      lastCommandTiming;
 int                 commandNumber;
-
+BOOL                disableInput;
 
 PHBridgeResourcesCache *cache;
 NSArray *lights;
@@ -190,20 +189,22 @@ PHBridgeSendAPI *bridgeSendAPI;
             if( _numOfRounds == 0){
                 timeElapsed = 0;
                 previousTime = 0;
-                [self removeActionForKey:GoSoundKey];
-                _gameState = SCANNING;
+                [self assemblyEnded];
                 break;
             }
             
             //when is is the turn for player to input command
             if(_isInputTiming){
                 
-                if( !latestCommand.input == NEUTRAL ){
+                if( !latestCommand.input == NEUTRAL && !disableInput){
                     //if no input
                     
                     //if there is command, change characters animations
                     [_defaultPlayer.character takeCommand:latestCommand.input];
                 
+                    if(commandNumber>3)
+                        break;
+                    
                     Command *targetCommand = _targetAction.commands[commandNumber];
                     CommandNote *targetNote = _commandNotes[commandNumber];
                     
@@ -216,14 +217,9 @@ PHBridgeSendAPI *bridgeSendAPI;
                         else if(_timing == GoodTiming){
                             [targetNote changeToGoodTiming];
                         }
-                        
-//                        NSLog(@"input ok with Error %f", inputTimingError);
-                        NSLog(@"target: %d, input: %d", targetCommand.input, latestCommand.input);
-                        
                     }
-                    else{
-                        
-                    }
+                    [self runAction:[self disableInput]];
+
                 }
                 break;
                 
@@ -251,7 +247,7 @@ PHBridgeSendAPI *bridgeSendAPI;
     
     //play the music once it starts
     [_musicPlayer play];
-    [self runAction:[self soundEffectGoAction] completion: ^(void){
+    [self runAction:[self warmUpAction] completion: ^(void){
         //start main loop
         [self runAction:[SKAction repeatActionForever:[self mainLoop]] withKey:InputAndDemoKey];
     }];
@@ -269,7 +265,7 @@ PHBridgeSendAPI *bridgeSendAPI;
                                      [self resetForDemoTime];
                                  }],
                                 
-                                //4 beats for input
+                                //4 beats for demo
                                 [self performDemo],
                                 
                                 //USER INPUT
@@ -288,19 +284,14 @@ PHBridgeSendAPI *bridgeSendAPI;
 }
 
 
--(SKAction *)soundEffectGoAction{
-    return [SKAction sequence:@[
-                                [SKAction waitForDuration:_secPerBeat*7],
-                                [SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO],
-                                [SKAction waitForDuration:_secPerBeat]
-                                ]
-            ];
+-(SKAction *)warmUpAction{
+
+    return [SKAction waitForDuration:_secPerBeat*4];
 }
 
 -(SKAction *)checkInputSequence{
     return [SKAction sequence:@[
                                 [SKAction runBlock:^{_timing = GreatTiming;}],
-                                
                                 [SKAction waitForDuration:GREAT_TIMING_DELTA],
                                 [SKAction runBlock:^{_timing = GoodTiming;}],
                                 [SKAction waitForDuration:GOOD_TIMING_DELTA],
@@ -316,7 +307,7 @@ PHBridgeSendAPI *bridgeSendAPI;
     
     return [SKAction sequence:@[
                                 [SKAction repeatAction:[self demoSequence] count:3],
-                                [SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO],
+                                [SKAction playSoundFileNamed:@"Go.wav" waitForCompletion:NO],
                                 [self demoSequence]
                                 ]];
     
@@ -382,8 +373,15 @@ PHBridgeSendAPI *bridgeSendAPI;
     previousTime = 0;
     _gameState = SCANNING;
     [self doVolumeFade];
-    [self removeActionForKey:GoSoundKey];
     [self removeActionForKey:InputAndDemoKey];
+}
+
+-(SKAction *)disableInput{
+    return [SKAction sequence:@[
+                                [SKAction runBlock:^{disableInput = YES;}],
+                                [SKAction waitForDuration:0.2],
+                                [SKAction runBlock:^{disableInput = NO;}]
+                                ]];
 }
 
 -(Command *)getLatestCommand{

@@ -53,7 +53,7 @@ typedef enum : uint8_t {
 
 
 
--(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(uint32_t)hp withMaxHp:(uint32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money;
+-(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(int32_t)hp withMaxHp:(int32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money;
 
 /* Reset a character for reuse. */
 - (void)resetAnimation;

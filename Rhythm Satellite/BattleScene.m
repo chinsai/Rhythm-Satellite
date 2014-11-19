@@ -271,7 +271,7 @@ NSTimeInterval      lastCommandTiming;
 -(SKAction *)soundEffectGoAction{
     return [SKAction sequence:@[
                          [SKAction waitForDuration:_secPerBeat*7],
-                         [SKAction playSoundFileNamed:@"Go.m4a" waitForCompletion:NO],
+                         [SKAction playSoundFileNamed:@"Go.wav" waitForCompletion:NO],
                          [SKAction waitForDuration:_secPerBeat]
                          ]
             ];

@@ -102,7 +102,7 @@
 //        NSLog(@"Gravity Y: %f", gravityY);
 //        NSLog(@"Gravity Z: %f", gravityZ);
 //        if ( deltaX > DELTA_THRESHOLD){
-    if ( newAccelerationX < ACCELERATION_THRESHOLD){
+    if ( newAccelerationX < ACCELERATION_THRESHOLD && prevAccelerationX < 0){
             if (gravityY < -GRAVITY_THRESHOLD && gravityZ < GRAVITY_THRESHOLD/4 && gravityZ > -GRAVITY_THRESHOLD/4) {
                 [self setInput:@"UP"];
             }

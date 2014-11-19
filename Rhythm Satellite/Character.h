@@ -49,7 +49,7 @@ typedef enum : uint8_t {
 @property (nonatomic) uint8_t                           chargedEnergy;
 @property (nonatomic) CGFloat                           animationSpeed;
 @property (nonatomic, strong) Action                      *nextAction;
-
+@property (nonatomic) float                             secPerBeat;
 
 
 
@@ -64,8 +64,8 @@ typedef enum : uint8_t {
 - (void)charge;
 - (void)fireAnimationForState:(NoriAnimationState)state;
 - (Action *)generateAction;
--(void)updateCharge;
+- (void)updateCharge;
 - (void)compareResultFromCharacter: (Character*)character;
--(void)animateMovesWithSecondsPerBeat:(float) sec;
--(void)voiceForCommand:(CommandType)command;
+- (void)animateMovesWithSecondsPerBeat:(float) sec;
+- (void)voiceForCommand:(CommandType)command;
 @end

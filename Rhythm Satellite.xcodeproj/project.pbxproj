@@ -9,14 +9,12 @@
 /* Begin PBXBuildFile section */
 		983BE0C919E7521E00147F39 /* OSXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0C819E7521E00147F39 /* OSXAppDelegate.m */; };
 		983BE0CB19E7521E00147F39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0CA19E7521E00147F39 /* main.m */; };
-		983BE0D219E7521E00147F39 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D119E7521E00147F39 /* Images.xcassets */; };
 		983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D319E7521E00147F39 /* MainMenu.xib */; };
 		983BE0E119E7521E00147F39 /* Rhythm_SatelliteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0E019E7521E00147F39 /* Rhythm_SatelliteTests.m */; };
 		983BE0F419E753BB00147F39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0F319E753BB00147F39 /* main.m */; };
 		983BE0F719E753BB00147F39 /* iOSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0F619E753BB00147F39 /* iOSAppDelegate.m */; };
 		983BE0FF19E753BB00147F39 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0FE19E753BB00147F39 /* GameViewController.m */; };
 		983BE10219E753BB00147F39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10019E753BB00147F39 /* Main.storyboard */; };
-		983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE10519E753BB00147F39 /* LaunchScreen.xib */; };
 		983BE11319E753BB00147F39 /* Rhythm_Satellite_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */; };
 		9847D9511A12E17700658D41 /* Note.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9847D9501A12E17700658D41 /* Note.atlas */; };
 		9847D9521A12E17700658D41 /* Note.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 9847D9501A12E17700658D41 /* Note.atlas */; };
@@ -33,6 +31,7 @@
 		985048371A1C9D5E0066FA31 /* sa.wav in Resources */ = {isa = PBXBuildFile; fileRef = 985048311A1C9D5E0066FA31 /* sa.wav */; };
 		9850483A1A1CA16D0066FA31 /* round.png in Resources */ = {isa = PBXBuildFile; fileRef = 985048381A1CA16D0066FA31 /* round.png */; };
 		9850483B1A1CA16D0066FA31 /* round@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 985048391A1CA16D0066FA31 /* round@2x.png */; };
+		985048421A1CD4300066FA31 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 985048411A1CD4300066FA31 /* Images.xcassets */; };
 		98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98540F0319FDC3C1000BAC9C /* RS1.m4a */; };
 		98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 98540F0319FDC3C1000BAC9C /* RS1.m4a */; };
 		98564E9E1A0F334100284333 /* BattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 98564E9D1A0F334100284333 /* BattleScene.m */; };
@@ -45,7 +44,6 @@
 		988DA1A019F497D600B01889 /* BattleHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA19F19F497D600B01889 /* BattleHUD.m */; };
 		988DA1A319F49D7D00B01889 /* BTPeripheralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */; };
 		988DA1A419F49D7D00B01889 /* BTPeripheralModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */; };
-		988DA1A519F4AC5900B01889 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D119E7521E00147F39 /* Images.xcassets */; };
 		988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 98F0FC1D19F2A89A0071768B /* simplebeat.caf */; };
 		989102881A1C21BC006F0CA4 /* RSHPBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 989102871A1C21BC006F0CA4 /* RSHPBar.m */; };
 		9891028A1A1C29F8006F0CA4 /* HP.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 989102891A1C29F8006F0CA4 /* HP.atlas */; };
@@ -112,7 +110,6 @@
 		983BE0C719E7521E00147F39 /* OSXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSXAppDelegate.h; sourceTree = "<group>"; };
 		983BE0C819E7521E00147F39 /* OSXAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSXAppDelegate.m; sourceTree = "<group>"; };
 		983BE0CA19E7521E00147F39 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		983BE0D119E7521E00147F39 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
 		983BE0D419E7521E00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		983BE0DA19E7521E00147F39 /* Rhythm SatelliteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm SatelliteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		983BE0DF19E7521E00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -125,7 +122,6 @@
 		983BE0FD19E753BB00147F39 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		983BE0FE19E753BB00147F39 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		983BE10119E753BB00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		983BE10619E753BB00147F39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		983BE10C19E753BB00147F39 /* Rhythm Satellite iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Rhythm Satellite iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		983BE11119E753BB00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		983BE11219E753BB00147F39 /* Rhythm_Satellite_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Rhythm_Satellite_iOSTests.m; sourceTree = "<group>"; };
@@ -141,6 +137,7 @@
 		985048311A1C9D5E0066FA31 /* sa.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sa.wav; sourceTree = "<group>"; };
 		985048381A1CA16D0066FA31 /* round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round.png; sourceTree = "<group>"; };
 		985048391A1CA16D0066FA31 /* round@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round@2x.png"; sourceTree = "<group>"; };
+		985048411A1CD4300066FA31 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Rhythm Satellite iOS/Images.xcassets"; sourceTree = "<group>"; };
 		98540F0319FDC3C1000BAC9C /* RS1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = RS1.m4a; sourceTree = "<group>"; };
 		98564E9C1A0F334100284333 /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleScene.h; sourceTree = "<group>"; };
 		98564E9D1A0F334100284333 /* BattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleScene.m; sourceTree = "<group>"; };
@@ -238,10 +235,10 @@
 		9805CF8E19E77048008C0DC3 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				985048411A1CD4300066FA31 /* Images.xcassets */,
 				98564EA21A14A04F00284333 /* SoundEffects */,
 				98540F061A066BC2000BAC9C /* SpriteFiles */,
 				98540EF919FD11D2000BAC9C /* Music */,
-				983BE0D119E7521E00147F39 /* Images.xcassets */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -327,7 +324,6 @@
 				98586BBF19FB8DBA00FC345F /* MotionControllerModule.h */,
 				98586BC019FB8DBA00FC345F /* MotionControllerModule.m */,
 				983BE10019E753BB00147F39 /* Main.storyboard */,
-				983BE10519E753BB00147F39 /* LaunchScreen.xib */,
 				983BE0F119E753BB00147F39 /* Supporting Files */,
 			);
 			path = "Rhythm Satellite iOS";
@@ -654,7 +650,6 @@
 				98E3CE1A1A17009800626D20 /* Nori_Up.atlas in Resources */,
 				98E3CE1D1A1A216600626D20 /* Go.wav in Resources */,
 				98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */,
-				983BE0D219E7521E00147F39 /* Images.xcassets in Resources */,
 				983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */,
 				98ED63661A1970E400A9182B /* hill_zoomed@2x.png in Resources */,
 				98564EA61A14A06700284333 /* Ready.m4a in Resources */,
@@ -675,14 +670,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				98E3CE1B1A17009800626D20 /* Nori_Up.atlas in Resources */,
+				985048421A1CD4300066FA31 /* Images.xcassets in Resources */,
 				98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */,
 				98E3CE131A17009800626D20 /* Nori_Down.atlas in Resources */,
 				98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */,
 				9847D9521A12E17700658D41 /* Note.atlas in Resources */,
 				98E3CE151A17009800626D20 /* Nori_Nod.atlas in Resources */,
 				985048371A1C9D5E0066FA31 /* sa.wav in Resources */,
-				983BE10719E753BB00147F39 /* LaunchScreen.xib in Resources */,
-				988DA1A519F4AC5900B01889 /* Images.xcassets in Resources */,
 				98E3CE191A17009800626D20 /* Nori_Sides.atlas in Resources */,
 				985048351A1C9D5E0066FA31 /* a.wav in Resources */,
 				98E3CE171A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
@@ -799,14 +793,6 @@
 				983BE10119E753BB00147F39 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		983BE10519E753BB00147F39 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				983BE10619E753BB00147F39 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -961,6 +947,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -988,6 +975,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

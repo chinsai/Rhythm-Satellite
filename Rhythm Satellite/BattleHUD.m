@@ -27,8 +27,8 @@
     
     
     //NAME LABEL INITIALIZATION
-    _leftPlayerNameLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
-    _rightPlayerNameLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
+    _leftPlayerNameLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Medium"];
+    _rightPlayerNameLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Medium"];
     _leftPlayerNameLabel.fontColor = [SKColor colorWithRed:39.0/256 green:49.0/256 blue:79.0/256 alpha:1.0];
     _rightPlayerNameLabel.fontColor = [SKColor colorWithRed:39.0/256 green:49.0/256 blue:79.0/256 alpha:1.0];
     _leftPlayerNameLabel.fontSize = 30;
@@ -69,7 +69,7 @@
     //ROUNDS LEFT INITIALIZATION
     _roundBoard = [SKSpriteNode spriteNodeWithImageNamed:@"round"];
     _roundBoard.position = CGPointMake(CGRectGetMidX(scene.frame), CGRectGetMidY(scene.frame)+285);
-    _roundLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
+    _roundLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Medium"];
     _roundLabel.fontColor = [SKColor whiteColor];
     _roundLabel.fontSize = 30;
     _roundLabel.position = CGPointMake(CGRectGetMidX(scene.frame), CGRectGetMidY(scene.frame)+260);
@@ -87,8 +87,8 @@
     _rightPlayerNameLabel.text = name;;
 }
 -(void)updateHPWithLeft:(CGFloat) leftratio andRight:(CGFloat) rightratio{
-    _leftHP.crop.maskNode.xScale = leftratio;
-    _rightHP.crop.maskNode.xScale = rightratio;
+    [_leftHP updateWithHPRatio:leftratio];
+    [_rightHP updateWithHPRatio:rightratio];
 }
 
 -(void)chargeWithCharacterLeft:(Character*)character{

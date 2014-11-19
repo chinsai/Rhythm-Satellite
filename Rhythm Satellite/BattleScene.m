@@ -92,7 +92,7 @@ typedef enum : uint8_t {
     [self setUpMusicPlayer];
     if (!_defaultPlayer) {
         _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
-        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:40 withDef:15 withMoney:1000];
+        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000];
         _defaultPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-40);
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
         [self addChild:_defaultPlayer.character];

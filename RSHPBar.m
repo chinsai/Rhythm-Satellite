@@ -38,8 +38,7 @@
 }
 
 -(void)updateWithHPRatio:(CGFloat)ratio{
-    NSLog(@"%f", ratio);
-    _crop.maskNode.xScale= ratio;
+    SKAction* change = [SKAction scaleXTo:ratio duration:0.5];
+    [_crop.maskNode runAction:change];
 }
-
 @end

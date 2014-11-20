@@ -18,7 +18,7 @@
 
 -(void)setInput: (NSString *)input;
 
--(void)update:(NSTimeInterval)currentTime;
+-(Command *)update:(NSTimeInterval)currentTime;
 -(void)turnOn;
 -(void)turnOff;
 

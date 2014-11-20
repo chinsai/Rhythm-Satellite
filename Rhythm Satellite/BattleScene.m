@@ -15,7 +15,6 @@
 
 #import "OSXAppDelegate.h"
 
-#define errorTolerance 0.1
 #define GoSoundKey @"gosound"
 #define InputAndAnimationKey @"inputandanimation"
 
@@ -90,6 +89,8 @@ typedef enum : uint8_t {
     
     //music player
     [self setUpMusicPlayer];
+    
+    //mainplayer
     if (!_defaultPlayer) {
         _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
         _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000];
@@ -99,6 +100,7 @@ typedef enum : uint8_t {
 
     }
     
+    //opponent
     _opponentPlayer = [[Player alloc]initWithPlayerName:@"OIKOS"];
     _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000];
     _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-40);
@@ -158,7 +160,6 @@ typedef enum : uint8_t {
                     //show animation of input
                     [_defaultPlayer.character takeCommand:latestCommand.input];
                     
-//                    if( inputTimingError <= errorTolerance){
                     if( _timing == GoodTiming ){
                         NSLog(@"successful input");
                         [_inputCommands addObject:latestCommand];

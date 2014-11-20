@@ -74,7 +74,7 @@
 }
 
 
--(void)update:(NSTimeInterval)currentTime {
+-(Command *)update:(NSTimeInterval)currentTime {
 
     
     NSTimeInterval deltaTime = currentTime - previousTime;
@@ -138,6 +138,8 @@
     
     prevAccelerationX = newAccelerationX;
     previousTime = currentTime;
+    
+    return _triggeredCommand;
 
 
 }

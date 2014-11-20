@@ -25,6 +25,7 @@ NSArray *sidesAnimationFrames = nil;
     
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Nori_Nod"];
     SKTexture *texture = [atlas textureNamed:@"nori_nod_0001"];
+    
     self = [super initWithTexture:texture];
     
     nodAnimationFrames = [self loadFramesFromAtlas:@"Nori_Nod" withBaseFile:@"nori_nod_" Frames:nodFrames];
@@ -297,5 +298,25 @@ NSArray *sidesAnimationFrames = nil;
             break;
     }
 }
+
+- (void)dropToPositionY: (CGFloat)y ForDuration:(CGFloat)time{
+    if (y > self.position.y)
+        return;
+    
+    SKAction *drop = [SKAction moveToY:y duration:time];
+    drop.timingMode = SKActionTimingEaseOut;
+    [self runAction:drop];
+}
+
+- (void)riseToPositionY: (CGFloat)y ForDuration:(CGFloat)time{
+//    NSLog(@"%f %f", y, self.position.y );
+    if(y < self.position.y)
+        return;
+    SKAction *rise = [SKAction moveToY:y duration:time];
+    rise.timingMode = SKActionTimingEaseOut;
+    [self runAction:rise];
+    NSLog(@"rise");
+}
+
 
 @end

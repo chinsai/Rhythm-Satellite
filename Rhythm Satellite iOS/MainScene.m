@@ -11,9 +11,10 @@
 #import "BTPeripheralModule.h"
 #import "MotionControllerModule.h"
 #import "AlarmClockModule.h"
-#import "Character.h"
+#import "Player.h"
 #import "iOSAppDelegate.h"
 
+#define GOOD_TIMING_DELTA 0.2
 
 typedef enum mainSceneStateType{
     IDLE,
@@ -21,26 +22,37 @@ typedef enum mainSceneStateType{
     ALARM,
     WAITING,
     CONNECTED,
+    PLAYING,
     GAMEOVER,
     MOTIONTEST
 } iOSGameState;
 
-@interface MainScene(){
-    NSTimeInterval                  stopRegisterTime;    //time to avoid unwanted input
-    NSTimeInterval                  previousTime;   //for recording the time of previous time
-}
+CGFloat             lastY;
+NSTimeInterval      lastTimeStamp;
+SKNode              *nodeInTouch;
+CGPoint             originalPosition;
+CGFloat             velocityY;
+@interface MainScene()
 
 @property (nonatomic, strong) BTPeripheralModule            *btTransmitter;
 @property (nonatomic, strong) MotionControllerModule        *controller;
 @property (nonatomic, strong) AlarmClockModule              *alarm;
 @property (nonatomic, strong) Character                     *character;
-@property (nonatomic, strong) SKLabelNode                   *hitLabel;
 @property (nonatomic) iOSGameState                          state;
 @property (nonatomic, readonly) int                         numBeatsToWakeUp;
 @property (nonatomic) int                                   numBeatsHit;
+@property (nonatomic) Player                                *defaultPlayer;
+@property (nonatomic) SKLabelNode                           *currentTimeLabel;
+@property (nonatomic) SKSpriteNode                          *alarmbutton;
+@property (nonatomic) float                                 secPerBeat;
+@property (nonatomic) BOOL                                  isInputTiming;
 
 
 @end
+
+#define CHARACTER_NODE_NAME @"nori"
+#define ALARM_BUTTON_NODE_NAME @"alarmbuttonnori"
+#define MAX_CLOCK_Y 600
 
 
 @implementation MainScene
@@ -54,43 +66,169 @@ typedef enum mainSceneStateType{
     if(!_controller){
         _controller = [[MotionControllerModule alloc]init];
     }
-
-    //HIT COUNT
-    _hitLabel = [SKLabelNode labelNodeWithFontNamed:@"Damascus"];
-    _hitLabel.text = @"0";
-    _hitLabel.fontSize = 70;
-    _hitLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    [self addChild:_hitLabel];
-
     
-    stopRegisterTime = 0;
-    previousTime = 0;
-    _numBeatsToWakeUp = 60;
+    originalPosition = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-100.0);
+    
+    //mainplayer
+    if (!_defaultPlayer) {
+        _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
+        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000];
+        _defaultPlayer.character.position = originalPosition;
+        [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
+        [_defaultPlayer.character setScale:0.8];
+        _defaultPlayer.character.name=CHARACTER_NODE_NAME;
+        _defaultPlayer.character.userInteractionEnabled = NO;
+        [self addChild:_defaultPlayer.character];
+        
+    }
+
+    _alarm = [[AlarmClockModule alloc]init];
+
+    //Current Time Label
+    _currentTimeLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Thin"];
+    _currentTimeLabel.text = [AlarmClockModule getCurrentTimeInString];
+    _currentTimeLabel.fontSize = 120;
+    _currentTimeLabel.position = CGPointMake(CGRectGetMidX(self.frame), 500.0);
+    _currentTimeLabel.zPosition = 10;
+    [self addChild:_currentTimeLabel];
+    
+    
+     _alarmbutton = [SKSpriteNode spriteNodeWithImageNamed:@"musicnote"];
+    _alarmbutton.position = CGPointMake(CGRectGetMidX(self.frame)+120.0, 450.0);
+    _alarmbutton.color = [SKColor grayColor];
+    _alarmbutton.colorBlendFactor = 1.0;
+    _alarmbutton.alpha = 0.5;
+    _alarmbutton.name=ALARM_BUTTON_NODE_NAME;
+    [self addChild:_alarmbutton];
+    
+     
+     
+    _secPerBeat = 60.0/120.0;
+    _numBeatsToWakeUp = 16;
     _numBeatsHit = 0;
     _state = IDLE;
+    _isInputTiming = NO;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
     
+    switch (_state) {
+        
+        case CONNECTED:
+            if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
+                lastY = node.position.y;
+                lastTimeStamp = event.timestamp;
+                nodeInTouch = node;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    switch (_state) {
+        case CONNECTED:
+            if (nodeInTouch) {
+                CGFloat distance = location.y - lastY;
+                
+                nodeInTouch.position = CGPointMake(nodeInTouch.position.x, location.y);
+                
+                //avoid dropping lower than the original position
+                if (nodeInTouch.position.y < originalPosition.y) {
+                    nodeInTouch.position = CGPointMake(nodeInTouch.position.x,originalPosition.y);
+                    distance = 0.0;
+                }
+                else{
+                    nodeInTouch.position = CGPointMake(nodeInTouch.position.x, nodeInTouch.position.y + distance);
+                }
+                
+                CGFloat alpha = (MAX_CLOCK_Y - _defaultPlayer.character.position.y)/(MAX_CLOCK_Y - originalPosition.y);
+                [_currentTimeLabel setAlpha:alpha];
+                _currentTimeLabel.position = CGPointMake(_currentTimeLabel.position.x, _currentTimeLabel.position.y + distance/20.0);
+                
+                velocityY = distance / (event.timestamp - lastTimeStamp);
+//                NSLog(@"velocity: %f", velocityY);
+                
+                //update last position and timing
+                lastY = location.y;
+                lastTimeStamp = event.timestamp;
+            }
+            
+            break;
+        default:
+            break;
+            
+    }
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    
+    
     switch (_state) {
         case IDLE:
-            [_btTransmitter startAdvertising];
-            _state = WAITING;
+
+            if ([node.name isEqualToString:ALARM_BUTTON_NODE_NAME]) {
+                _state = SLEEPING;
+                _alarmbutton.color = [SKColor whiteColor];
+                _alarmbutton.alpha = 1.0;
+            }
+            
+            if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
+                [_btTransmitter startAdvertising];
+                _state = WAITING;
+            }
+            
+            
             break;
         case SLEEPING:
-            _state = ALARM;
-            [self playAlarm];
-            [_controller turnOn];
+            
+            if ([node.name isEqualToString:ALARM_BUTTON_NODE_NAME]) {
+                _state = SLEEPING;
+                _alarmbutton.color = [SKColor grayColor];
+                _alarmbutton.alpha = 0.5;
+                _state = ALARM;
+                [self playAlarm];
+                [self checkUserRhythmInput];
+                [_controller turnOn];
+            }
+
             break;
         case ALARM:
             break;
         case WAITING:
-            [_btTransmitter toggleAdvertising];
+            if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
+                [_btTransmitter stopAdvertising];
+                _state = IDLE;
+            }
             break;
         case CONNECTED:
-            [_controller setInput:@"TAP"];
+            
+            if(velocityY >1000){
+                [_controller setInput:@"TAP"];
+                [_defaultPlayer.character riseToPositionY:900 ForDuration:(900-location.y)/velocityY];
+                [_currentTimeLabel runAction:[SKAction fadeAlphaTo:0.0 duration:0.2]];
+                velocityY = 0;
+                nodeInTouch = nil;
+            }
+            else{
+                [self resetNoriDrag];
+                [_currentTimeLabel runAction:[self clockFadeIn]];
+                nodeInTouch = nil;
+            }
             break;
+        case PLAYING:
+            break;
+            
         case GAMEOVER:
             break;
         default:
@@ -98,24 +236,55 @@ typedef enum mainSceneStateType{
     }
 }
 
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    switch (_state) {
+        case CONNECTED:
+            [self resetNoriDrag];
+            [_currentTimeLabel runAction:[self clockFadeIn]];
+            nodeInTouch = nil;
+            break;
+        default:
+            break;
+            
+    }
+}
 
 -(void)update:(NSTimeInterval)currentTime {
     
+    Command *latestCommand;
+    
+    _currentTimeLabel.text = [AlarmClockModule getCurrentTimeInString];
     
     switch (_state) {
         case IDLE:
+
             break;
         case SLEEPING:
+            
             break;
         case ALARM:
-            [self wakeUpCharacter:currentTime];
-            _hitLabel.text = [NSString stringWithFormat:@"%d", _numBeatsHit];
-            if( _numBeatsHit >= _numBeatsToWakeUp){
+            
+            //when the alarm is turned off
+            if( _numBeatsToWakeUp == 0){
                 [self stopAlarm];
+                _numBeatsToWakeUp = 16;
                 _state = WAITING;
-                _numBeatsHit = 0;
+                [_btTransmitter startAdvertising];
                 [_controller turnOff];
+                break;
             }
+            
+            if(_isInputTiming){
+                if (_controller.enabled) {
+                    latestCommand = [_controller update:currentTime];
+                    if(latestCommand.input != NEUTRAL && latestCommand.input != TAP && latestCommand.input != START){
+                        _numBeatsToWakeUp--;
+                        NSLog(@"number of beats to shake: %d", _numBeatsToWakeUp);
+                    }
+                }
+            }
+            
+            
             break;
         case WAITING:
             if(_btTransmitter.isSubscribed){
@@ -130,9 +299,10 @@ typedef enum mainSceneStateType{
             if(!_btTransmitter.isSubscribed){
                 [_controller turnOff];
                 [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
-                _state = IDLE;
+                [_defaultPlayer.character dropToPositionY:originalPosition.y ForDuration:0.2];
+                [_currentTimeLabel runAction:[self clockFadeIn]];
                 [_btTransmitter stopAdvertising];
-                NSLog(@"jump to SLEEPING");
+                _state = IDLE;
                 break;
             }
 
@@ -140,14 +310,14 @@ typedef enum mainSceneStateType{
             break;
         case GAMEOVER:
             break;
+        case PLAYING:
+            break;
         case MOTIONTEST:
             [self testMotion:currentTime];
             break;
         default:
             break;
     }
-    
-    previousTime = currentTime;
     
 }
 
@@ -157,11 +327,9 @@ typedef enum mainSceneStateType{
     [_controller update:currentTime];
     
     if (_btTransmitter.isSubscribed && _controller.enabled) {
-//         NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
         if( _controller.triggeredCommand.input != NEUTRAL){
             _btTransmitter.dataToSend = [[_controller.triggeredCommand inputInString] dataUsingEncoding:NSUTF8StringEncoding];
             [_btTransmitter sendData];
-            // NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
         }
         
         
@@ -214,4 +382,38 @@ typedef enum mainSceneStateType{
         [_controller turnOff];
     }
 }
+
+-(void)resetNoriDrag{
+    if(nodeInTouch){
+        nodeInTouch = nil;
+        lastTimeStamp = 0.0;
+        lastY = 0.0;
+        [_defaultPlayer.character dropToPositionY:originalPosition.y ForDuration:0.2];
+    }
+}
+
+-(SKAction *)clockFadeIn{
+    SKAction *lower = [SKAction moveToY:500.0 duration:0.5];
+    SKAction *alpha = [SKAction fadeAlphaTo:1.0 duration:0.5];
+    return [SKAction group:@[lower,alpha]];
+}
+
+-(void)checkUserRhythmInput{
+    [ self runAction:[SKAction repeatAction:[self checkInputSequence] count:8] ];
+}
+
+-(SKAction *)checkInputSequence{
+    return [SKAction sequence:@[
+                                
+                                [SKAction waitForDuration:GOOD_TIMING_DELTA],
+                                
+                                [SKAction runBlock:^{_isInputTiming = NO;}],
+                                [SKAction waitForDuration:_secPerBeat - GOOD_TIMING_DELTA*2],
+                                
+                                [SKAction runBlock:^{_isInputTiming = YES;}],
+                                [SKAction waitForDuration:GOOD_TIMING_DELTA],
+                                ]
+            ];
+}
+
 @end

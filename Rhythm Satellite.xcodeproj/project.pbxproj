@@ -55,6 +55,14 @@
 		98B4A6431A1629EA004935EF /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6361A1629EA004935EF /* ContextFilterLogFormatter.m */; };
 		98B4A6451A1629EA004935EF /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */; };
 		98B4A6481A1629FE004935EF /* HueSDK_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */; };
+		98C915161A1D716000082F65 /* Shadow.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98C915151A1D716000082F65 /* Shadow.atlas */; };
+		98C915171A1D716000082F65 /* Shadow.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98C915151A1D716000082F65 /* Shadow.atlas */; };
+		98C915261A1DC0D700082F65 /* musicnote.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915231A1DC0D700082F65 /* musicnote.png */; };
+		98C915271A1DC0D700082F65 /* musicnote.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915231A1DC0D700082F65 /* musicnote.png */; };
+		98C915281A1DC0D700082F65 /* musicnote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915241A1DC0D700082F65 /* musicnote@2x.png */; };
+		98C915291A1DC0D700082F65 /* musicnote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915241A1DC0D700082F65 /* musicnote@2x.png */; };
+		98C9152A1A1DC0D700082F65 /* musicnote@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915251A1DC0D700082F65 /* musicnote@3x.png */; };
+		98C9152B1A1DC0D700082F65 /* musicnote@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915251A1DC0D700082F65 /* musicnote@3x.png */; };
 		98E3CE0A1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E3CE0B1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0D1A17009800626D20 /* Nori_Down.atlas */; };
@@ -130,8 +138,8 @@
 		984BCD8019EE579200F90CAB /* AlarmClockScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlarmClockScene.m; sourceTree = "<group>"; };
 		984BCD8219EE57AC00F90CAB /* AlarmClockScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlarmClockScene.h; sourceTree = "<group>"; };
 		9850481F1A1C635E0066FA31 /* Charge.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Charge.atlas; sourceTree = "<group>"; };
-		985048221A1C638E0066FA31 /* RSChargeIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSChargeIcon.h; sourceTree = "<group>"; };
-		985048231A1C638E0066FA31 /* RSChargeIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSChargeIcon.m; sourceTree = "<group>"; };
+		985048221A1C638E0066FA31 /* RSChargeIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSChargeIcon.h; path = "Rhythm Satellite/RSChargeIcon.h"; sourceTree = "<group>"; };
+		985048231A1C638E0066FA31 /* RSChargeIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSChargeIcon.m; path = "Rhythm Satellite/RSChargeIcon.m"; sourceTree = "<group>"; };
 		9850482F1A1C9D5E0066FA31 /* da.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = da.wav; sourceTree = "<group>"; };
 		985048301A1C9D5E0066FA31 /* a.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = a.wav; sourceTree = "<group>"; };
 		985048311A1C9D5E0066FA31 /* sa.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sa.wav; sourceTree = "<group>"; };
@@ -155,8 +163,8 @@
 		988DA19F19F497D600B01889 /* BattleHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BattleHUD.m; sourceTree = "<group>"; };
 		988DA1A119F49D7D00B01889 /* BTPeripheralModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTPeripheralModule.h; path = "Rhythm Satellite/BTPeripheralModule.h"; sourceTree = "<group>"; };
 		988DA1A219F49D7D00B01889 /* BTPeripheralModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTPeripheralModule.m; path = "Rhythm Satellite/BTPeripheralModule.m"; sourceTree = "<group>"; };
-		989102861A1C21BC006F0CA4 /* RSHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSHPBar.h; sourceTree = "<group>"; };
-		989102871A1C21BC006F0CA4 /* RSHPBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSHPBar.m; sourceTree = "<group>"; };
+		989102861A1C21BC006F0CA4 /* RSHPBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSHPBar.h; path = "Rhythm Satellite/RSHPBar.h"; sourceTree = "<group>"; };
+		989102871A1C21BC006F0CA4 /* RSHPBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSHPBar.m; path = "Rhythm Satellite/RSHPBar.m"; sourceTree = "<group>"; };
 		989102891A1C29F8006F0CA4 /* HP.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = HP.atlas; sourceTree = "<group>"; };
 		98B4A62A1A1629EA004935EF /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		98B4A62B1A1629EA004935EF /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
@@ -173,6 +181,10 @@
 		98B4A6371A1629EA004935EF /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HueSDK_OSX.framework; sourceTree = "<group>"; };
+		98C915151A1D716000082F65 /* Shadow.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Shadow.atlas; sourceTree = "<group>"; };
+		98C915231A1DC0D700082F65 /* musicnote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicnote.png; sourceTree = "<group>"; };
+		98C915241A1DC0D700082F65 /* musicnote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "musicnote@2x.png"; sourceTree = "<group>"; };
+		98C915251A1DC0D700082F65 /* musicnote@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "musicnote@3x.png"; sourceTree = "<group>"; };
 		98E3CE081A157ADA00626D20 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = "Rhythm Satellite/Player.h"; sourceTree = "<group>"; };
 		98E3CE091A157ADA00626D20 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = "Rhythm Satellite/Player.m"; sourceTree = "<group>"; };
 		98E3CE0D1A17009800626D20 /* Nori_Down.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Down.atlas; sourceTree = "<group>"; };
@@ -410,10 +422,8 @@
 		98540F061A066BC2000BAC9C /* SpriteFiles */ = {
 			isa = PBXGroup;
 			children = (
-				985048381A1CA16D0066FA31 /* round.png */,
-				985048391A1CA16D0066FA31 /* round@2x.png */,
-				9850481F1A1C635E0066FA31 /* Charge.atlas */,
-				989102891A1C29F8006F0CA4 /* HP.atlas */,
+				98C915211A1DBD7700082F65 /* iPhoneUI */,
+				98C915221A1DBE1900082F65 /* BattleHUD */,
 				98ED635A1A196EBD00A9182B /* scene */,
 				98E3CE0C1A17009800626D20 /* Nori */,
 				9847D9501A12E17700658D41 /* Note.atlas */,
@@ -463,9 +473,31 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		98C915211A1DBD7700082F65 /* iPhoneUI */ = {
+			isa = PBXGroup;
+			children = (
+				98C915231A1DC0D700082F65 /* musicnote.png */,
+				98C915241A1DC0D700082F65 /* musicnote@2x.png */,
+				98C915251A1DC0D700082F65 /* musicnote@3x.png */,
+			);
+			name = iPhoneUI;
+			sourceTree = "<group>";
+		};
+		98C915221A1DBE1900082F65 /* BattleHUD */ = {
+			isa = PBXGroup;
+			children = (
+				985048381A1CA16D0066FA31 /* round.png */,
+				985048391A1CA16D0066FA31 /* round@2x.png */,
+				9850481F1A1C635E0066FA31 /* Charge.atlas */,
+				989102891A1C29F8006F0CA4 /* HP.atlas */,
+			);
+			name = BattleHUD;
+			sourceTree = "<group>";
+		};
 		98E3CE0C1A17009800626D20 /* Nori */ = {
 			isa = PBXGroup;
 			children = (
+				98C915151A1D716000082F65 /* Shadow.atlas */,
 				98E3CE0D1A17009800626D20 /* Nori_Down.atlas */,
 				98E3CE0E1A17009800626D20 /* Nori_Nod.atlas */,
 				98E3CE0F1A17009800626D20 /* Nori_Ready_Nod.atlas */,
@@ -632,6 +664,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				985048341A1C9D5E0066FA31 /* a.wav in Resources */,
+				98C915281A1DC0D700082F65 /* musicnote@2x.png in Resources */,
 				9891028A1A1C29F8006F0CA4 /* HP.atlas in Resources */,
 				985048201A1C635E0066FA31 /* Charge.atlas in Resources */,
 				988DA1A619F4AC7100B01889 /* simplebeat.caf in Resources */,
@@ -642,11 +675,14 @@
 				9850483B1A1CA16D0066FA31 /* round@2x.png in Resources */,
 				98E3CE161A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */,
+				98C915161A1D716000082F65 /* Shadow.atlas in Resources */,
+				98C9152A1A1DC0D700082F65 /* musicnote@3x.png in Resources */,
 				98E3CE181A17009800626D20 /* Nori_Sides.atlas in Resources */,
 				98ED63651A1970E400A9182B /* hill_zoomed.png in Resources */,
 				9850483A1A1CA16D0066FA31 /* round.png in Resources */,
 				985048361A1C9D5E0066FA31 /* sa.wav in Resources */,
 				985048321A1C9D5E0066FA31 /* da.wav in Resources */,
+				98C915261A1DC0D700082F65 /* musicnote.png in Resources */,
 				98E3CE1A1A17009800626D20 /* Nori_Up.atlas in Resources */,
 				98E3CE1D1A1A216600626D20 /* Go.wav in Resources */,
 				98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */,
@@ -670,13 +706,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				98E3CE1B1A17009800626D20 /* Nori_Up.atlas in Resources */,
+				98C9152B1A1DC0D700082F65 /* musicnote@3x.png in Resources */,
 				985048421A1CD4300066FA31 /* Images.xcassets in Resources */,
 				98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */,
 				98E3CE131A17009800626D20 /* Nori_Down.atlas in Resources */,
+				98C915271A1DC0D700082F65 /* musicnote.png in Resources */,
 				98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */,
+				98C915171A1D716000082F65 /* Shadow.atlas in Resources */,
 				9847D9521A12E17700658D41 /* Note.atlas in Resources */,
 				98E3CE151A17009800626D20 /* Nori_Nod.atlas in Resources */,
 				985048371A1C9D5E0066FA31 /* sa.wav in Resources */,
+				98C915291A1DC0D700082F65 /* musicnote@2x.png in Resources */,
 				98E3CE191A17009800626D20 /* Nori_Sides.atlas in Resources */,
 				985048351A1C9D5E0066FA31 /* a.wav in Resources */,
 				98E3CE171A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,

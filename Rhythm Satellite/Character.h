@@ -68,4 +68,6 @@ typedef enum : uint8_t {
 - (void)compareResultFromCharacter: (Character*)character;
 - (void)animateMovesWithSecondsPerBeat:(float) sec;
 - (void)voiceForCommand:(CommandType)command;
+- (void)dropToPositionY: (CGFloat)y ForDuration:(CGFloat)time;
+- (void)riseToPositionY: (CGFloat)y ForDuration:(CGFloat)time;
 @end

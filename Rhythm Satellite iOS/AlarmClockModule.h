@@ -22,6 +22,6 @@ typedef enum  : uint8_t{
 @property (nonatomic, strong) NSDate                *alarmDate;         //alarm
 @property (nonatomic) AlarmState                    alarmState;     //whether the alarm is on or not
 
--(NSString *)getCurrentTimeInString;
++(NSString *)getCurrentTimeInString;
 
 @end

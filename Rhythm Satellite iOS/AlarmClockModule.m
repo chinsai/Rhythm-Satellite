@@ -11,7 +11,15 @@
 
 @implementation AlarmClockModule
 
--(NSString *)getCurrentTimeInString{
+- (id)init{
+    if(self = [super init]){
+        ;
+    }
+    return self;
+}
+
+
++ (NSString *)getCurrentTimeInString{
     NSDate *now = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"];

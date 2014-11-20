@@ -70,4 +70,6 @@ typedef enum : uint8_t {
 - (void)voiceForCommand:(CommandType)command;
 - (void)dropToPositionY: (CGFloat)y ForDuration:(CGFloat)time;
 - (void)riseToPositionY: (CGFloat)y ForDuration:(CGFloat)time;
+- (void)turnOnSearchLight;
+- (void)turnOffSearchLight;
 @end

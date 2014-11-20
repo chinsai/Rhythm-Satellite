@@ -17,4 +17,5 @@
 -(void)cleanup;
 -(void)scan;
 -(void)stopScan;
+-(long)getRSSi;
 @end

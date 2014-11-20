@@ -9,6 +9,7 @@
 #import "Character.h"
 #import "Command.h"
 
+#define sleepFrames 1
 #define nodFrames 2
 #define movementFrames 4
 
@@ -20,6 +21,9 @@ NSArray *readyNodAnimationFrames = nil;
 NSArray *upAnimationFrames = nil;
 NSArray *downAnimationFrames = nil;
 NSArray *sidesAnimationFrames = nil;
+NSArray *sleepAnimationFrames = nil;
+
+SKSpriteNode            *headlight;
 
 -(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(int32_t)hp withMaxHp:(int32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money{
     
@@ -33,7 +37,18 @@ NSArray *sidesAnimationFrames = nil;
     upAnimationFrames = [self loadFramesFromAtlas:@"Nori_Up" withBaseFile:@"nori_up_" Frames:movementFrames];
     downAnimationFrames = [self loadFramesFromAtlas:@"Nori_Down" withBaseFile:@"nori_down_" Frames:movementFrames];
     sidesAnimationFrames = [self loadFramesFromAtlas:@"Nori_Sides" withBaseFile:@"nori_sides_" Frames:movementFrames];
+    sleepAnimationFrames = [self loadFramesFromAtlas:@"Nori_Sleep" withBaseFile:@"nori_sleep_" Frames:sleepFrames];
     
+    headlight = [SKSpriteNode spriteNodeWithImageNamed:@"searchlight"];
+    SKAction *blink = [SKAction sequence:@[
+                                           [SKAction fadeAlphaTo:0.6 duration:0.5],
+                                           [SKAction fadeAlphaTo:1.0 duration:0.5]
+                                           ]];
+    [headlight runAction:[SKAction repeatActionForever:blink]];
+    headlight.position = CGPointMake(0.0, 175.0);
+    headlight.hidden = YES;
+    headlight.zPosition =2.0;
+    [self addChild:headlight];
     
     _level = level;
     _exp = exp;
@@ -48,6 +63,7 @@ NSArray *sidesAnimationFrames = nil;
     _chargedEnergy = 0;
     _animationSpeed = 1.0f/20.0f;;
     _nextAction = nil;
+    
     
     
     return self;
@@ -158,6 +174,11 @@ NSArray *sidesAnimationFrames = nil;
             break;
         case NoriAnimationStateIdle:
             [self setTexture:[[SKTextureAtlas atlasNamed:@"Nori_Nod"] textureNamed:@"nori_nod_0001"]];
+            _isAnimated = NO;
+            _animationState = state;
+            break;
+        case NoriAnimationStateSleeping:
+            [self setTexture:[[SKTextureAtlas atlasNamed:@"Nori_Sleep"] textureNamed:@"nori_sleep_0001"]];
             _isAnimated = NO;
             _animationState = state;
             break;
@@ -318,5 +339,10 @@ NSArray *sidesAnimationFrames = nil;
     NSLog(@"rise");
 }
 
-
+- (void)turnOnSearchLight{
+    headlight.hidden = NO;
+}
+- (void)turnOffSearchLight{
+    headlight.hidden = YES;
+}
 @end

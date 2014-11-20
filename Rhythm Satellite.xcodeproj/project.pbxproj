@@ -63,6 +63,14 @@
 		98C915291A1DC0D700082F65 /* musicnote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915241A1DC0D700082F65 /* musicnote@2x.png */; };
 		98C9152A1A1DC0D700082F65 /* musicnote@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915251A1DC0D700082F65 /* musicnote@3x.png */; };
 		98C9152B1A1DC0D700082F65 /* musicnote@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915251A1DC0D700082F65 /* musicnote@3x.png */; };
+		98C9152D1A1DE29800082F65 /* Nori_Sleep.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98C9152C1A1DE29800082F65 /* Nori_Sleep.atlas */; };
+		98C9152E1A1DE29800082F65 /* Nori_Sleep.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98C9152C1A1DE29800082F65 /* Nori_Sleep.atlas */; };
+		98C915321A1E0B9900082F65 /* searchlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C9152F1A1E0B9900082F65 /* searchlight.png */; };
+		98C915331A1E0B9900082F65 /* searchlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C9152F1A1E0B9900082F65 /* searchlight.png */; };
+		98C915341A1E0B9900082F65 /* searchlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915301A1E0B9900082F65 /* searchlight@2x.png */; };
+		98C915351A1E0B9900082F65 /* searchlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915301A1E0B9900082F65 /* searchlight@2x.png */; };
+		98C915361A1E0B9900082F65 /* searchlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915311A1E0B9900082F65 /* searchlight@3x.png */; };
+		98C915371A1E0B9900082F65 /* searchlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915311A1E0B9900082F65 /* searchlight@3x.png */; };
 		98E3CE0A1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E3CE0B1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0D1A17009800626D20 /* Nori_Down.atlas */; };
@@ -185,6 +193,10 @@
 		98C915231A1DC0D700082F65 /* musicnote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicnote.png; sourceTree = "<group>"; };
 		98C915241A1DC0D700082F65 /* musicnote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "musicnote@2x.png"; sourceTree = "<group>"; };
 		98C915251A1DC0D700082F65 /* musicnote@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "musicnote@3x.png"; sourceTree = "<group>"; };
+		98C9152C1A1DE29800082F65 /* Nori_Sleep.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Sleep.atlas; sourceTree = "<group>"; };
+		98C9152F1A1E0B9900082F65 /* searchlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchlight.png; sourceTree = "<group>"; };
+		98C915301A1E0B9900082F65 /* searchlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchlight@2x.png"; sourceTree = "<group>"; };
+		98C915311A1E0B9900082F65 /* searchlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchlight@3x.png"; sourceTree = "<group>"; };
 		98E3CE081A157ADA00626D20 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = "Rhythm Satellite/Player.h"; sourceTree = "<group>"; };
 		98E3CE091A157ADA00626D20 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = "Rhythm Satellite/Player.m"; sourceTree = "<group>"; };
 		98E3CE0D1A17009800626D20 /* Nori_Down.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Down.atlas; sourceTree = "<group>"; };
@@ -497,6 +509,10 @@
 		98E3CE0C1A17009800626D20 /* Nori */ = {
 			isa = PBXGroup;
 			children = (
+				98C9152F1A1E0B9900082F65 /* searchlight.png */,
+				98C915301A1E0B9900082F65 /* searchlight@2x.png */,
+				98C915311A1E0B9900082F65 /* searchlight@3x.png */,
+				98C9152C1A1DE29800082F65 /* Nori_Sleep.atlas */,
 				98C915151A1D716000082F65 /* Shadow.atlas */,
 				98E3CE0D1A17009800626D20 /* Nori_Down.atlas */,
 				98E3CE0E1A17009800626D20 /* Nori_Nod.atlas */,
@@ -675,7 +691,10 @@
 				9850483B1A1CA16D0066FA31 /* round@2x.png in Resources */,
 				98E3CE161A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				98540F0419FDC3C1000BAC9C /* RS1.m4a in Resources */,
+				98C915341A1E0B9900082F65 /* searchlight@2x.png in Resources */,
 				98C915161A1D716000082F65 /* Shadow.atlas in Resources */,
+				98C9152D1A1DE29800082F65 /* Nori_Sleep.atlas in Resources */,
+				98C915321A1E0B9900082F65 /* searchlight.png in Resources */,
 				98C9152A1A1DC0D700082F65 /* musicnote@3x.png in Resources */,
 				98E3CE181A17009800626D20 /* Nori_Sides.atlas in Resources */,
 				98ED63651A1970E400A9182B /* hill_zoomed.png in Resources */,
@@ -690,6 +709,7 @@
 				98ED63661A1970E400A9182B /* hill_zoomed@2x.png in Resources */,
 				98564EA61A14A06700284333 /* Ready.m4a in Resources */,
 				98ED635F1A196EBD00A9182B /* hill.png in Resources */,
+				98C915361A1E0B9900082F65 /* searchlight@3x.png in Resources */,
 				98E3CE141A17009800626D20 /* Nori_Nod.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -706,8 +726,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				98E3CE1B1A17009800626D20 /* Nori_Up.atlas in Resources */,
+				98C915371A1E0B9900082F65 /* searchlight@3x.png in Resources */,
 				98C9152B1A1DC0D700082F65 /* musicnote@3x.png in Resources */,
 				985048421A1CD4300066FA31 /* Images.xcassets in Resources */,
+				98C9152E1A1DE29800082F65 /* Nori_Sleep.atlas in Resources */,
 				98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */,
 				98E3CE131A17009800626D20 /* Nori_Down.atlas in Resources */,
 				98C915271A1DC0D700082F65 /* musicnote.png in Resources */,
@@ -723,7 +745,9 @@
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
 				985048331A1C9D5E0066FA31 /* da.wav in Resources */,
 				98E7C26B19F0E1F8006397DF /* bgm.mp3 in Resources */,
+				98C915351A1E0B9900082F65 /* searchlight@2x.png in Resources */,
 				985048211A1C635E0066FA31 /* Charge.atlas in Resources */,
+				98C915331A1E0B9900082F65 /* searchlight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

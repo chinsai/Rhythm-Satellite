@@ -94,9 +94,15 @@ typedef enum : uint8_t {
     if (!_defaultPlayer) {
         _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
         _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000];
-        _defaultPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-40);
+        
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
-        [self addChild:_defaultPlayer.character];
+        SKCropNode *crop = [SKCropNode node];
+        crop.maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(_defaultPlayer.character.size.width, _defaultPlayer.character.size.height)];
+        crop.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-40);
+        [crop addChild:_defaultPlayer.character];
+        _defaultPlayer.character.position = CGPointMake(0.0, -_defaultPlayer.character.size.height);
+        crop.zPosition = 5;
+        [self addChild:crop];
 
     }
     
@@ -137,9 +143,13 @@ typedef enum : uint8_t {
         case WAITING:
             break;
         case READY:
+            
+//            NSLog(@"RSSI %ld", [_btReceiver getRSSi]);
+            
             //update the command input to look for a TAP command
             if (latestCommand.input == TAP) {
                 [self startBattle];
+                [_defaultPlayer.character riseToPositionY:0.0 ForDuration:0.2];
                 NSLog(@"go to PLAYING");
             }
             break;
@@ -209,6 +219,7 @@ typedef enum : uint8_t {
     [_musicPlayer play];
     
     //Loop for GO signal
+//    [self runAction:[SKAction repeatAction:[self soundEffectGoAction] count:_numOfRounds]];
     [self runAction:[SKAction repeatActionForever:[self soundEffectGoAction]] withKey:GoSoundKey];
     
     
@@ -332,6 +343,7 @@ typedef enum : uint8_t {
     [self doVolumeFade];
     [self removeActionForKey:GoSoundKey];
     [self removeActionForKey:InputAndAnimationKey];
+    [_hud setRound:_numOfRounds];
 }
 
 -(Command *)getLatestCommand{

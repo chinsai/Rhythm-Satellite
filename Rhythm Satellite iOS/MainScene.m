@@ -43,6 +43,7 @@ CGFloat             velocityY;
 @property (nonatomic) int                                   numBeatsHit;
 @property (nonatomic) Player                                *defaultPlayer;
 @property (nonatomic) SKLabelNode                           *currentTimeLabel;
+@property (nonatomic) SKLabelNode                           *statusLabel;
 @property (nonatomic) SKSpriteNode                          *alarmbutton;
 @property (nonatomic) float                                 secPerBeat;
 @property (nonatomic) BOOL                                  isInputTiming;
@@ -92,6 +93,13 @@ CGFloat             velocityY;
     _currentTimeLabel.zPosition = 10;
     [self addChild:_currentTimeLabel];
     
+    //Status Label
+    _statusLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Thin"];
+    _statusLabel.text = @"TAP To Get Ready";
+    _statusLabel.fontSize = 30;
+    _statusLabel.position = CGPointMake(CGRectGetMidX(self.frame), 35.0);
+    [self addChild:_statusLabel];
+    
     
      _alarmbutton = [SKSpriteNode spriteNodeWithImageNamed:@"musicnote"];
     _alarmbutton.position = CGPointMake(CGRectGetMidX(self.frame)+120.0, 450.0);
@@ -106,8 +114,8 @@ CGFloat             velocityY;
     _secPerBeat = 60.0/120.0;
     _numBeatsToWakeUp = 16;
     _numBeatsHit = 0;
-    _state = IDLE;
     _isInputTiming = NO;
+    [self updateState:IDLE];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -119,7 +127,7 @@ CGFloat             velocityY;
         
         case CONNECTED:
             if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
-                lastY = node.position.y;
+                lastY = location.y;
                 lastTimeStamp = event.timestamp;
                 nodeInTouch = node;
             }
@@ -137,11 +145,9 @@ CGFloat             velocityY;
             if (nodeInTouch) {
                 CGFloat distance = location.y - lastY;
                 
-                nodeInTouch.position = CGPointMake(nodeInTouch.position.x, location.y);
-                
                 //avoid dropping lower than the original position
                 if (nodeInTouch.position.y < originalPosition.y) {
-                    nodeInTouch.position = CGPointMake(nodeInTouch.position.x,originalPosition.y);
+                    nodeInTouch.position = CGPointMake(nodeInTouch.position.x, originalPosition.y);
                     distance = 0.0;
                 }
                 else{
@@ -176,27 +182,29 @@ CGFloat             velocityY;
     
     switch (_state) {
         case IDLE:
-
+            //alarm button is pressed
+            //character will go to sleep
             if ([node.name isEqualToString:ALARM_BUTTON_NODE_NAME]) {
-                _state = SLEEPING;
+                [self updateState:SLEEPING];
+                [_defaultPlayer.character fireAnimationForState:NoriAnimationStateSleeping];
                 _alarmbutton.color = [SKColor whiteColor];
                 _alarmbutton.alpha = 1.0;
             }
-            
+            //the character is pressed
             if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
                 [_btTransmitter startAdvertising];
-                _state = WAITING;
+                [self updateState:WAITING];
             }
             
             
             break;
         case SLEEPING:
-            
+            //Button is pressed
+            //in sleeping mode, when its pressed, alarm will sound
             if ([node.name isEqualToString:ALARM_BUTTON_NODE_NAME]) {
-                _state = SLEEPING;
                 _alarmbutton.color = [SKColor grayColor];
                 _alarmbutton.alpha = 0.5;
-                _state = ALARM;
+                [self updateState:ALARM];
                 [self playAlarm];
                 [self checkUserRhythmInput];
                 [_controller turnOn];
@@ -208,7 +216,7 @@ CGFloat             velocityY;
         case WAITING:
             if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
                 [_btTransmitter stopAdvertising];
-                _state = IDLE;
+                [self updateState:IDLE];
             }
             break;
         case CONNECTED:
@@ -265,10 +273,12 @@ CGFloat             velocityY;
         case ALARM:
             
             //when the alarm is turned off
+            //Character wakes up
             if( _numBeatsToWakeUp == 0){
                 [self stopAlarm];
                 _numBeatsToWakeUp = 16;
-                _state = WAITING;
+                [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
+                [self updateState:WAITING];
                 [_btTransmitter startAdvertising];
                 [_controller turnOff];
                 break;
@@ -289,7 +299,7 @@ CGFloat             velocityY;
         case WAITING:
             if(_btTransmitter.isSubscribed){
                 [_controller turnOn];
-                _state = CONNECTED;
+                [self updateState:CONNECTED];
                 [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
                 NSLog(@"jump to CONNECTED");
             }
@@ -302,7 +312,7 @@ CGFloat             velocityY;
                 [_defaultPlayer.character dropToPositionY:originalPosition.y ForDuration:0.2];
                 [_currentTimeLabel runAction:[self clockFadeIn]];
                 [_btTransmitter stopAdvertising];
-                _state = IDLE;
+                [self updateState:IDLE];
                 break;
             }
 
@@ -414,6 +424,48 @@ CGFloat             velocityY;
                                 [SKAction waitForDuration:GOOD_TIMING_DELTA],
                                 ]
             ];
+}
+
+-(void)updateState: (iOSGameState)state{
+    
+    switch (_state) {
+        case IDLE:
+            break;
+        case SLEEPING:
+            break;
+        case ALARM:
+            break;
+        case WAITING:
+            [_defaultPlayer.character turnOffSearchLight];
+            break;
+        case CONNECTED:
+            break;
+        default:
+            break;
+    }
+    
+    switch (state) {
+        case IDLE:
+            _statusLabel.text = @"Tap To Get Ready";
+            break;
+        case SLEEPING:
+            _statusLabel.text = @"Zzzz...";
+            break;
+        case ALARM:
+            _statusLabel.text = @"Give Me Some Rhythm Please...";
+            break;
+        case WAITING:
+            _statusLabel.text = @"Looking For Launch Point";
+            [_defaultPlayer.character turnOnSearchLight];
+            break;
+        case CONNECTED:
+            _statusLabel.text = @"Slide Me UP!";
+            [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
+            break;
+        default:
+            break;
+    }
+    _state = state;
 }
 
 @end

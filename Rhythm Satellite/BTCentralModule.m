@@ -260,5 +260,8 @@
     [self.centralManager cancelPeripheralConnection:self.discoveredPeripheral];
 }
 
-
+-(long)getRSSi{
+    [_discoveredPeripheral readRSSI];
+    return [_discoveredPeripheral.RSSI integerValue];
+}
 @end

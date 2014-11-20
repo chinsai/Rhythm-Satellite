@@ -95,8 +95,8 @@ CGFloat             velocityY;
     
     //Status Label
     _statusLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Thin"];
-    _statusLabel.text = @"TAP To Get Ready";
-    _statusLabel.fontSize = 30;
+    _statusLabel.text = @"TAP to get ready";
+    _statusLabel.fontSize = 28;
     _statusLabel.position = CGPointMake(CGRectGetMidX(self.frame), 35.0);
     [self addChild:_statusLabel];
     
@@ -278,8 +278,7 @@ CGFloat             velocityY;
                 [self stopAlarm];
                 _numBeatsToWakeUp = 16;
                 [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
-                [self updateState:WAITING];
-                [_btTransmitter startAdvertising];
+                [self updateState:IDLE];
                 [_controller turnOff];
                 break;
             }
@@ -446,20 +445,21 @@ CGFloat             velocityY;
     
     switch (state) {
         case IDLE:
-            _statusLabel.text = @"Tap To Get Ready";
+            _statusLabel.text = @"TAP to get ready";
+            [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
             break;
         case SLEEPING:
             _statusLabel.text = @"Zzzz...";
             break;
         case ALARM:
-            _statusLabel.text = @"Give Me Some Rhythm Please...";
+            _statusLabel.text = @"I need some rhythm...";
             break;
         case WAITING:
-            _statusLabel.text = @"Looking For Launch Point";
+            _statusLabel.text = @"Looking for a launch point";
             [_defaultPlayer.character turnOnSearchLight];
             break;
         case CONNECTED:
-            _statusLabel.text = @"Slide Me UP!";
+            _statusLabel.text = @"Slide me UP!";
             [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
             break;
         default:

@@ -97,7 +97,7 @@ typedef enum : uint8_t {
         
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
         SKCropNode *crop = [SKCropNode node];
-        crop.maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(_defaultPlayer.character.size.width, _defaultPlayer.character.size.height)];
+        crop.maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(self.size.width, _defaultPlayer.character.size.height)];
         crop.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-40);
         [crop addChild:_defaultPlayer.character];
         _defaultPlayer.character.position = CGPointMake(0.0, -_defaultPlayer.character.size.height);
@@ -308,6 +308,8 @@ typedef enum : uint8_t {
     if(!_defaultPlayer.character.nextAction){
         _defaultPlayer.character.nextAction = [[Action alloc]initWithAction:NONE];
     }
+    [_defaultPlayer.character runCharacterAction];
+    [_opponentPlayer.character runCharacterAction];
     [_defaultPlayer.character updateCharge];
     [_hud updateChargeOfLeftCharacter:_defaultPlayer.character];
     [_hud updateChargeOfRightCharacter:_opponentPlayer.character];

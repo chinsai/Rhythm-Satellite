@@ -59,8 +59,12 @@ typedef enum : uint8_t {
 - (void)resetAnimation;
 - (void)resetAttributes;
 - (void)takeCommand:(CommandType)command;
-- (uint32_t)attack;
-- (void)defendFor:(uint32_t)damage;
+//- (uint32_t)attack;
+//- (void)defendFor:(uint32_t)damage;
+//- (void)charge;
+- (void)runCharacterAction;
+- (void)attack;
+- (void)block;
 - (void)charge;
 - (void)fireAnimationForState:(NoriAnimationState)state;
 - (Action *)generateAction;

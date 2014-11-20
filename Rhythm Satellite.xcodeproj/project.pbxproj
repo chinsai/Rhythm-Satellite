@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9815BC4E1A1E33850001EB49 /* block.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9815BC4B1A1E33850001EB49 /* block.wav */; };
+		9815BC4F1A1E33850001EB49 /* charge.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9815BC4C1A1E33850001EB49 /* charge.wav */; };
+		9815BC501A1E33850001EB49 /* attack.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9815BC4D1A1E33850001EB49 /* attack.wav */; };
 		983BE0C919E7521E00147F39 /* OSXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0C819E7521E00147F39 /* OSXAppDelegate.m */; };
 		983BE0CB19E7521E00147F39 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 983BE0CA19E7521E00147F39 /* main.m */; };
 		983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 983BE0D319E7521E00147F39 /* MainMenu.xib */; };
@@ -121,6 +124,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9815BC4B1A1E33850001EB49 /* block.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = block.wav; sourceTree = "<group>"; };
+		9815BC4C1A1E33850001EB49 /* charge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = charge.wav; sourceTree = "<group>"; };
+		9815BC4D1A1E33850001EB49 /* attack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = attack.wav; sourceTree = "<group>"; };
 		983BE0C219E7521E00147F39 /* Rhythm Satellite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rhythm Satellite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		983BE0C619E7521E00147F39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		983BE0C719E7521E00147F39 /* OSXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSXAppDelegate.h; sourceTree = "<group>"; };
@@ -446,6 +452,9 @@
 		98564EA21A14A04F00284333 /* SoundEffects */ = {
 			isa = PBXGroup;
 			children = (
+				9815BC4B1A1E33850001EB49 /* block.wav */,
+				9815BC4C1A1E33850001EB49 /* charge.wav */,
+				9815BC4D1A1E33850001EB49 /* attack.wav */,
 				9850482F1A1C9D5E0066FA31 /* da.wav */,
 				985048301A1C9D5E0066FA31 /* a.wav */,
 				985048311A1C9D5E0066FA31 /* sa.wav */,
@@ -702,15 +711,18 @@
 				985048361A1C9D5E0066FA31 /* sa.wav in Resources */,
 				985048321A1C9D5E0066FA31 /* da.wav in Resources */,
 				98C915261A1DC0D700082F65 /* musicnote.png in Resources */,
+				9815BC501A1E33850001EB49 /* attack.wav in Resources */,
 				98E3CE1A1A17009800626D20 /* Nori_Up.atlas in Resources */,
 				98E3CE1D1A1A216600626D20 /* Go.wav in Resources */,
 				98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */,
 				983BE0D519E7521E00147F39 /* MainMenu.xib in Resources */,
 				98ED63661A1970E400A9182B /* hill_zoomed@2x.png in Resources */,
+				9815BC4F1A1E33850001EB49 /* charge.wav in Resources */,
 				98564EA61A14A06700284333 /* Ready.m4a in Resources */,
 				98ED635F1A196EBD00A9182B /* hill.png in Resources */,
 				98C915361A1E0B9900082F65 /* searchlight@3x.png in Resources */,
 				98E3CE141A17009800626D20 /* Nori_Nod.atlas in Resources */,
+				9815BC4E1A1E33850001EB49 /* block.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

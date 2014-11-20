@@ -96,16 +96,44 @@ SKSpriteNode            *headlight;
     };
 }
 
-- (uint32_t)attack{
-    _chargedEnergy--;
-    return _att;
-}
-- (void)defendFor:(uint32_t)damage{
-    _hp=_hp-(damage-_def);
+//- (uint32_t)attack{
+//    _chargedEnergy--;
+//    return _att;
+//}
+//- (void)defendFor:(uint32_t)damage{
+//    _hp=_hp-(damage-_def);
+//}
+//
+//- (void)charge{
+//    _chargedEnergy++;
+//}
+
+-(void)runCharacterAction{
+    switch (_nextAction.actionType) {
+        case ATTACK:
+            [self attack];
+            break;
+        case BLOCK:
+            [self block];
+            break;
+        case CHARGE:
+            [self charge];
+            break;
+        default:
+            break;
+    }
 }
 
-- (void)charge{
-    _chargedEnergy++;
+-(void)attack{
+    [self runAction:[SKAction playSoundFileNamed:@"attack.wav" waitForCompletion:NO]];
+}
+
+-(void)block{
+    [self runAction:[SKAction playSoundFileNamed:@"block.wav" waitForCompletion:NO]];
+}
+
+-(void)charge{
+    [self runAction:[SKAction playSoundFileNamed:@"charge.wav" waitForCompletion:NO]];
 }
 
 - (void)fireAnimationForState:(NoriAnimationState)state{

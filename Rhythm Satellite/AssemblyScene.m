@@ -115,7 +115,7 @@ PHBridgeSendAPI *bridgeSendAPI;
     
     _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
     _players = [NSArray arrayWithObjects:_defaultPlayer, nil];
-    _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:5 withMoney:1000];
+    _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:5 withMoney:1000 onTheRight:NO];
     _defaultPlayer.character.position = CGPointMake(200, CGRectGetMidY(self.frame)-100);
     [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
     [_defaultPlayer.character setScale:0.7f];

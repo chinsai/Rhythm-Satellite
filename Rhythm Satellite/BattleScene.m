@@ -100,7 +100,7 @@ long RSSIValue;
     //mainplayer
     if (!_defaultPlayer) {
         _defaultPlayer = [[Player alloc]initWithPlayerName:@"Player1"];
-        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000];
+        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000 onTheRight:NO];
         
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
         SKCropNode *crop = [SKCropNode node];
@@ -115,7 +115,7 @@ long RSSIValue;
     
     //opponent
     _opponentPlayer = [[Player alloc]initWithPlayerName:@"No-AI"];
-    _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000];
+    _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000 onTheRight:YES];
     _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-40);
     [_opponentPlayer.character fireAnimationForState:NoriAnimationStateReady];
     [self addChild:_opponentPlayer.character];
@@ -172,12 +172,12 @@ long RSSIValue;
 
                 break;
             }
-            if( RSSIValue < -44){
-                NSLog(@"RSSI %ld", RSSIValue);
-                [_btReceiver cleanup];
-                [self setGameState:SCANNING];
-                break;
-            }
+//            if( RSSIValue < -70){
+//                NSLog(@"RSSI %ld", RSSIValue);
+//                [_btReceiver cleanup];
+//                [self setGameState:SCANNING];
+//                break;
+//            }
             break;
             
         case PLAYING:
@@ -382,7 +382,7 @@ long RSSIValue;
 
 -(void)resetBattle{
     //reset the attribute
-    _numOfRounds = 2;
+    _numOfRounds = 16;
     _isInputTiming = YES;
     [_defaultPlayer.character resetAttributes];
     [_opponentPlayer.character resetAttributes];

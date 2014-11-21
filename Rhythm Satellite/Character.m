@@ -25,7 +25,7 @@ NSArray *sleepAnimationFrames = nil;
 
 SKSpriteNode            *headlight;
 
--(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(int32_t)hp withMaxHp:(int32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money{
+-(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(int32_t)hp withMaxHp:(int32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money onTheRight:(BOOL)isRight{
     
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Nori_Nod"];
     SKTexture *texture = [atlas textureNamed:@"nori_nod_0001"];
@@ -50,6 +50,23 @@ SKSpriteNode            *headlight;
     headlight.zPosition =2.0;
     [self addChild:headlight];
     
+    
+    
+    _ball = [SKSpriteNode spriteNodeWithImageNamed:@"ball"];
+    _ball.position = CGPointMake(0.0, 180.0);
+    _ball.alpha = 0;
+    [_ball setScale:0.1];
+    _ball.zPosition = 10;
+    [self addChild:_ball];
+    _shield = [SKSpriteNode spriteNodeWithImageNamed:@"shield"];
+    _shield.position = CGPointMake(0.0, 0.0);
+    _shield.alpha = 0;
+    [self addChild:_shield];
+    _shield.zPosition = 9;
+    
+    
+    
+    
     _level = level;
     _exp = exp;
     _hp = hp;
@@ -61,8 +78,9 @@ SKSpriteNode            *headlight;
     _isAnimated = NO;
     _bodyColor = NoriColorWhite;
     _chargedEnergy = 0;
-    _animationSpeed = 1.0f/20.0f;;
+    _animationSpeed = 1.0f/20.0f;
     _nextAction = nil;
+    _onTheRight = isRight;
     
     
     
@@ -126,10 +144,30 @@ SKSpriteNode            *headlight;
 
 -(void)attack{
     [self runAction:[SKAction playSoundFileNamed:@"attack.wav" waitForCompletion:NO]];
+    
+    _ball.alpha = 1.0;
+    SKAction *scale;
+    SKAction *move;
+    if (_onTheRight){
+        move = [SKAction moveBy:CGVectorMake(-self.size.width*2.5, -180.0) duration:0.5];
+        scale = [SKAction scaleTo:-1.0 duration:0.3];
+    }
+    else{
+        move = [SKAction moveBy:CGVectorMake(self.size.width*2.5, -180.0) duration:0.5];
+        scale = [SKAction scaleTo:1.0 duration:0.3];
+    }
+    SKAction *group = [SKAction group:@[scale, move]];
+    [_ball runAction:group completion:^{ [_ball setScale:0.1]; _ball.position = CGPointMake(0.0, 180.0);_ball.alpha = 0.0;}];
 }
 
 -(void)block{
     [self runAction:[SKAction playSoundFileNamed:@"block.wav" waitForCompletion:NO]];
+    
+    SKAction *fadein = [SKAction fadeAlphaTo:1.0 duration:0.5];
+    SKAction *wait = [SKAction waitForDuration:0.2];
+    SKAction *fadeout = [SKAction fadeAlphaTo:0.0 duration:0.3];
+    SKAction *seq = [SKAction sequence:@[ fadein, wait, fadeout]];
+    [_shield runAction:seq];
 }
 
 -(void)charge{

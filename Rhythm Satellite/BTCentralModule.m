@@ -86,7 +86,7 @@
     }
     
     //Reject if the singal strength is too low to be close enough (Close is around -22dB)
-    if (RSSI.integerValue < -40) {
+    if (RSSI.integerValue < -45) {
         return;
     }
     

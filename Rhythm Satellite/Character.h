@@ -50,10 +50,13 @@ typedef enum : uint8_t {
 @property (nonatomic) CGFloat                           animationSpeed;
 @property (nonatomic, strong) Action                      *nextAction;
 @property (nonatomic) float                             secPerBeat;
+@property (nonatomic) SKSpriteNode                      *ball;
+@property (nonatomic) SKSpriteNode                      *shield;
+@property (nonatomic) BOOL                              onTheRight;
 
 
 
--(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(int32_t)hp withMaxHp:(int32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money;
+-(id)initWithLevel: (uint8_t)level withExp:(uint32_t)exp withHp:(int32_t)hp withMaxHp:(int32_t)maxHp withAtt:(uint32_t)att withDef:(uint32_t)def withMoney:(uint32_t)money onTheRight:(BOOL)isRight;
 
 /* Reset a character for reuse. */
 - (void)resetAnimation;

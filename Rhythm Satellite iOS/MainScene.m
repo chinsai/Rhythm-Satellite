@@ -222,17 +222,21 @@ CGFloat             velocityY;
         case CONNECTED:
             
             if(velocityY >1000){
-                [_controller setInput:@"TAP"];
+                [_controller setInput:@"START"];
                 [_defaultPlayer.character riseToPositionY:900 ForDuration:(900-location.y)/velocityY];
                 [_currentTimeLabel runAction:[SKAction fadeAlphaTo:0.0 duration:0.2]];
                 velocityY = 0;
-                nodeInTouch = nil;
+//                NSLog(@"%@", [_controller.triggeredCommand inputInString]);
+                //dont know why, but the sending does not work to wait until update loop
+                _btTransmitter.dataToSend = [[_controller.triggeredCommand inputInString] dataUsingEncoding:NSUTF8StringEncoding];
+                [_btTransmitter sendData];
             }
             else{
+                [_controller setInput:@"TAP"];
                 [self resetNoriDrag];
                 [_currentTimeLabel runAction:[self clockFadeIn]];
-                nodeInTouch = nil;
             }
+            nodeInTouch = nil;
             break;
         case PLAYING:
             break;
@@ -357,23 +361,6 @@ CGFloat             velocityY;
     if( _controller.triggeredCommand.input != NEUTRAL){
          NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
     }
-}
-
--(void)wakeUpCharacter:(NSTimeInterval) currentTime{
-
-    //first get the latest command
-    [_controller update:currentTime];
-    
-    if (_controller.enabled) {
-                 NSLog(@"Triggered command: %@", [_controller.triggeredCommand inputInString] );
-        if( _controller.triggeredCommand.input != NEUTRAL){
-
-            _numBeatsHit++;
-            
-        }
-    }
-
-    
 }
 
 -(void)playAlarm{

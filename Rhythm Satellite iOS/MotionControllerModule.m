@@ -71,6 +71,7 @@
         _triggeredCommand = [[Command alloc]init];
     }
     [_triggeredCommand setInputWithString:input];
+
 }
 
 

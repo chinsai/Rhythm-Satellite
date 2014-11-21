@@ -12,11 +12,15 @@
 #import "Action.h"
 #import "Command.h"
 #import "BattleHUD.h"
+#import "RSDialogBox.h"
 
 #import "OSXAppDelegate.h"
 
 #define GoSoundKey @"gosound"
 #define InputAndAnimationKey @"inputandanimation"
+#define FADEIN @"FADEIN"
+#define FADEOUT @"FADEOUT"
+
 
 typedef enum : uint8_t {
     SCANNING,
@@ -40,7 +44,7 @@ typedef enum : uint8_t {
     TournamentBattle
 }   GameMode;
 
-
+long RSSIValue;
 @interface BattleScene()
 
 @property (nonatomic, strong) NSArray               *players;
@@ -73,6 +77,9 @@ typedef enum : uint8_t {
 
 @property (nonatomic) TimingGrade                    timing;
 
+@property (nonatomic) RSDialogBox                   *dialogBox;
+
+@property (nonatomic) SKSpriteNode                  *cover;
 @end
 
 
@@ -92,7 +99,7 @@ typedef enum : uint8_t {
     
     //mainplayer
     if (!_defaultPlayer) {
-        _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
+        _defaultPlayer = [[Player alloc]initWithPlayerName:@"Player1"];
         _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000];
         
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
@@ -107,7 +114,7 @@ typedef enum : uint8_t {
     }
     
     //opponent
-    _opponentPlayer = [[Player alloc]initWithPlayerName:@"OIKOS"];
+    _opponentPlayer = [[Player alloc]initWithPlayerName:@"No-AI"];
     _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000];
     _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-40);
     [_opponentPlayer.character fireAnimationForState:NoriAnimationStateReady];
@@ -117,12 +124,18 @@ typedef enum : uint8_t {
     [_hud setLeftName:_defaultPlayer.playerName];
     [_hud setRightName:_opponentPlayer.playerName];
     
+    _cover = [SKSpriteNode spriteNodeWithImageNamed:@"startScreen"];
+    _cover.zPosition = 1000;
+    _cover.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addChild:_cover];
+    
     
     _btReceiver = NSAppDelegate.btReceiver;
     _secPerBeat = 60.0/120.0;
     _gameState = SCANNING;
     _numOfRounds = 0;
     [_hud setRound:_numOfRounds];
+    
 }
 
 -(void)update:(NSTimeInterval)currentTime{
@@ -133,9 +146,9 @@ typedef enum : uint8_t {
     switch (_gameState) {
         case SCANNING:
             //if there is peripheral connected
-            if(_btReceiver.hasConnectedPeripheral){
-                _gameState = READY;
-                NSLog(@"go to READY");
+            if(_btReceiver.hasConnectedPeripheral && ![_cover hasActions]){
+                [self setGameState:READY];
+                
             }
             break;
         case SEARCHING:
@@ -145,12 +158,25 @@ typedef enum : uint8_t {
         case READY:
             
 //            NSLog(@"RSSI %ld", [_btReceiver getRSSi]);
-            
+//            RSSIValue = [_btReceiver getRSSi]; 3 
             //update the command input to look for a TAP command
-            if (latestCommand.input == TAP) {
+            if (latestCommand.input == START) {
+                NSLog(@"start");
                 [self startBattle];
                 [_defaultPlayer.character riseToPositionY:0.0 ForDuration:0.2];
-                NSLog(@"go to PLAYING");
+                break;
+            }
+            if (latestCommand.input == TAP){
+                [_btReceiver cleanup];
+                [self setGameState:SCANNING];
+
+                break;
+            }
+            if( RSSIValue < -44){
+                NSLog(@"RSSI %ld", RSSIValue);
+                [_btReceiver cleanup];
+                [self setGameState:SCANNING];
+                break;
             }
             break;
             
@@ -196,8 +222,17 @@ typedef enum : uint8_t {
             }
             
             break;
-            
         case ENDED:
+            if (latestCommand.input == UP){
+                [_dialogBox removeFromParent];
+                [self startBattle];
+            }else if (latestCommand.input == DOWN) {
+                [_dialogBox removeFromParent];
+                [_defaultPlayer.character dropToPositionY:-_defaultPlayer.character.size.height ForDuration:0.2];
+                [_btReceiver cleanup];
+                [self resetScreen];
+                [self setGameState:SCANNING];
+            }
             break;
         case GRAPHICSTEST:
             [self startBattle];
@@ -211,25 +246,40 @@ typedef enum : uint8_t {
 }
 
 -(void)startBattle{
-    _gameState = PLAYING;
+    [self setGameState:PLAYING];
 
     [self resetBattle];
-    
+
     //play the music once it starts
     [_musicPlayer play];
     
     //Loop for GO signal
-//    [self runAction:[SKAction repeatAction:[self soundEffectGoAction] count:_numOfRounds]];
     [self runAction:[SKAction repeatActionForever:[self soundEffectGoAction]] withKey:GoSoundKey];
     
     
     //startoff with Warmup Beats
-    [self runAction:[SKAction waitForDuration:_secPerBeat*8] completion: ^(void){
-        //start main loop
-        [self runAction:[SKAction repeatActionForever:[self mainLoop]] withKey:InputAndAnimationKey];
-    }];
-}
+    [self runAction:
+     
+         [SKAction sequence:@[
+                        [SKAction waitForDuration:_secPerBeat*8-GOOD_TIMING_DELTA],
+                        [SKAction runBlock: ^(void)
+                            {
+                                _timing = GoodTiming;
+                                _isInputTiming = YES;
+                            }
+                         ],
+                        [SKAction waitForDuration:GOOD_TIMING_DELTA],
+                        
+                        ]
+          ] completion:^{
+             
+             [self runAction:[SKAction repeatActionForever:[self mainLoop]] withKey:InputAndAnimationKey];
+         }
+     
+     ];
 
+    
+}
 -(SKAction *)mainLoop{
     return [SKAction sequence:@[
                                 
@@ -332,7 +382,7 @@ typedef enum : uint8_t {
 
 -(void)resetBattle{
     //reset the attribute
-    _numOfRounds = 16;
+    _numOfRounds = 2;
     _isInputTiming = YES;
     [_defaultPlayer.character resetAttributes];
     [_opponentPlayer.character resetAttributes];
@@ -341,11 +391,24 @@ typedef enum : uint8_t {
 }
 
 -(void) battleEnded{
-    _gameState = SCANNING;
+    if(_defaultPlayer.character.hp > _opponentPlayer.character.hp){
+        _dialogBox = [RSDialogBox initBooleanDialogBoxWithTitle:@"You WIN! Try again?"];
+    }
+    else{
+        _dialogBox = [RSDialogBox initBooleanDialogBoxWithTitle:@"You LOSE! Try again?"];
+    }
+    _dialogBox.position = CGPointMake( CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) );
+    _dialogBox.zPosition = 100.0;
+    [self addChild:_dialogBox];
+    [self setGameState:ENDED];
     [self doVolumeFade];
     [self removeActionForKey:GoSoundKey];
     [self removeActionForKey:InputAndAnimationKey];
     [_hud setRound:_numOfRounds];
+}
+
+-(void)resetScreen{
+    [_hud resetAll];
 }
 
 -(Command *)getLatestCommand{
@@ -379,10 +442,17 @@ typedef enum : uint8_t {
     _musicPlayer.numberOfLoops = 0;
     [_musicPlayer prepareToPlay];
 }
-     
+
  -(void)doVolumeFade
 {
     if (_musicPlayer.volume > 0.1) {
+        if (_gameState==ENDED) {
+            [_musicPlayer stop];
+            _musicPlayer.currentTime = 0;
+            [_musicPlayer prepareToPlay];
+            _musicPlayer.volume = 1.0;
+            return;
+        }
         _musicPlayer.volume = _musicPlayer.volume - 0.1;
         [self performSelector:@selector(doVolumeFade) withObject:nil afterDelay:0.1];
     } else {
@@ -394,4 +464,48 @@ typedef enum : uint8_t {
     }
 }
 
+-(void) fadeOutCover{
+    [_cover runAction:[SKAction fadeAlphaTo:0.0 duration:0.5] withKey:FADEOUT];
+}
+
+-(void) fadeInCover{
+    [_cover runAction:[SKAction fadeAlphaTo:1.0 duration:0.5] withKey:FADEIN];
+}
+
+-(void)setGameState:(BattleState)gameState{
+    
+    //leaving states
+    switch (_gameState) {
+        case SCANNING:
+            [self fadeOutCover];
+            break;
+        case READY:
+            break;
+        case PLAYING:
+            break;
+        case ENDED:
+            break;
+        case GRAPHICSTEST:
+            break;
+        default:
+            break;
+    }
+    
+    //new states
+    switch (gameState) {
+        case SCANNING:
+            [self fadeInCover];
+            break;
+        case PLAYING:
+            break;
+        case ENDED:
+            break;
+        case GRAPHICSTEST:
+            break;
+        default:
+            break;
+    }
+    
+    _gameState = gameState;
+}
 @end

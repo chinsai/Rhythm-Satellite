@@ -63,10 +63,10 @@
     
 //    self.skView.frameInterval = 2;
     
-    self.skView.showsFPS = YES;
+//    self.skView.showsFPS = YES;
 //    self.skView.showsNodeCount = YES;
     
-//    [self setUpHue];
+    [self setUpHue];
     
 }
 
@@ -92,7 +92,6 @@
     
     // Call startUpSDK which will initialize the SDK
     [self.phHueSDK startUpSDK];
-
     
     // Initialize bridge searching class with UPnP search and Portal search enabled (retain this object during search)
     self.bridgeSearch = [[PHBridgeSearching alloc] initWithUpnpSearch:YES andPortalSearch:YES andIpAdressSearch:YES];
@@ -106,13 +105,14 @@
             NSArray *allValues = [bridgesFound allValues];
             
             [self.phHueSDK setBridgeToUseWithIpAddress:allValues[0] macAddress:allKeys[0]];
-//            NSLog(@"IPAddress %@", allValues[0]);
-
+            NSLog(@"IPAddress %@", allValues[0]);
+            
         }
         else{
-            [self showNoBridgesFoundDialog];
+            //            [self showNoBridgesFoundDialog];
+            NSLog(@"NoBridgeFound");
         }
-
+        
     }];
     
     // Register for notifications about pushlinking
@@ -126,7 +126,7 @@
     
     // Call to the Hue SDK to start the pushlinking process
     [self.phHueSDK startPushlinkAuthentication];
-    
+    NSLog(@"PUSH IT!");
     
     PHNotificationManager *notificationManager = [PHNotificationManager defaultManager];
     
@@ -153,7 +153,7 @@
      *****************************************************/
     
     // Configure a resource specific heartbeat before calling enableLocalConnection
-    [self.phHueSDK setLocalHeartbeatInterval:60.0f forResourceType: RESOURCES_LIGHTS];
+    [self.phHueSDK setLocalHeartbeatInterval:20.0f forResourceType: RESOURCES_LIGHTS];
     
     
     [self.phHueSDK enableLocalConnection];
@@ -169,6 +169,7 @@
  Notification receiver for successful local connection
  */
 - (void)localConnection {
+    NSLog(@"Connection is ok!");
     // Check current connection state
 }
 
@@ -176,6 +177,7 @@
  Notification receiver for failed local connection
  */
 - (void)noLocalConnection {
+    NSLog(@"Connection is NOT ok!");
     // Check current connection state
 }
 
@@ -183,6 +185,7 @@
  Notification receiver for failed local authentication
  */
 - (void)notAuthenticated {
+    NSLog(@"notAuthenticated");
     /***************************************************
      We are not authenticated so we start the authentication process
      *****************************************************/
@@ -192,14 +195,14 @@
      *****************************************************/
     
     // Start local authenticion process
-//    [self performSelector:@selector(doAuthentication) withObject:nil afterDelay:0.5];
+    //    [self performSelector:@selector(doAuthentication) withObject:nil afterDelay:0.5];
 }
 
 /**
  Checks if we are currently connected to the bridge locally and if not, it will show an error when the error is not already shown.
  */
 - (void)checkConnectionState {
-
+    
 }
 
 
@@ -208,8 +211,8 @@
 }
 
 /**
-Shows the no bridges found alert
-*/
+ Shows the no bridges found alert
+ */
 - (void)showNoBridgesFoundDialog {
     int response;
     self.noBridgeFoundAlert=[[NSAlert alloc] init];
@@ -218,11 +221,11 @@ Shows the no bridges found alert
     [self.noBridgeFoundAlert addButtonWithTitle:NSLocalizedString(@"Retry", @"No bridge found alert retry button")];
     [self.noBridgeFoundAlert addButtonWithTitle:NSLocalizedString(@"Cancel", @"No bridge found alert cancel button")];
     [self.noBridgeFoundAlert setAlertStyle:NSCriticalAlertStyle];
-
-//    [self.noBridgeFoundAlert beginSheetModalForWindow:self.window
-//                                     modalDelegate:self
-//                                    didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
-//                                       contextInfo:&response];
+    
+    [self.noBridgeFoundAlert beginSheetModalForWindow:self.window
+                                        modalDelegate:self
+                                       didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
+                                          contextInfo:&response];
 }
 
 @end

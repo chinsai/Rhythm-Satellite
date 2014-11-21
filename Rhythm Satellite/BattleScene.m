@@ -13,6 +13,7 @@
 #import "Command.h"
 #import "BattleHUD.h"
 #import "RSDialogBox.h"
+#import <HueSDK_OSX/HueSDK.h>
 
 #import "OSXAppDelegate.h"
 
@@ -43,6 +44,10 @@ typedef enum : uint8_t {
     FreePlayBattle,
     TournamentBattle
 }   GameMode;
+
+PHBridgeResourcesCache *cache;
+NSArray *lights;
+PHBridgeSendAPI *bridgeSendAPI;
 
 long RSSIValue;
 @interface BattleScene()
@@ -135,7 +140,21 @@ long RSSIValue;
     _gameState = SCANNING;
     _numOfRounds = 0;
     [_hud setRound:_numOfRounds];
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
     
+    //send HUE all off
+    [self sendHue1and2Off];
+    
+    //send HUE alarm
+    [self runAction:
+     [SKAction runBlock:^{[self sendHueAlarm1];}]
+         completion:^{
+             [self runAction:[SKAction waitForDuration:1]
+                  completion:^{
+                      [self sendHueAlarm2];
+                  }];
+         }
+     ];
 }
 
 -(void)update:(NSTimeInterval)currentTime{
@@ -162,6 +181,8 @@ long RSSIValue;
             //update the command input to look for a TAP command
             if (latestCommand.input == START) {
                 NSLog(@"start");
+                //game start, send hue all off
+                [self sendHueAllOff];
                 [self startBattle];
                 [_defaultPlayer.character riseToPositionY:0.0 ForDuration:0.2];
                 break;
@@ -198,6 +219,19 @@ long RSSIValue;
                     
                     if( _timing == GoodTiming ){
                         NSLog(@"successful input");
+                        
+                        //ここはポイント！！！！！！！！！
+                        [self runAction:
+                         [SKAction runBlock:^{[self sendHueMoveGoodTiming];}]
+                             completion:^{
+                                 [self runAction:[SKAction waitForDuration:0.2]
+                                      completion:^{
+                                          [self sendHueOff];
+                                      }];
+                             }
+                         ];
+                        //====================================
+                        
                         [_inputCommands addObject:latestCommand];
 //                        [_defaultPlayer.character voiceForCommand:latestCommand.input];
                         
@@ -207,9 +241,23 @@ long RSSIValue;
 
                         }
                     }
+                    else {
+                        
+                        //ここはポイント！！！！！！！！！
+                        [self runAction:
+                         [SKAction runBlock:^{[self sendHueMoveBadTiming];}]
+                             completion:^{
+                                 [self runAction:[SKAction waitForDuration:0.2]
+                                      completion:^{
+                                          [self sendHueOff];
+                                      }];
+                             }
+                         ];
+                        //====================================
+                        
+                    }
                     
                 }
-                
                 
                 break;
                 
@@ -249,6 +297,12 @@ long RSSIValue;
     [self setGameState:PLAYING];
 
     [self resetBattle];
+    
+    //HUE with rhythm
+    SKAction *blink1 = [SKAction runBlock:^{ [self sendHueRhythm1];  }];
+    SKAction *blink2 = [SKAction runBlock:^{ [self sendHueRhythm2];  }];
+    SKAction *blinksequence = [SKAction sequence:@[  blink1, [SKAction waitForDuration:0.5], blink2, [SKAction waitForDuration:0.5] ]];
+    [self runAction: [SKAction repeatActionForever:blinksequence] withKey:@"blink" ];
 
     //play the music once it starts
     [_musicPlayer play];
@@ -280,6 +334,21 @@ long RSSIValue;
 
     
 }
+
+-(void)rhythmBlink{
+    //ここはポイント！！！！！！！！！
+    [self runAction:
+     [SKAction runBlock:^{[self sendHueRhythm1];}]
+         completion:^{
+             [self runAction:[SKAction waitForDuration:0.48]
+                  completion:^{
+                      [self sendHueRhythm2];
+                  }];
+         }
+     ];
+    //====================================
+}
+
 -(SKAction *)mainLoop{
     return [SKAction sequence:@[
                                 
@@ -399,6 +468,9 @@ long RSSIValue;
     }
     _dialogBox.position = CGPointMake( CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) );
     _dialogBox.zPosition = 100.0;
+    [self removeActionForKey:@"blink"];
+    //game is over, send HUE all off
+    [self sendHueAllOff];
     [self addChild:_dialogBox];
     [self setGameState:ENDED];
     [self doVolumeFade];
@@ -496,6 +568,10 @@ long RSSIValue;
         case SCANNING:
             [self fadeInCover];
             break;
+        case READY:
+            //send HUE ready blink
+            [self sendHueBlinking];
+            break;
         case PLAYING:
             break;
         case ENDED:
@@ -508,4 +584,446 @@ long RSSIValue;
     
     _gameState = gameState;
 }
+
+
+-(void)sendHueMoveGoodTiming{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    //    state.on = [NSNumber numberWithBool:YES];
+    state.on = [NSNumber numberWithBool:YES];
+    state.hue = @25500;
+    state.brightness = @100;
+    state.saturation = @100;
+    state.alert = NONE;
+    state.effect = NONE;
+    state.transitionTime = @0;
+    
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueMoveBadTiming{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    //    state.on = [NSNumber numberWithBool:YES];
+    state.on = [NSNumber numberWithBool:YES];
+    state.hue = @65280;
+    state.brightness = @100;
+    state.saturation = @100;
+    state.alert = NONE;
+    state.effect = NONE;
+    state.transitionTime = @0;
+    
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueBlinking{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    //    state.on = [NSNumber numberWithBool:YES];
+    state.on = [NSNumber numberWithBool:YES];
+    state.hue = @12750;
+    state.brightness = @100;
+    state.saturation = @100;
+    state.alert = 3;
+    state.effect = NONE;
+    state.transitionTime = @0;
+    
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueRhythm1{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"2"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    state.on = [NSNumber numberWithBool:YES];
+    state.hue = @46920;
+    state.brightness = @50;
+    state.saturation = @100;
+    state.alert = NONE;
+    state.effect = NONE;
+    state.transitionTime = @5;
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueRhythm2{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"2"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    state.on = [NSNumber numberWithBool:YES];
+    state.hue = @46920;
+    state.brightness = @200;
+    state.saturation = @100;
+    state.alert = NONE;
+    state.effect = NONE;
+    state.transitionTime = @5;
+    
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueOff{
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    // Get light from cache
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    
+    // Change hue of this light state
+    state.alert = 0;
+    state.on = [NSNumber numberWithBool:NO];
+    state.transitionTime = @0;
+    
+    //    state.brightness = @0;
+    //    state.saturation = @0;
+    //    state.hue = @0;
+    //    state.alert = NONE;
+    //    state.effect = NONE;
+    //    state.transitionTime = @0;
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHue1and2Off{
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    // Get light from cache
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    PHLight *light2 = [cache.lights objectForKey:@"2"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    state.alert = 0;
+    state.on = [NSNumber numberWithBool:NO];
+    state.transitionTime = @0;
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    [bridgeSendAPI updateLightStateForId:light2.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueAllOff{
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    // Get light from cache
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    PHLight *light2 = [cache.lights objectForKey:@"2"];
+    PHLight *light3 = [cache.lights objectForKey:@"3"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    state.alert = 0;
+    state.on = [NSNumber numberWithBool:NO];
+    state.transitionTime = @0;
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    [bridgeSendAPI updateLightStateForId:light2.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    [bridgeSendAPI updateLightStateForId:light3.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueAlarm1{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"3"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    state.on = [NSNumber numberWithBool:YES];
+    state.ct = @450;
+    state.brightness = @0;
+    state.alert = NONE;
+    state.effect = NONE;
+    state.transitionTime = @0;
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueAlarm2{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"3"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    //    state.on = [NSNumber numberWithBool:YES];
+    state.ct = @170;
+    state.brightness = @200;
+    state.alert = NONE;
+    state.effect = NONE;
+    state.transitionTime = @200;
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueAttack{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    //    state.on = [NSNumber numberWithBool:YES];
+    state.on = [NSNumber numberWithBool:YES];
+    state.hue = @65280;
+    state.brightness = @100;
+    state.saturation = @100;
+    state.alert = 3;
+    state.effect = NONE;
+    state.transitionTime = @0;
+    
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
 @end

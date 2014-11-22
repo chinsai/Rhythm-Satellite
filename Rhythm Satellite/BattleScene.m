@@ -238,6 +238,11 @@ long RSSIValue;
                         //if there are 4 commands, create an action for the character
                         if( [_inputCommands count] == 4){
                             _defaultPlayer.character.nextAction = [Action retrieveActionFrom:_inputCommands];
+//                            if(_defaultPlayer.character.nextAction.actionType == ATTACK){
+//                                [self sendHueAttack];
+//                                usleep(800000);
+////                                [self sendHueOff];
+//                            }
 
                         }
                     }
@@ -412,9 +417,19 @@ long RSSIValue;
     return [SKAction runBlock:^(void){
         NSLog(  @"Player 1 Perform Action: %@",[_defaultPlayer.character.nextAction toString] );
         NSLog(  @"Player 2 Perform Action: %@",[_opponentPlayer.character.nextAction toString] );
-        
         [self processResult];
-        
+//        if(_defaultPlayer.character.nextAction.actionType == ATTACK){
+//            [self processResult];
+////            [self sendHueAttack];
+////            usleep(800000);
+////            [self sendHueOff];
+//        }
+//        if(_defaultPlayer.character.nextAction.actionType == CHARGE){
+//            [self processResult];
+//            [self sendHueCharge];
+//            usleep(800000);
+//            [self sendHueOff];
+//        }
         
         NSLog(  @"Player 1 HP: %d Charge: %d",_defaultPlayer.character.hp, _defaultPlayer.character.chargedEnergy );
         NSLog(  @"Player 2 HP: %d Charge: %d",_opponentPlayer.character.hp, _opponentPlayer.character.chargedEnergy );
@@ -433,6 +448,18 @@ long RSSIValue;
     [_hud updateChargeOfLeftCharacter:_defaultPlayer.character];
     [_hud updateChargeOfRightCharacter:_opponentPlayer.character];
     [_defaultPlayer.character compareResultFromCharacter:_opponentPlayer.character];
+    if(_defaultPlayer.character.nextAction.actionType == CHARGE){
+        
+        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueCharge];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
+
+    }
+    if(_defaultPlayer.character.nextAction.actionType == ATTACK){
+        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueAttack];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
+    }
+    if(_defaultPlayer.character.nextAction.actionType == BLOCK){
+        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueBlock];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
+    }
+    
     _defaultPlayer.character.nextAction = nil;
 }
 
@@ -1006,6 +1033,84 @@ long RSSIValue;
     //    state.on = [NSNumber numberWithBool:YES];
     state.on = [NSNumber numberWithBool:YES];
     state.hue = @65280;
+    state.brightness = @100;
+    state.saturation = @100;
+    state.alert = 3;
+    state.effect = NONE;
+    state.transitionTime = @0;
+    
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueCharge{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    //    state.on = [NSNumber numberWithBool:YES];
+    state.on = [NSNumber numberWithBool:YES];
+    state.hue = @25500;
+    state.brightness = @100;
+    state.saturation = @100;
+    state.alert = 3;
+    state.effect = NONE;
+    state.transitionTime = @0;
+    
+    
+    
+    // Call update of lightstate on bridge API
+    [bridgeSendAPI updateLightStateForId:light.identifier withLightState:state completionHandler:^(NSArray *errors) {
+        if (!errors){
+            // Update successful
+            NSLog(@"OK!!!!!!!!!!!!!");
+        } else {
+            // Error occurred
+        }
+    }];
+    
+}
+
+-(void)sendHueBlock{
+    
+    // Create PHBridgeSendAPI object
+    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+    
+    // Get the cache
+    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    // And now you can get any resource you want, for example:
+    lights = [cache.lights allValues];
+    
+    PHLight *light = [cache.lights objectForKey:@"1"];
+    
+    // Get light state of this light
+    PHLightState *state = [[PHLightState alloc] init];
+    
+    // Change hue of this light state
+    //    state.on = [NSNumber numberWithBool:YES];
+    state.on = [NSNumber numberWithBool:YES];
+    state.hue = @50000;
     state.brightness = @100;
     state.saturation = @100;
     state.alert = 3;

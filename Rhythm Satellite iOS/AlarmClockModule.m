@@ -13,7 +13,10 @@
 
 - (id)init{
     if(self = [super init]){
-        ;
+        _alarmState = alarmOff;
+        _hour = [[AlarmClockModule getCurrentHourInString] intValue];
+        _minute = [[AlarmClockModule getCurrentMinuteInString] intValue];
+        _alarmState = alarmOff;
     }
     return self;
 }
@@ -26,7 +29,43 @@
     return [dateFormatter stringFromDate:now];
 }
 
--(void)updateAlarm{
++ (NSString *)getCurrentHourInString{
+    NSDate *now = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH"];
+    return [dateFormatter stringFromDate:now];
+}
++ (NSString *)getCurrentMinuteInString{
+    NSDate *now = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"mm"];
+    return [dateFormatter stringFromDate:now];
+}
+
+-(void)setAlarmAtHour: (uint8_t)hour atMinute: (uint8_t)minute{
+    NSDate *now = [NSDate date];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier: NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [gregorian components: NSUIntegerMax fromDate: now];
+    [components setHour: hour];
+    [components setMinute: minute];
+    [components setSecond:0];
+    
+    _hour = hour;
+    _minute = minute;
+    
+    _alarmDate = [gregorian dateFromComponents: components];
+    if ([_alarmDate timeIntervalSinceNow] <= 0 ) {
+        NSDateComponents *dc = [[NSDateComponents alloc] init];
+        [dc setDay:1];
+        _alarmDate = [[NSCalendar currentCalendar] dateByAddingComponents:dc toDate:_alarmDate options:0];
+    }
+    
+    if(_alarmState == alarmOn){
+        [self scheduleAlarmForDate:_alarmDate];
+    }
+}
+
+-(void)setAlarm{
     NSDate *now = [NSDate date];
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier: NSCalendarIdentifierGregorian];
     NSDateComponents *components = [gregorian components: NSUIntegerMax fromDate: now];
@@ -41,7 +80,7 @@
         _alarmDate = [[NSCalendar currentCalendar] dateByAddingComponents:dc toDate:_alarmDate options:0];
     }
     
-    if(_alarmState == ALARM_ON){
+    if(_alarmState == alarmOn){
         [self scheduleAlarmForDate:_alarmDate];
     }
 }
@@ -68,6 +107,25 @@
         notification.alertAction = NSLocalizedString(@"Start Preparing", nil);
         [app scheduleLocalNotification:notification];
     }
+}
+
+-(void)playAlarm{
+    iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.bgmPlayer play];
+}
+-(void)stopAlarm{
+    iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.bgmPlayer stop];
+    appDelegate.bgmPlayer.currentTime = 0;
+}
+
+-(void)switchOnAlarm{
+    _alarmState = alarmOn;
+    [self setAlarm];
+}
+-(void)switchOffAlarm{
+    _alarmState = alarmOff;
+    [[UIApplication sharedApplication] cancelAllLocalNotifications ];
 }
 
 @end

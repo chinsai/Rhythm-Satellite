@@ -9,19 +9,25 @@
 #import <Foundation/Foundation.h>
 
 typedef enum  : uint8_t{
-    ALARM_ON,
-    ALARM_PLAYING,
-    ALARM_OFF
+    alarmOn,
+    alarmPlaying,
+    alarmOff
 } AlarmState;
 
 
 @interface AlarmClockModule : NSObject
 
-@property (nonatomic) uint8_t                           hour;
-@property (nonatomic) uint8_t                           minute;
+@property (nonatomic) int8_t                           hour;
+@property (nonatomic) int8_t                           minute;
 @property (nonatomic, strong) NSDate                *alarmDate;         //alarm
 @property (nonatomic) AlarmState                    alarmState;     //whether the alarm is on or not
 
 +(NSString *)getCurrentTimeInString;
++(NSString *)getCurrentHourInString;
++(NSString *)getCurrentMinuteInString;
+-(void)setAlarm;
+-(void)setAlarmAtHour: (uint8_t)hour atMinute: (uint8_t)minute;
+-(void)switchOnAlarm;
+-(void)switchOffAlarm;
 
 @end

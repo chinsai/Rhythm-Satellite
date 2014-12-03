@@ -30,7 +30,8 @@ typedef enum mainSceneStateType{
 CGFloat             lastY;
 NSTimeInterval      lastTimeStamp;
 SKNode              *nodeInTouch;
-CGPoint             originalPosition;
+CGPoint             originalCharacterPosition;
+CGPoint             originalClockPosition;
 CGFloat             velocityY;
 @interface MainScene()
 
@@ -68,15 +69,15 @@ CGFloat             velocityY;
         _controller = [[MotionControllerModule alloc]init];
     }
     
-    originalPosition = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-100.0);
+    originalCharacterPosition = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-70.0);
     
     //mainplayer
     if (!_defaultPlayer) {
         _defaultPlayer = [[Player alloc]initWithPlayerName:@"Kiron"];
-        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000];
-        _defaultPlayer.character.position = originalPosition;
+        _defaultPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:30 withDef:15 withMoney:1000 onTheRight:nil];
+        _defaultPlayer.character.position = originalCharacterPosition;
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
-        [_defaultPlayer.character setScale:0.8];
+        [_defaultPlayer.character setScale:0.7];
         _defaultPlayer.character.name=CHARACTER_NODE_NAME;
         _defaultPlayer.character.userInteractionEnabled = NO;
         [self addChild:_defaultPlayer.character];
@@ -85,24 +86,26 @@ CGFloat             velocityY;
 
     _alarm = [[AlarmClockModule alloc]init];
 
+    originalClockPosition = CGPointMake(CGRectGetMidX(self.frame), 450.0);
+    
     //Current Time Label
     _currentTimeLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Thin"];
     _currentTimeLabel.text = [AlarmClockModule getCurrentTimeInString];
-    _currentTimeLabel.fontSize = 120;
-    _currentTimeLabel.position = CGPointMake(CGRectGetMidX(self.frame), 500.0);
+    _currentTimeLabel.fontSize = 96;
+    _currentTimeLabel.position = originalClockPosition;
     _currentTimeLabel.zPosition = 10;
     [self addChild:_currentTimeLabel];
     
     //Status Label
     _statusLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Thin"];
     _statusLabel.text = @"TAP to get ready";
-    _statusLabel.fontSize = 28;
+    _statusLabel.fontSize = 24;
     _statusLabel.position = CGPointMake(CGRectGetMidX(self.frame), 35.0);
     [self addChild:_statusLabel];
     
     
      _alarmbutton = [SKSpriteNode spriteNodeWithImageNamed:@"musicnote"];
-    _alarmbutton.position = CGPointMake(CGRectGetMidX(self.frame)+120.0, 450.0);
+    _alarmbutton.position = CGPointMake(CGRectGetMidX(self.frame)+120, 450.0);
     _alarmbutton.color = [SKColor grayColor];
     _alarmbutton.colorBlendFactor = 1.0;
     _alarmbutton.alpha = 0.5;
@@ -121,15 +124,18 @@ CGFloat             velocityY;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
-    SKNode *node = [self nodeAtPoint:location];
     
     switch (_state) {
         
+            
+        case IDLE:
+            break;
+            
         case CONNECTED:
-            if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
+            if ([_defaultPlayer.character containsPoint:location]) {
                 lastY = location.y;
                 lastTimeStamp = event.timestamp;
-                nodeInTouch = node;
+                nodeInTouch = _defaultPlayer.character;
             }
             break;
         default:
@@ -146,15 +152,15 @@ CGFloat             velocityY;
                 CGFloat distance = location.y - lastY;
                 
                 //avoid dropping lower than the original position
-                if (nodeInTouch.position.y < originalPosition.y) {
-                    nodeInTouch.position = CGPointMake(nodeInTouch.position.x, originalPosition.y);
+                if (nodeInTouch.position.y < originalCharacterPosition.y) {
+                    nodeInTouch.position = CGPointMake(nodeInTouch.position.x, originalCharacterPosition.y);
                     distance = 0.0;
                 }
                 else{
                     nodeInTouch.position = CGPointMake(nodeInTouch.position.x, nodeInTouch.position.y + distance);
                 }
                 
-                CGFloat alpha = (MAX_CLOCK_Y - _defaultPlayer.character.position.y)/(MAX_CLOCK_Y - originalPosition.y);
+                CGFloat alpha = (MAX_CLOCK_Y - _defaultPlayer.character.position.y)/(MAX_CLOCK_Y - originalCharacterPosition.y);
                 [_currentTimeLabel setAlpha:alpha];
                 _currentTimeLabel.position = CGPointMake(_currentTimeLabel.position.x, _currentTimeLabel.position.y + distance/20.0);
                 
@@ -177,31 +183,31 @@ CGFloat             velocityY;
     
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
-    SKNode *node = [self nodeAtPoint:location];
-    
     
     switch (_state) {
         case IDLE:
             //alarm button is pressed
             //character will go to sleep
-            if ([node.name isEqualToString:ALARM_BUTTON_NODE_NAME]) {
+            if ([_alarmbutton containsPoint:location]) {
                 [self updateState:SLEEPING];
                 [_defaultPlayer.character fireAnimationForState:NoriAnimationStateSleeping];
                 _alarmbutton.color = [SKColor whiteColor];
                 _alarmbutton.alpha = 1.0;
             }
             //the character is pressed
-            if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
+            if ( [_defaultPlayer.character containsPoint:location] && _btTransmitter) {
                 [_btTransmitter startAdvertising];
                 [self updateState:WAITING];
             }
+
+            
             
             
             break;
         case SLEEPING:
             //Button is pressed
             //in sleeping mode, when its pressed, alarm will sound
-            if ([node.name isEqualToString:ALARM_BUTTON_NODE_NAME]) {
+            if ([_alarmbutton containsPoint:location]) {
                 _alarmbutton.color = [SKColor grayColor];
                 _alarmbutton.alpha = 0.5;
                 [self updateState:ALARM];
@@ -214,7 +220,7 @@ CGFloat             velocityY;
         case ALARM:
             break;
         case WAITING:
-            if ([node.name isEqualToString:CHARACTER_NODE_NAME]) {
+            if ([_defaultPlayer.character containsPoint:location]) {
                 [_btTransmitter stopAdvertising];
                 [self updateState:IDLE];
             }
@@ -312,7 +318,7 @@ CGFloat             velocityY;
             if(!_btTransmitter.isSubscribed){
                 [_controller turnOff];
                 [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
-                [_defaultPlayer.character dropToPositionY:originalPosition.y ForDuration:0.2];
+                [_defaultPlayer.character dropToPositionY:originalCharacterPosition.y ForDuration:0.2];
                 [_currentTimeLabel runAction:[self clockFadeIn]];
                 [_btTransmitter stopAdvertising];
                 [self updateState:IDLE];
@@ -384,12 +390,12 @@ CGFloat             velocityY;
         nodeInTouch = nil;
         lastTimeStamp = 0.0;
         lastY = 0.0;
-        [_defaultPlayer.character dropToPositionY:originalPosition.y ForDuration:0.2];
+        [_defaultPlayer.character dropToPositionY:originalCharacterPosition.y ForDuration:0.2];
     }
 }
 
 -(SKAction *)clockFadeIn{
-    SKAction *lower = [SKAction moveToY:500.0 duration:0.5];
+    SKAction *lower = [SKAction moveToY:originalClockPosition.y duration:0.5];
     SKAction *alpha = [SKAction fadeAlphaTo:1.0 duration:0.5];
     return [SKAction group:@[lower,alpha]];
 }

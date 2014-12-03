@@ -19,12 +19,11 @@
       "scale" : "2x"
     },
     {
-      "extent" : "full-screen",
-      "idiom" : "iphone",
-      "filename" : "b-31.png",
-      "minimum-system-version" : "7.0",
       "orientation" : "portrait",
-      "unassigned" : true,
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "minimum-system-version" : "7.0",
+      "filename" : "b-31.png",
       "scale" : "2x"
     },
     {
@@ -34,7 +33,6 @@
       "filename" : "b-29.png",
       "minimum-system-version" : "7.0",
       "orientation" : "portrait",
-      "unassigned" : true,
       "scale" : "2x"
     }
   ],

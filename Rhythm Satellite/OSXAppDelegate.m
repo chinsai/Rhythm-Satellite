@@ -66,7 +66,7 @@
 //    self.skView.showsFPS = YES;
 //    self.skView.showsNodeCount = YES;
     
-    [self setUpHue];
+//    [self setUpHue];
     
 }
 

@@ -139,22 +139,24 @@ long RSSIValue;
     _secPerBeat = 60.0/120.0;
     _gameState = SCANNING;
     _numOfRounds = 0;
+    
+    
     [_hud setRound:_numOfRounds];
-    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
+//    bridgeSendAPI = [[PHBridgeSendAPI alloc] init];
     
-    //send HUE all off
-    [self sendHue1and2Off];
+//    //send HUE all off
+//    [self sendHue1and2Off];
     
-    //send HUE alarm
-    [self runAction:
-     [SKAction runBlock:^{[self sendHueAlarm1];}]
-         completion:^{
-             [self runAction:[SKAction waitForDuration:1]
-                  completion:^{
-                      [self sendHueAlarm2];
-                  }];
-         }
-     ];
+//    //send HUE alarm
+//    [self runAction:
+//     [SKAction runBlock:^{[self sendHueAlarm1];}]
+//         completion:^{
+//             [self runAction:[SKAction waitForDuration:1]
+//                  completion:^{
+//                      [self sendHueAlarm2];
+//                  }];
+//         }
+//     ];
 }
 
 -(void)update:(NSTimeInterval)currentTime{
@@ -182,7 +184,7 @@ long RSSIValue;
             if (latestCommand.input == START) {
                 NSLog(@"start");
                 //game start, send hue all off
-                [self sendHueAllOff];
+//                [self sendHueAllOff];
                 [self startBattle];
                 [_defaultPlayer.character riseToPositionY:0.0 ForDuration:0.2];
                 break;
@@ -221,15 +223,15 @@ long RSSIValue;
                         NSLog(@"successful input");
                         
                         //ここはポイント！！！！！！！！！
-                        [self runAction:
-                         [SKAction runBlock:^{[self sendHueMoveGoodTiming];}]
-                             completion:^{
-                                 [self runAction:[SKAction waitForDuration:0.2]
-                                      completion:^{
-                                          [self sendHueOff];
-                                      }];
-                             }
-                         ];
+//                        [self runAction:
+//                         [SKAction runBlock:^{[self sendHueMoveGoodTiming];}]
+//                             completion:^{
+//                                 [self runAction:[SKAction waitForDuration:0.2]
+//                                      completion:^{
+//                                          [self sendHueOff];
+//                                      }];
+//                             }
+//                         ];
                         //====================================
                         
                         [_inputCommands addObject:latestCommand];
@@ -238,26 +240,21 @@ long RSSIValue;
                         //if there are 4 commands, create an action for the character
                         if( [_inputCommands count] == 4){
                             _defaultPlayer.character.nextAction = [Action retrieveActionFrom:_inputCommands];
-//                            if(_defaultPlayer.character.nextAction.actionType == ATTACK){
-//                                [self sendHueAttack];
-//                                usleep(800000);
-////                                [self sendHueOff];
-//                            }
 
                         }
                     }
                     else {
                         
                         //ここはポイント！！！！！！！！！
-                        [self runAction:
-                         [SKAction runBlock:^{[self sendHueMoveBadTiming];}]
-                             completion:^{
-                                 [self runAction:[SKAction waitForDuration:0.2]
-                                      completion:^{
-                                          [self sendHueOff];
-                                      }];
-                             }
-                         ];
+//                        [self runAction:
+//                         [SKAction runBlock:^{[self sendHueMoveBadTiming];}]
+//                             completion:^{
+//                                 [self runAction:[SKAction waitForDuration:0.2]
+//                                      completion:^{
+//                                          [self sendHueOff];
+//                                      }];
+//                             }
+//                         ];
                         //====================================
                         
                     }
@@ -303,11 +300,11 @@ long RSSIValue;
 
     [self resetBattle];
     
-    //HUE with rhythm
-    SKAction *blink1 = [SKAction runBlock:^{ [self sendHueRhythm1];  }];
-    SKAction *blink2 = [SKAction runBlock:^{ [self sendHueRhythm2];  }];
-    SKAction *blinksequence = [SKAction sequence:@[  blink1, [SKAction waitForDuration:0.5], blink2, [SKAction waitForDuration:0.5] ]];
-    [self runAction: [SKAction repeatActionForever:blinksequence] withKey:@"blink" ];
+//    //HUE with rhythm
+//    SKAction *blink1 = [SKAction runBlock:^{ [self sendHueRhythm1];  }];
+//    SKAction *blink2 = [SKAction runBlock:^{ [self sendHueRhythm2];  }];
+//    SKAction *blinksequence = [SKAction sequence:@[  blink1, [SKAction waitForDuration:0.5], blink2, [SKAction waitForDuration:0.5] ]];
+//    [self runAction: [SKAction repeatActionForever:blinksequence] withKey:@"blink" ];
 
     //play the music once it starts
     [_musicPlayer play];
@@ -340,19 +337,19 @@ long RSSIValue;
     
 }
 
--(void)rhythmBlink{
-    //ここはポイント！！！！！！！！！
-    [self runAction:
-     [SKAction runBlock:^{[self sendHueRhythm1];}]
-         completion:^{
-             [self runAction:[SKAction waitForDuration:0.48]
-                  completion:^{
-                      [self sendHueRhythm2];
-                  }];
-         }
-     ];
-    //====================================
-}
+//-(void)rhythmBlink{
+//    //ここはポイント！！！！！！！！！
+//    [self runAction:
+//     [SKAction runBlock:^{[self sendHueRhythm1];}]
+//         completion:^{
+//             [self runAction:[SKAction waitForDuration:0.48]
+//                  completion:^{
+//                      [self sendHueRhythm2];
+//                  }];
+//         }
+//     ];
+//    //====================================
+//}
 
 -(SKAction *)mainLoop{
     return [SKAction sequence:@[
@@ -448,17 +445,17 @@ long RSSIValue;
     [_hud updateChargeOfLeftCharacter:_defaultPlayer.character];
     [_hud updateChargeOfRightCharacter:_opponentPlayer.character];
     [_defaultPlayer.character compareResultFromCharacter:_opponentPlayer.character];
-    if(_defaultPlayer.character.nextAction.actionType == CHARGE){
-        
-        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueCharge];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
-
-    }
-    if(_defaultPlayer.character.nextAction.actionType == ATTACK){
-        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueAttack];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
-    }
-    if(_defaultPlayer.character.nextAction.actionType == BLOCK){
-        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueBlock];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
-    }
+//    if(_defaultPlayer.character.nextAction.actionType == CHARGE){
+//        
+//        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueCharge];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
+//
+//    }
+//    if(_defaultPlayer.character.nextAction.actionType == ATTACK){
+//        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueAttack];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
+//    }
+//    if(_defaultPlayer.character.nextAction.actionType == BLOCK){
+//        [self runAction:[SKAction sequence:@[[SKAction runBlock:^{[self sendHueBlock];}],[SKAction waitForDuration:0.8], [SKAction runBlock:^{[self sendHueOff];}]]]];
+//    }
     
     _defaultPlayer.character.nextAction = nil;
 }
@@ -497,7 +494,7 @@ long RSSIValue;
     _dialogBox.zPosition = 100.0;
     [self removeActionForKey:@"blink"];
     //game is over, send HUE all off
-    [self sendHueAllOff];
+//    [self sendHueAllOff];
     [self addChild:_dialogBox];
     [self setGameState:ENDED];
     [self doVolumeFade];
@@ -596,8 +593,8 @@ long RSSIValue;
             [self fadeInCover];
             break;
         case READY:
-            //send HUE ready blink
-            [self sendHueBlinking];
+//            //send HUE ready blink
+//            [self sendHueBlinking];
             break;
         case PLAYING:
             break;

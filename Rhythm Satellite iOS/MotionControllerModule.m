@@ -104,14 +104,8 @@
 //        NSLog(@"Gravity Z: %f", gravityZ);
 //        if ( deltaX > DELTA_THRESHOLD){
     if ( newAccelerationX < ACCELERATION_THRESHOLD && prevAccelerationX < 0){
-            if (gravityY < -GRAVITY_THRESHOLD && gravityZ < GRAVITY_THRESHOLD/4 && gravityZ > -GRAVITY_THRESHOLD/4) {
+            if (gravityY < -GRAVITY_THRESHOLD) {
                 [self setInput:@"UP"];
-            }
-            else if (gravityY < -GRAVITY_THRESHOLD/2 && gravityZ > GRAVITY_THRESHOLD/4 && gravityZ < GRAVITY_THRESHOLD) {
-                [self setInput:@"UP-LEFT"];
-            }
-            else if (gravityY < -GRAVITY_THRESHOLD/2 && gravityZ < -GRAVITY_THRESHOLD/4 && gravityZ > -GRAVITY_THRESHOLD ) {
-                [self setInput:@"UP-RIGHT"];
             }
             else if (gravityX < -GRAVITY_THRESHOLD){
                 [self setInput:@"DOWN"];
@@ -145,3 +139,12 @@
 
 }
 @end
+//if (gravityY < -GRAVITY_THRESHOLD && gravityZ < GRAVITY_THRESHOLD/4 && gravityZ > -GRAVITY_THRESHOLD/4) {
+//    [self setInput:@"UP"];
+//}
+//else if (gravityY < -GRAVITY_THRESHOLD/2 && gravityZ > GRAVITY_THRESHOLD/4 && gravityZ < GRAVITY_THRESHOLD) {
+//    [self setInput:@"UP-LEFT"];
+//}
+//else if (gravityY < -GRAVITY_THRESHOLD/2 && gravityZ < -GRAVITY_THRESHOLD/4 && gravityZ > -GRAVITY_THRESHOLD ) {
+//    [self setInput:@"UP-RIGHT"];
+//}

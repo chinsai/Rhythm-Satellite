@@ -14,7 +14,7 @@
 #import "Player.h"
 #import "iOSAppDelegate.h"
 
-#define GOOD_TIMING_DELTA 0.2
+#define ALARM_KEY @"alarmkey"
 
 typedef enum mainSceneStateType{
     IDLE,
@@ -39,7 +39,6 @@ BOOL                alarmChanging;
 @property (nonatomic, strong) BTPeripheralModule            *btTransmitter;
 @property (nonatomic, strong) MotionControllerModule        *controller;
 @property (nonatomic, strong) AlarmClockModule              *alarm;
-@property (nonatomic, strong) Character                     *character;
 @property (nonatomic) iOSGameState                          state;
 @property (nonatomic, readonly) int                         numBeatsToWakeUp;
 @property (nonatomic) int                                   numBeatsHit;
@@ -131,7 +130,7 @@ BOOL                alarmChanging;
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
     
-    if([_alarmTimeLabel containsPoint:location]){
+    if(![_defaultPlayer.character containsPoint:location]){
         alarmChanging = YES;
         lastY = location.y;
     }
@@ -159,7 +158,6 @@ BOOL                alarmChanging;
     CGPoint location = [touch locationInNode:self];
     
     if(alarmChanging){
-        alarmChanging = YES;
         int difference = location.y - lastY;
         int steps = - difference;
         if( abs(steps) > 0 ){
@@ -223,35 +221,29 @@ BOOL                alarmChanging;
     
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
+
     
+    //when the alarm time has changed
     if(alarmChanging){
         alarmChanging = NO;
+        
+        //setting alarm
         [_alarm setAlarm];
-    }
-    
-    if( [_alarmbutton containsPoint:location] ){
-        if (_alarm.alarmState == alarmOn){
-            [_alarm switchOffAlarm];
-            _alarmbutton.color = [SKColor whiteColor];
-            _alarmbutton.alpha = 1.0;
-        }
-        else{
-            [_alarm switchOnAlarm];
-            _alarmbutton.color = [SKColor grayColor];
-            _alarmbutton.alpha = 0.5;
-        }
     }
     
     switch (_state) {
         case IDLE:
             //alarm button is pressed
-//            //character will go to sleep
-//            if ([_alarmbutton containsPoint:location]) {
-//                [self updateState:SLEEPING];
-//                [_defaultPlayer.character fireAnimationForState:NoriAnimationStateSleeping];
-//                _alarmbutton.color = [SKColor whiteColor];
-//                _alarmbutton.alpha = 1.0;
-//            }
+            //character will go to sleep
+            if ([_alarmbutton containsPoint:location]) {
+                if(_alarm.alarmState == alarmOff){
+                    [_alarm switchOnAlarm];
+                    _alarmbutton.color = [SKColor whiteColor];
+                    _alarmbutton.alpha = 1.0;
+                    //changing state
+                    [self updateState:SLEEPING];
+                }
+            }
             
             //the character is pressed
             if ( [_defaultPlayer.character containsPoint:location] && _btTransmitter) {
@@ -266,14 +258,14 @@ BOOL                alarmChanging;
         case SLEEPING:
             //Button is pressed
             //in sleeping mode, when its pressed, alarm will sound
-//            if ([_alarmbutton containsPoint:location]) {
-//                _alarmbutton.color = [SKColor grayColor];
-//                _alarmbutton.alpha = 0.5;
-//                [self updateState:ALARM];
-////                [self playAlarm];
-//                [self checkUserRhythmInput];
-//                [_controller turnOn];
-//            }
+            if ([_alarmbutton containsPoint:location]) {
+                if (_alarm.alarmState == alarmOn){
+                    [_alarm switchOffAlarm];
+                    _alarmbutton.color = [SKColor grayColor];
+                    _alarmbutton.alpha = 0.5;
+                    [self updateState:IDLE];
+                }
+            }
 
             break;
         case ALARM:
@@ -339,18 +331,21 @@ BOOL                alarmChanging;
 
             break;
         case SLEEPING:
-            
+            if(_alarm.alarmState == alarmOn){
+                if ([_alarm.alarmDate timeIntervalSinceDate:[NSDate date]] <= 0 ) {
+                    [self updateState:ALARM];
+                }
+            }
             break;
         case ALARM:
             
             //when the alarm is turned off
             //Character wakes up
             if( _numBeatsToWakeUp == 0){
-//                [self stopAlarm];
+                
                 _numBeatsToWakeUp = 16;
-                [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
+                
                 [self updateState:IDLE];
-                [_controller turnOff];
                 break;
             }
             
@@ -453,8 +448,14 @@ BOOL                alarmChanging;
     return [SKAction group:@[lower,alpha]];
 }
 
--(void)checkUserRhythmInput{
-    [ self runAction:[SKAction repeatAction:[self checkInputSequence] count:8] ];
+-(void)startCheckingUserRhythmInput{
+//    [ self runAction:[SKAction repeatAction:[self checkInputSequence] count:8] ];
+    [ self runAction:[SKAction repeatActionForever:[self checkInputSequence] ] withKey:ALARM_KEY];
+    _isInputTiming = YES;
+}
+
+-(void)stopCheckingUserRhythmInput{
+    [self removeActionForKey:ALARM_KEY];
 }
 
 -(SKAction *)checkInputSequence{
@@ -473,12 +474,25 @@ BOOL                alarmChanging;
 
 -(void)updateState: (iOSGameState)state{
     
+    //previous state
     switch (_state) {
         case IDLE:
             break;
         case SLEEPING:
             break;
         case ALARM:
+            
+            //turn off the music alarm
+            [_alarm stopAlarm];
+            
+            //switch off the alarm
+            [_alarm switchOffAlarm];
+            _alarmbutton.color = [SKColor grayColor];
+            _alarmbutton.alpha = 0.5;
+            
+            [_controller turnOff];
+            [self stopCheckingUserRhythmInput];
+            [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
             break;
         case WAITING:
             [_defaultPlayer.character turnOffSearchLight];
@@ -489,15 +503,21 @@ BOOL                alarmChanging;
             break;
     }
     
+    //new state
     switch (state) {
         case IDLE:
             _statusLabel.text = @"TAP to get ready";
             [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
             break;
         case SLEEPING:
+            [_defaultPlayer.character fireAnimationForState:NoriAnimationStateSleeping];
             _statusLabel.text = @"Zzzz...";
             break;
         case ALARM:
+            [_controller turnOn];
+            [self startCheckingUserRhythmInput];
+            [_alarm playAlarm];
+            NSLog(@"Alarm!!!!!!");
             _statusLabel.text = @"I need some rhythm...";
             break;
         case WAITING:
@@ -511,6 +531,9 @@ BOOL                alarmChanging;
         default:
             break;
     }
+    
+    NSLog(@"Switching from %u to %u", _state, state);
+    
     _state = state;
 }
 

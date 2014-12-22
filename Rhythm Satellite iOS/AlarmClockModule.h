@@ -27,6 +27,8 @@ typedef enum  : uint8_t{
 +(NSString *)getCurrentMinuteInString;
 -(void)setAlarm;
 -(void)setAlarmAtHour: (uint8_t)hour atMinute: (uint8_t)minute;
+-(void)playAlarm;
+-(void)stopAlarm;
 -(void)switchOnAlarm;
 -(void)switchOffAlarm;
 

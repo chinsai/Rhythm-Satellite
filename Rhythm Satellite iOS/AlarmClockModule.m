@@ -112,11 +112,14 @@
 -(void)playAlarm{
     iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.bgmPlayer play];
+    _alarmState = alarmPlaying;
 }
 -(void)stopAlarm{
     iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.bgmPlayer stop];
     appDelegate.bgmPlayer.currentTime = 0;
+    [appDelegate.bgmPlayer prepareToPlay];
+    _alarmState = alarmOff;
 }
 
 -(void)switchOnAlarm{

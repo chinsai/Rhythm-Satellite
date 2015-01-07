@@ -9,7 +9,7 @@
 #import "Character.h"
 #import "Command.h"
 
-#define sleepFrames 1
+#define sleepFrames 2
 #define nodFrames 2
 #define movementFrames 4
 
@@ -245,6 +245,11 @@ SKSpriteNode            *headlight;
             break;
         case NoriAnimationStateSleeping:
             [self setTexture:[[SKTextureAtlas atlasNamed:@"Nori_Sleep"] textureNamed:@"nori_sleep_0001"]];
+            _isAnimated = NO;
+            _animationState = state;
+            break;
+        case NoriAnimationStateSleepy:
+            [self setTexture:[[SKTextureAtlas atlasNamed:@"Nori_Sleep"] textureNamed:@"nori_sleep_0002"]];
             _isAnimated = NO;
             _animationState = state;
             break;

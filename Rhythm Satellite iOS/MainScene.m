@@ -49,10 +49,10 @@ BOOL                alarmChanging;
 @property (nonatomic) SKLabelNode                           *currentTimeLabel;
 @property (nonatomic) SKLabelNode                           *assemblyLabel;
 @property (nonatomic) SKLabelNode                           *alarmTimeLabel;
-//@property (nonatomic) SKLabelNode                           *statusLabel;
 @property (nonatomic) SKSpriteNode                          *alarmbutton;
 @property (nonatomic) SKSpriteNode                          *mainbutton;
-@property (nonatomic, strong)SKSpriteNode                         *uiNode;
+@property (nonatomic) SKSpriteNode                          *demobutton;
+@property (nonatomic, strong)SKSpriteNode                   *uiNode;
 @property (nonatomic) float                                 secPerBeat;
 @property (nonatomic) BOOL                                  isInputTiming;
 
@@ -78,7 +78,7 @@ BOOL                alarmChanging;
         _controller = [[MotionControllerModule alloc]init];
     }
     
-    _uiNode = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:39/256.0 green:49/256.0 blue:79/256.0 alpha:1.0] size:CGSizeMake(self.size.width * 3.0, self.size.height)];
+    _uiNode = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:0.15 green:0.19 blue:0.31 alpha:1.0] size:CGSizeMake(self.size.width * 3.0, self.size.height)];
 
     _uiNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     originalCharacterPosition = CGPointMake(0.0, -200.0);
@@ -98,6 +98,8 @@ BOOL                alarmChanging;
     }
 
     _alarm = [[AlarmClockModule alloc]init];
+    _alarm.hour = 7;
+    _alarm.minute = 0;
     
 //    //Current Time Label
 //    _currentTimeLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Thin"];
@@ -120,17 +122,10 @@ BOOL                alarmChanging;
     
     //Alarm Time Label
     _alarmTimeLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Thin"];
-    _alarmTimeLabel.text = [AlarmClockModule getCurrentTimeInString];
+    _alarmTimeLabel.text = @"07:00";
     _alarmTimeLabel.fontSize = 80;
     _alarmTimeLabel.position = CGPointMake(-self.size.width, 0.0);
     [_uiNode addChild:_alarmTimeLabel];
-    
-//    //Status Label
-//    _statusLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Thin"];
-//    _statusLabel.text = @"TAP to get ready";
-//    _statusLabel.fontSize = 24;
-//    _statusLabel.position = CGPointMake(CGRectGetMidX(self.frame), 35.0);
-//    [self addChild:_statusLabel];
     
     //alarm button
     _alarmbutton = [SKSpriteNode spriteNodeWithImageNamed:@"alarmicon"];
@@ -139,10 +134,13 @@ BOOL                alarmChanging;
     
     //main button
     _mainbutton = [SKSpriteNode spriteNodeWithImageNamed:@"headbutton"];
-    _mainbutton.position = CGPointMake(-self.size.width/2 - _alarmbutton.size.width/2-5, -self.size.height/2 + _alarmbutton.size.height/2+5);
+    _mainbutton.position = CGPointMake(-self.size.width/2 - _alarmbutton.size.width/2-10, -self.size.height/2 + _alarmbutton.size.height/2+5);
     [_uiNode addChild:_mainbutton];
     
-    
+    //demo button
+    _demobutton = [SKSpriteNode spriteNodeWithImageNamed:@"demobutton"];
+    _demobutton.position = CGPointMake(self.size.width/2 - _demobutton.size.width/2-10, 0.0);
+    [_uiNode addChild:_demobutton];
      
     _secPerBeat = 60.0/120.0;
     _numBeatsToWakeUp = NUM_TO_WAKE;
@@ -158,15 +156,15 @@ BOOL                alarmChanging;
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:_uiNode];
     
-    if(![_defaultPlayer.character containsPoint:location]){
-        alarmChanging = YES;
-        lastY = location.y;
-    }
     
     switch (_state) {
-        
             
         case IDLE:
+            if([_alarmTimeLabel containsPoint:location]){
+                alarmChanging = YES;
+                lastY = location.y;
+            }
+
             break;
             
         case CONNECTED:
@@ -187,29 +185,41 @@ BOOL                alarmChanging;
     
     if(alarmChanging){
         int difference = location.y - lastY;
-        int steps = - difference;
+        int steps = difference/20;
         if( abs(steps) > 0 ){
             lastY = location.y;
         }
 //        NSLog(@"steps %d", steps);
         
-        _alarm.minute += steps;
+        _alarm.minute += steps*15;
         if (_alarm.minute < 0) {
-            _alarm.minute = 59;
+            _alarm.minute = 45;
             _alarm.hour --;
-            if (_alarm.hour < 0){
-                _alarm.hour = 23;
+            if (_alarm.hour <= 4){
+                _alarm.hour = 0;
+                _alarm.minute = 0;
             }
         }
         else if (_alarm.minute > 59) {
             _alarm.minute = 0;
             _alarm.hour ++;
-            if (_alarm.hour > 23){
-                _alarm.hour = 0;
+            if (_alarm.hour > 9){
+                _alarm.hour = 9;
+                _alarm.minute = 45;
             }
         }
-
-        _alarmTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d", _alarm.hour, _alarm.minute];
+        else if (_alarm.hour == 0 && _alarm.minute == 15){
+            _alarm.hour = 5;
+            _alarm.minute = 0;
+        }
+        
+        
+        if (_alarm.hour == 0) {
+            _alarmTimeLabel.text = @"OFF";
+        }
+        else{
+            _alarmTimeLabel.text = [NSString stringWithFormat:@"%02d:%02d", _alarm.hour, _alarm.minute];
+        }
     }
     
     switch (_state) {
@@ -226,10 +236,10 @@ BOOL                alarmChanging;
                     nodeInTouch.position = CGPointMake(nodeInTouch.position.x, nodeInTouch.position.y + distance);
                 }
                 
-                CGFloat alpha = (MAX_CLOCK_Y - _defaultPlayer.character.position.y)/(MAX_CLOCK_Y - originalCharacterPosition.y);
-                [_currentTimeLabel setAlpha:alpha];
-                _currentTimeLabel.position = CGPointMake(_currentTimeLabel.position.x, _currentTimeLabel.position.y + distance/20.0);
-                
+//                CGFloat alpha = (MAX_CLOCK_Y - _defaultPlayer.character.position.y)/(MAX_CLOCK_Y - originalCharacterPosition.y);
+//                [_currentTimeLabel setAlpha:alpha];
+//                _currentTimeLabel.position = CGPointMake(_currentTimeLabel.position.x, _currentTimeLabel.position.y + distance/20.0);
+//                
                 velocityY = distance / (event.timestamp - lastTimeStamp);
 //                NSLog(@"velocity: %f", velocityY);
                 
@@ -256,7 +266,12 @@ BOOL                alarmChanging;
         alarmChanging = NO;
         
         //setting alarm
-        [_alarm setAlarm];
+        if(_alarm.hour != 0){
+            [_alarm setAlarm];
+        }
+        else{
+            [_alarm switchOffAlarm];
+        }
     }
     
     switch (_state) {
@@ -285,17 +300,16 @@ BOOL                alarmChanging;
                 [_uiNode runAction:[SKAction moveTo:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) duration:0.2]];
             }
             
+            //demo button is pressed
+            if ([_demobutton containsPoint:location]) {
+                [self updateState:SLEEPING];
+            }
+            
             break;
         case SLEEPING:
-            //Button is pressed
-            //in sleeping mode, when its pressed, alarm will sound
-            if ([_alarmbutton containsPoint:location]) {
-                if (_alarm.alarmState == alarmOn){
-                    [_alarm switchOffAlarm];
-                    _alarmbutton.color = [SKColor grayColor];
-                    _alarmbutton.alpha = 0.5;
-                    [self updateState:IDLE];
-                }
+            //demo button is pressed
+            if ([_demobutton containsPoint:location]) {
+                [self updateState:ALARM];
             }
 
             break;
@@ -520,8 +534,6 @@ BOOL                alarmChanging;
             
             //switch off the alarm
             [_alarm switchOffAlarm];
-            _alarmbutton.color = [SKColor grayColor];
-            _alarmbutton.alpha = 0.5;
             
             [_controller turnOff];
             [self stopCheckingUserRhythmInput];
@@ -539,26 +551,22 @@ BOOL                alarmChanging;
     //new state
     switch (state) {
         case IDLE:
-//            _statusLabel.text = @"TAP to get ready";
             [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
             break;
         case SLEEPING:
             [_defaultPlayer.character fireAnimationForState:NoriAnimationStateSleeping];
-//            _statusLabel.text = @"Zzzz...";
             break;
         case ALARM:
+            [_defaultPlayer.character fireAnimationForState:NoriAnimationStateSleepy];
             [_controller turnOn];
             [self startCheckingUserRhythmInput];
             [_alarm playAlarm];
             NSLog(@"Alarm!!!!!!");
-//            _statusLabel.text = @"I need some rhythm...";
             break;
         case WAITING:
-//            _statusLabel.text = @"Looking for a launch point";
             [_defaultPlayer.character turnOnSearchLight];
             break;
         case CONNECTED:
-//            _statusLabel.text = @"Slide me UP!";
             [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
             break;
         default:

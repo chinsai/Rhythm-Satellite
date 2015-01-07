@@ -46,6 +46,7 @@
     
     // Create and configure the scene.
 //    AlarmClockScene *scene = [AlarmClockScene unarchiveFromFile:@"AlarmClockScene"];
+//    MainScene *scene = [[MainScene alloc]initWithSize:skView.bounds.size];
     MainScene *scene = [[MainScene alloc]initWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     

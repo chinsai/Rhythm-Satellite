@@ -28,17 +28,14 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    _btReceiver = [[BTCentralModule alloc] init];
+    _btTransmitter = [[BTPeripheralModule  alloc] init];
     
-    NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RS1" withExtension:@".m4a"];
-    _bgmPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-    _bgmPlayer.numberOfLoops = -1;
-    [_bgmPlayer prepareToPlay];
-    
+    //playsound even muted
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
                                            error:nil];
-    
+    //notification approval
     if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
     }

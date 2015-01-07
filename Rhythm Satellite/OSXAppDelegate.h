@@ -22,6 +22,7 @@
 @property (assign) IBOutlet SKView *skView;
 // BT communication
 @property (nonatomic, strong) BTCentralModule       *btReceiver;
+@property (nonatomic, strong) BTPeripheralModule       *btTransmitter;
 @property (nonatomic, strong) PHHueSDK              *phHueSDK;
 @property (nonatomic, strong, getter=getAssemblyScene) AssemblyScene         *assemblyScene;
 @property (nonatomic, strong, getter=getBattleScene) BattleScene           *battleScene;

@@ -17,6 +17,15 @@
         _hour = [[AlarmClockModule getCurrentHourInString] intValue];
         _minute = [[AlarmClockModule getCurrentMinuteInString] intValue];
         _alarmState = alarmOff;
+        iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        NSError *error;
+        NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"RS1" withExtension:@".m4a"];
+        appDelegate.bgmPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+        appDelegate.bgmPlayer.numberOfLoops = -1;
+        [appDelegate.bgmPlayer prepareToPlay];
+        _musicPlayer = appDelegate.bgmPlayer;
+        [_musicPlayer prepareToPlay];
     }
     return self;
 }
@@ -110,15 +119,11 @@
 }
 
 -(void)playAlarm{
-    iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.bgmPlayer play];
+    [_musicPlayer play];
     _alarmState = alarmPlaying;
 }
 -(void)stopAlarm{
-    iOSAppDelegate *appDelegate = (iOSAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.bgmPlayer stop];
-    appDelegate.bgmPlayer.currentTime = 0;
-    [appDelegate.bgmPlayer prepareToPlay];
+    [self doVolumeFade];
     _alarmState = alarmOff;
 }
 
@@ -128,7 +133,21 @@
 }
 -(void)switchOffAlarm{
     _alarmState = alarmOff;
-    [[UIApplication sharedApplication] cancelAllLocalNotifications ];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+}
+
+-(void)doVolumeFade
+{
+    if (_musicPlayer.volume > 0.1) {
+        _musicPlayer.volume = _musicPlayer.volume - 0.1;
+        [self performSelector:@selector(doVolumeFade) withObject:nil afterDelay:0.1];
+    } else {
+        // Stop and get the sound ready for playing again
+        [_musicPlayer stop];
+        _musicPlayer.currentTime = 0;
+        [_musicPlayer prepareToPlay];
+        _musicPlayer.volume = 1.0;
+    }
 }
 
 @end

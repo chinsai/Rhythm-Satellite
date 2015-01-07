@@ -71,6 +71,10 @@
 		98B4A6431A1629EA004935EF /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6361A1629EA004935EF /* ContextFilterLogFormatter.m */; };
 		98B4A6451A1629EA004935EF /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */; };
 		98B4A6481A1629FE004935EF /* HueSDK_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */; };
+		98C524FA1A5D108F006708A2 /* alarmicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C524F81A5D108F006708A2 /* alarmicon.png */; };
+		98C524FB1A5D108F006708A2 /* alarmicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C524F91A5D108F006708A2 /* alarmicon@2x.png */; };
+		98C524FE1A5D131B006708A2 /* headbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C524FC1A5D131B006708A2 /* headbutton.png */; };
+		98C524FF1A5D131B006708A2 /* headbutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C524FD1A5D131B006708A2 /* headbutton@2x.png */; };
 		98C915161A1D716000082F65 /* Shadow.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98C915151A1D716000082F65 /* Shadow.atlas */; };
 		98C915171A1D716000082F65 /* Shadow.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98C915151A1D716000082F65 /* Shadow.atlas */; };
 		98C915261A1DC0D700082F65 /* musicnote.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915231A1DC0D700082F65 /* musicnote.png */; };
@@ -214,6 +218,10 @@
 		98B4A6371A1629EA004935EF /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		98B4A6381A1629EA004935EF /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		98B4A6471A1629FE004935EF /* HueSDK_OSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HueSDK_OSX.framework; sourceTree = "<group>"; };
+		98C524F81A5D108F006708A2 /* alarmicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alarmicon.png; sourceTree = "<group>"; };
+		98C524F91A5D108F006708A2 /* alarmicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alarmicon@2x.png"; sourceTree = "<group>"; };
+		98C524FC1A5D131B006708A2 /* headbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headbutton.png; sourceTree = "<group>"; };
+		98C524FD1A5D131B006708A2 /* headbutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headbutton@2x.png"; sourceTree = "<group>"; };
 		98C915151A1D716000082F65 /* Shadow.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Shadow.atlas; sourceTree = "<group>"; };
 		98C915231A1DC0D700082F65 /* musicnote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicnote.png; sourceTree = "<group>"; };
 		98C915241A1DC0D700082F65 /* musicnote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "musicnote@2x.png"; sourceTree = "<group>"; };
@@ -518,6 +526,10 @@
 		98C915211A1DBD7700082F65 /* iPhoneUI */ = {
 			isa = PBXGroup;
 			children = (
+				98C524FC1A5D131B006708A2 /* headbutton.png */,
+				98C524FD1A5D131B006708A2 /* headbutton@2x.png */,
+				98C524F81A5D108F006708A2 /* alarmicon.png */,
+				98C524F91A5D108F006708A2 /* alarmicon@2x.png */,
 				98C915231A1DC0D700082F65 /* musicnote.png */,
 				98C915241A1DC0D700082F65 /* musicnote@2x.png */,
 			);
@@ -772,8 +784,10 @@
 				985048421A1CD4300066FA31 /* Images.xcassets in Resources */,
 				98C9152E1A1DE29800082F65 /* Nori_Sleep.atlas in Resources */,
 				98540F0519FDC3C1000BAC9C /* RS1.m4a in Resources */,
+				98C524FF1A5D131B006708A2 /* headbutton@2x.png in Resources */,
 				9822ED781A2ED3A600C7217A /* shield.png in Resources */,
 				98E3CE131A17009800626D20 /* Nori_Down.atlas in Resources */,
+				98C524FB1A5D108F006708A2 /* alarmicon@2x.png in Resources */,
 				98C915271A1DC0D700082F65 /* musicnote.png in Resources */,
 				98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */,
 				98C915171A1D716000082F65 /* Shadow.atlas in Resources */,
@@ -782,9 +796,11 @@
 				985048371A1C9D5E0066FA31 /* sa.wav in Resources */,
 				98C915291A1DC0D700082F65 /* musicnote@2x.png in Resources */,
 				98E3CE191A17009800626D20 /* Nori_Sides.atlas in Resources */,
+				98C524FA1A5D108F006708A2 /* alarmicon.png in Resources */,
 				985048351A1C9D5E0066FA31 /* a.wav in Resources */,
 				98E3CE171A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
+				98C524FE1A5D131B006708A2 /* headbutton.png in Resources */,
 				985048331A1C9D5E0066FA31 /* da.wav in Resources */,
 				9822ED761A2ED3A600C7217A /* ball@.png in Resources */,
 				9822ED771A2ED3A600C7217A /* ball@2x.png in Resources */,

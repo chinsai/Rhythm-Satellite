@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 typedef enum  : uint8_t{
     alarmOn,
@@ -21,6 +22,7 @@ typedef enum  : uint8_t{
 @property (nonatomic) int8_t                           minute;
 @property (nonatomic, strong) NSDate                *alarmDate;         //alarm
 @property (nonatomic) AlarmState                    alarmState;     //whether the alarm is on or not
+@property (nonatomic) AVAudioPlayer                  *musicPlayer;
 
 +(NSString *)getCurrentTimeInString;
 +(NSString *)getCurrentHourInString;

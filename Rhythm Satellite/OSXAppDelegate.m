@@ -45,6 +45,7 @@
     
     
     _btReceiver = [[BTCentralModule alloc] init];
+    _btTransmitter = [[BTPeripheralModule  alloc] init];
     
 //    AssemblyScene *scene = [[AssemblyScene alloc] initWithSize:self.skView.bounds.size];
 

@@ -21,6 +21,7 @@
 @property (nonatomic) SKSpriteNode          *rightChargeBar;
 @property (nonatomic) SKSpriteNode          *roundBoard;
 @property (nonatomic) SKLabelNode           *roundLabel;
+@property (nonatomic) SKSpriteNode          *readyGo;
 
 
 //UpIcon
@@ -40,6 +41,10 @@
 -(void)chargeWithCharacterRight:(Character*)character;
 -(void)updateChargeOfLeftCharacter:(Character*)character;
 -(void)updateChargeOfRightCharacter:(Character*)character;
+-(void)showReady;
+-(void)hideReady;
+-(void)showGo;
+-(void)hideGo;
 -(void)resetAll;
 
 @end

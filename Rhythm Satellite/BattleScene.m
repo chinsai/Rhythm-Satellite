@@ -109,10 +109,10 @@ long RSSIValue;
         
         [_defaultPlayer.character fireAnimationForState:NoriAnimationStateReady];
         SKCropNode *crop = [SKCropNode node];
-        crop.maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(self.size.width, _defaultPlayer.character.size.height)];
-        crop.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-40);
+        crop.maskNode = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(self.size.width, _defaultPlayer.character.size.height*2)];
+        crop.position = CGPointMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-40+_defaultPlayer.character.size.height/2);
         [crop addChild:_defaultPlayer.character];
-        _defaultPlayer.character.position = CGPointMake(0.0, -_defaultPlayer.character.size.height);
+        _defaultPlayer.character.position = CGPointMake(0.0, -_defaultPlayer.character.size.height*3/2);
         crop.zPosition = 5;
         [self addChild:crop];
 
@@ -123,6 +123,8 @@ long RSSIValue;
     _opponentPlayer.character = [[Character alloc]initWithLevel:1 withExp:200 withHp:100 withMaxHp:100 withAtt:20 withDef:15 withMoney:1000 onTheRight:YES];
     _opponentPlayer.character.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame)-40);
     [_opponentPlayer.character fireAnimationForState:NoriAnimationStateReady];
+    _opponentPlayer.character.color = [SKColor colorWithRed:0.15 green:0.19 blue:0.31 alpha:1.0];
+    _opponentPlayer.character.colorBlendFactor = 0.8;
     [self addChild:_opponentPlayer.character];
 
     _hud = [[BattleHUD alloc]initWithScene:self];
@@ -186,7 +188,7 @@ long RSSIValue;
                 //game start, send hue all off
 //                [self sendHueAllOff];
                 [self startBattle];
-                [_defaultPlayer.character riseToPositionY:0.0 ForDuration:0.2];
+                [_defaultPlayer.character riseToPositionY:-_defaultPlayer.character.size.height/2 ForDuration:0.2];
                 break;
             }
             if (latestCommand.input == TAP){
@@ -278,7 +280,7 @@ long RSSIValue;
                 [self startBattle];
             }else if (latestCommand.input == DOWN) {
                 [_dialogBox removeFromParent];
-                [_defaultPlayer.character dropToPositionY:-_defaultPlayer.character.size.height ForDuration:0.2];
+                [_defaultPlayer.character dropToPositionY:-_defaultPlayer.character.size.height*3/2 ForDuration:0.2];
                 [_btReceiver cleanup];
                 [self resetScreen];
                 [self setGameState:SCANNING];
@@ -306,34 +308,45 @@ long RSSIValue;
 //    SKAction *blinksequence = [SKAction sequence:@[  blink1, [SKAction waitForDuration:0.5], blink2, [SKAction waitForDuration:0.5] ]];
 //    [self runAction: [SKAction repeatActionForever:blinksequence] withKey:@"blink" ];
 
-    //play the music once it starts
-    [_musicPlayer play];
     
-    //Loop for GO signal
-    [self runAction:[SKAction repeatActionForever:[self soundEffectGoAction]] withKey:GoSoundKey];
-    
-    
-    //startoff with Warmup Beats
-    [self runAction:
-     
-         [SKAction sequence:@[
-                        [SKAction waitForDuration:_secPerBeat*8-GOOD_TIMING_DELTA],
-                        [SKAction runBlock: ^(void)
-                            {
-                                _timing = GoodTiming;
-                                _isInputTiming = YES;
-                            }
-                         ],
-                        [SKAction waitForDuration:GOOD_TIMING_DELTA],
-                        
-                        ]
-          ] completion:^{
-             
-             [self runAction:[SKAction repeatActionForever:[self mainLoop]] withKey:InputAndAnimationKey];
-         }
-     
-     ];
-
+    [self runAction:[SKAction sequence:@[
+                                         
+         [SKAction waitForDuration:1.0],
+         
+         [SKAction runBlock:^{
+        
+                //play the music once it starts
+                [_musicPlayer play];
+                
+                //Loop for GO signal
+                [self runAction:[SKAction repeatActionForever:[self soundEffectGoAction]] withKey:GoSoundKey];
+                
+                [_defaultPlayer.character runAction:[SKAction repeatAction:[_defaultPlayer.character noriAction:_secPerBeat] count:8]];
+                [_opponentPlayer.character runAction:[SKAction repeatAction:[_opponentPlayer.character noriAction:_secPerBeat] count:8]];
+        
+                //startoff with Warmup Beats
+                [self runAction:
+                 
+                     [SKAction sequence:@[
+                                    [SKAction runBlock: ^(void){[_hud showReady];}],
+                                    [SKAction waitForDuration:_secPerBeat*8-GOOD_TIMING_DELTA],
+                                    [SKAction runBlock: ^(void)
+                                        {
+                                            _timing = GoodTiming;
+                                            _isInputTiming = YES;
+                                        }
+                                     ],
+                                    [SKAction waitForDuration:GOOD_TIMING_DELTA],
+                                    
+                                    ]
+                      ] completion:^{
+                         
+                         [self runAction:[SKAction repeatActionForever:[self mainLoop]] withKey:InputAndAnimationKey];
+                     }
+                 
+                 ];
+        }]
+    ]]];
     
 }
 
@@ -374,6 +387,7 @@ long RSSIValue;
                                 [SKAction runBlock:
                                  ^(void){
                                      [self resetForAnimationTime];
+                                     [_hud showReady];
                                  }],
                                 
                                 [self performAnimation],
@@ -395,6 +409,7 @@ long RSSIValue;
     return [SKAction sequence:@[
                          [SKAction waitForDuration:_secPerBeat*7],
                          [SKAction playSoundFileNamed:@"Go.wav" waitForCompletion:NO],
+                         [SKAction runBlock:^{[_hud showGo];}],
                          [SKAction waitForDuration:_secPerBeat]
                          ]
             ];
@@ -475,7 +490,7 @@ long RSSIValue;
 
 -(void)resetBattle{
     //reset the attribute
-    _numOfRounds = 16;
+    _numOfRounds = 3;
     _isInputTiming = YES;
     [_defaultPlayer.character resetAttributes];
     [_opponentPlayer.character resetAttributes];
@@ -484,12 +499,17 @@ long RSSIValue;
 }
 
 -(void) battleEnded{
+    
+//    [_defaultPlayer.character stopNorinori];
+//    [_opponentPlayer.character stopNorinori];
+    
     if(_defaultPlayer.character.hp > _opponentPlayer.character.hp){
         _dialogBox = [RSDialogBox initBooleanDialogBoxWithTitle:@"You WIN! Try again?"];
     }
     else{
         _dialogBox = [RSDialogBox initBooleanDialogBoxWithTitle:@"You LOSE! Try again?"];
     }
+    
     _dialogBox.position = CGPointMake( CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) );
     _dialogBox.zPosition = 100.0;
 //    [self removeActionForKey:@"blink"];

@@ -82,7 +82,7 @@ SKTextureAtlas      *messageAtlas;
         _controller = [[MotionControllerModule alloc]init];
     }
     
-    _uiNode = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:0.15 green:0.19 blue:0.31 alpha:1.0] size:CGSizeMake(self.size.width * 3.0, self.size.height)];
+    _uiNode = [SKSpriteNode spriteNodeWithColor:[SKColor colorWithRed:0.15 green:0.19 blue:0.31 alpha:1.0] size:CGSizeMake(self.size.width * 3.0, self.size.height)];
 
     _uiNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     originalCharacterPosition = CGPointMake(0.0, -200.0);

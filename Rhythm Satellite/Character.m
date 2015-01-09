@@ -13,6 +13,8 @@
 #define nodFrames 2
 #define movementFrames 4
 
+#define NORIKEY @"norikey"
+
 @implementation Character
 
 
@@ -22,6 +24,7 @@ NSArray *upAnimationFrames = nil;
 NSArray *downAnimationFrames = nil;
 NSArray *sidesAnimationFrames = nil;
 NSArray *sleepAnimationFrames = nil;
+NSArray *questionAnimationFrames = nil;
 
 SKSpriteNode            *headlight;
 
@@ -38,6 +41,7 @@ SKSpriteNode            *headlight;
     downAnimationFrames = [self loadFramesFromAtlas:@"Nori_Down" withBaseFile:@"nori_down_" Frames:movementFrames];
     sidesAnimationFrames = [self loadFramesFromAtlas:@"Nori_Sides" withBaseFile:@"nori_sides_" Frames:movementFrames];
     sleepAnimationFrames = [self loadFramesFromAtlas:@"Nori_Sleep" withBaseFile:@"nori_sleep_" Frames:sleepFrames];
+    questionAnimationFrames = [self loadFramesFromAtlas:@"Nori_Question" withBaseFile:@"nori_question_" Frames:movementFrames holdFrame:3 forExtra:30];
     
     headlight = [SKSpriteNode spriteNodeWithImageNamed:@"searchlight"];
     SKAction *blink = [SKAction sequence:@[
@@ -50,7 +54,10 @@ SKSpriteNode            *headlight;
     headlight.zPosition =2.0;
     [self addChild:headlight];
     
-    
+    _questionMark = [SKSpriteNode spriteNodeWithImageNamed:@"questionmark"];
+    _questionMark.position = CGPointMake(90.0, 175.0);
+    _questionMark.alpha = 0.0;
+    [self addChild:_questionMark];
     
     _ball = [SKSpriteNode spriteNodeWithImageNamed:@"ball"];
     _ball.position = CGPointMake(0.0, 180.0);
@@ -138,6 +145,7 @@ SKSpriteNode            *headlight;
             [self charge];
             break;
         default:
+            [self question];
             break;
     }
 }
@@ -174,11 +182,21 @@ SKSpriteNode            *headlight;
     [self runAction:[SKAction playSoundFileNamed:@"charge.wav" waitForCompletion:NO]];
 }
 
+-(void)question{
+    [self fireAnimationForState:NoriAnimationStateQuestion];
+    SKAction *fadein = [SKAction fadeAlphaTo:1.0 duration:0.2];
+    SKAction *wait = [SKAction waitForDuration:0.8];
+    SKAction *fadeout = [SKAction fadeAlphaTo:0.0 duration:0.0];
+    SKAction *seq = [SKAction sequence:@[ fadein, wait, fadeout]];
+    [_questionMark runAction:seq];
+    
+}
+
 - (void)fireAnimationForState:(NoriAnimationState)state{
     if (_isAnimated) {
         return;
     }
-    
+//
     _isAnimated = YES;
     
     switch (state) {
@@ -201,12 +219,13 @@ SKSpriteNode            *headlight;
                                                      [SKAction runBlock:^{
                     _isAnimated = NO;
                     _animationState = NoriAnimationStateReady;
-                }]]]];
+                }]]] withKey:@"nod"];
             }
             break;
         case NoriAnimationStateUp:
             if (_animationState == NoriAnimationStateReady) {
                 _animationState = state;
+                [self removeActionForKey:@"nod"];
                 [self runAction:[SKAction sequence:@[
                                                      [SKAction animateWithTextures:upAnimationFrames timePerFrame:self.animationSpeed resize:YES restore:YES],
                                                      [SKAction runBlock:^{
@@ -218,6 +237,7 @@ SKSpriteNode            *headlight;
         case NoriAnimationStateDown:
             if (_animationState == NoriAnimationStateReady) {
                 _animationState = state;
+                [self removeActionForKey:@"nod"];
                 [self runAction:[SKAction sequence:@[
                                                      [SKAction animateWithTextures:downAnimationFrames timePerFrame:self.animationSpeed resize:YES restore:YES],
                                                      [SKAction runBlock:^{
@@ -230,6 +250,7 @@ SKSpriteNode            *headlight;
         case NoriAnimationStateSides:
             if (_animationState == NoriAnimationStateReady) {
                 _animationState = state;
+                [self removeActionForKey:@"nod"];
                 [self runAction:[SKAction sequence:@[
                                                      [SKAction animateWithTextures:sidesAnimationFrames timePerFrame:self.animationSpeed resize:YES restore:YES],
                                                      [SKAction runBlock:^{
@@ -257,6 +278,17 @@ SKSpriteNode            *headlight;
             [self setTexture:[[SKTextureAtlas atlasNamed:@"Nori_Ready_Nod"] textureNamed:@"nori_ready_nod_0001"]];
             _isAnimated = NO;
             _animationState = state;
+            break;
+        case NoriAnimationStateQuestion:
+            if (_animationState == NoriAnimationStateReady) {
+                _animationState = state;
+                [self runAction:[SKAction sequence:@[
+                                                     [SKAction animateWithTextures:questionAnimationFrames timePerFrame:self.animationSpeed/2 resize:YES restore:YES],
+                                                     [SKAction runBlock:^{
+                    _isAnimated = NO;
+                    _animationState = NoriAnimationStateReady;
+                }]]]];
+            }
             break;
         default:
             _isAnimated = NO;
@@ -305,6 +337,27 @@ SKSpriteNode            *headlight;
             break;
     }
 }
+
+
+-(void)norinori: (float) interval{
+    [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[
+                                                                       
+                                   [SKAction runBlock:^{[self fireAnimationForState:NoriAnimationStateReadyNod];}],
+                                   [SKAction waitForDuration:interval]
+    ]]] withKey:NORIKEY];
+}
+
+-(void)stopNorinori{
+    [self removeActionForKey:NORIKEY];
+}
+
+- (SKAction *)noriAction:(float)interval{
+    return [SKAction sequence:@[
+                                [SKAction runBlock:^{[self fireAnimationForState:NoriAnimationStateReadyNod];}],
+                                [SKAction waitForDuration:interval]
+                                ]];
+}
+
 
 -(void)animateMovesWithSecondsPerBeat:(float) sec{
     if (!_nextAction){
@@ -370,6 +423,29 @@ SKSpriteNode            *headlight;
         NSString *fileName = [NSString stringWithFormat:@"%@%04d", baseFileName, numberOfFrames+1-i];
         SKTexture *texture = [atlas textureNamed:fileName];
         [frames addObject:texture];
+    }
+    
+    return frames;
+}
+
+- (NSArray *) loadFramesFromAtlas:(NSString *)atlasName withBaseFile:(NSString *)baseFileName Frames:(int)numberOfFrames holdFrame:(int)targetFrame forExtra:(int)extraFrames{
+    NSMutableArray *frames = [NSMutableArray arrayWithCapacity:numberOfFrames+extraFrames];
+    
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:atlasName];
+    for (int i = 1; i <= numberOfFrames; i++) {
+  
+        //todo fix the sequence of the animation
+        NSString *fileName = [NSString stringWithFormat:@"%@%04d", baseFileName, numberOfFrames+1-i];
+        SKTexture *texture = [atlas textureNamed:fileName];
+        [frames addObject:texture];
+        if (targetFrame == numberOfFrames+1-i) {
+            for (int j = 0; j < extraFrames; j++) {
+                [frames addObject:texture];
+                
+            }
+        }
+        
+        
     }
     
     return frames;

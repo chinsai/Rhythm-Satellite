@@ -25,7 +25,7 @@ typedef enum : uint8_t {
     NoriAnimationStateAttack,
     NoriAnimationStateBlock,
     NoriAnimationStateCharge,
-    NoriAnimationStateUnknown
+    NoriAnimationStateQuestion
 } NoriAnimationState;
 
 typedef enum : uint8_t {
@@ -52,6 +52,7 @@ typedef enum : uint8_t {
 @property (nonatomic) float                             secPerBeat;
 @property (nonatomic) SKSpriteNode                      *ball;
 @property (nonatomic) SKSpriteNode                      *shield;
+@property (nonatomic) SKSpriteNode                      *questionMark;
 @property (nonatomic) BOOL                              onTheRight;
 
 
@@ -69,6 +70,9 @@ typedef enum : uint8_t {
 - (void)attack;
 - (void)block;
 - (void)charge;
+- (void)norinori:(float)interval;
+- (void)stopNorinori;
+- (SKAction *)noriAction:(float)interval;
 - (void)fireAnimationForState:(NoriAnimationState)state;
 - (Action *)generateAction;
 - (void)updateCharge;

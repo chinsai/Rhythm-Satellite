@@ -12,6 +12,8 @@
 
 @implementation BattleHUD
 
+SKTextureAtlas *readyGoAtlas;
+
 -(id)initWithScene:(SKScene *)scene{
     self = [super init];
     _scene  = scene;
@@ -76,6 +78,11 @@
     [_scene addChild:_roundBoard];
     [_scene addChild:_roundLabel];
     
+    readyGoAtlas = [SKTextureAtlas atlasNamed:@"Readygo"];
+    _readyGo = [SKSpriteNode spriteNodeWithTexture:[readyGoAtlas textureNamed:@"ready"]];
+    _readyGo.position = CGPointMake(CGRectGetMidX(scene.frame), CGRectGetMidY(scene.frame)+150);
+    _readyGo.hidden = YES;
+    [_scene addChild:_readyGo];
     
     return self;
 }
@@ -165,6 +172,24 @@
         [((RSChargeIcon *)allChildren[currentCharge-1]) charge];
     }
 }
+
+-(void)showReady{
+    [_readyGo setTexture:[readyGoAtlas textureNamed:@"ready"]];
+    _readyGo.size = [readyGoAtlas textureNamed:@"ready"].size;
+    _readyGo.hidden = NO;
+}
+-(void)hideReady{
+    _readyGo.hidden = YES;
+}
+-(void)showGo{
+    [_readyGo setTexture:[readyGoAtlas textureNamed:@"go"]];
+    _readyGo.size = [readyGoAtlas textureNamed:@"go"].size;
+    _readyGo.hidden = NO;
+}
+-(void)hideGo{
+    _readyGo.hidden = YES;
+}
+
 -(void)resetAll{
     _leftHP.crop.maskNode.xScale = 1.0;
     _rightHP.crop.maskNode.xScale = 1.0;
@@ -175,6 +200,7 @@
         [r discharge];
     }
     _roundLabel.text = @"00";
+    _readyGo.hidden = YES;
 }
 -(void)setRound:(int)round{
     _roundLabel.text = [NSString stringWithFormat:@"%02d", round];

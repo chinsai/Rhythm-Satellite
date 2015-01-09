@@ -89,6 +89,7 @@
 		98C915331A1E0B9900082F65 /* searchlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C9152F1A1E0B9900082F65 /* searchlight.png */; };
 		98C915341A1E0B9900082F65 /* searchlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915301A1E0B9900082F65 /* searchlight@2x.png */; };
 		98C915351A1E0B9900082F65 /* searchlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C915301A1E0B9900082F65 /* searchlight@2x.png */; };
+		98CC0DA91A5E212000F647F4 /* Message.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98CC0DA81A5E212000F647F4 /* Message.atlas */; };
 		98E3CE0A1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E3CE0B1A157ADA00626D20 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 98E3CE091A157ADA00626D20 /* Player.m */; };
 		98E3CE121A17009800626D20 /* Nori_Down.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 98E3CE0D1A17009800626D20 /* Nori_Down.atlas */; };
@@ -232,6 +233,7 @@
 		98C915241A1DC0D700082F65 /* musicnote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "musicnote@2x.png"; sourceTree = "<group>"; };
 		98C9152F1A1E0B9900082F65 /* searchlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchlight.png; sourceTree = "<group>"; };
 		98C915301A1E0B9900082F65 /* searchlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchlight@2x.png"; sourceTree = "<group>"; };
+		98CC0DA81A5E212000F647F4 /* Message.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Message.atlas; sourceTree = "<group>"; };
 		98E3CE081A157ADA00626D20 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = "Rhythm Satellite/Player.h"; sourceTree = "<group>"; };
 		98E3CE091A157ADA00626D20 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Player.m; path = "Rhythm Satellite/Player.m"; sourceTree = "<group>"; };
 		98E3CE0D1A17009800626D20 /* Nori_Down.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Nori_Down.atlas; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 		98E3CE0C1A17009800626D20 /* Nori */ = {
 			isa = PBXGroup;
 			children = (
+				98CC0DA81A5E212000F647F4 /* Message.atlas */,
 				982AFCC91A1F57AC00275EA5 /* ball@.png */,
 				982AFCCA1A1F57AC00275EA5 /* ball@2x.png */,
 				982AFCD11A1F5FE700275EA5 /* shield.png */,
@@ -807,6 +810,7 @@
 				986B30711A5DF4AD0089F197 /* Nori_Sleep.atlas in Resources */,
 				98E3CE171A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
+				98CC0DA91A5E212000F647F4 /* Message.atlas in Resources */,
 				986B306E1A5DE14E0089F197 /* demobutton@2x.png in Resources */,
 				98C524FE1A5D131B006708A2 /* headbutton.png in Resources */,
 				985048331A1C9D5E0066FA31 /* da.wav in Resources */,

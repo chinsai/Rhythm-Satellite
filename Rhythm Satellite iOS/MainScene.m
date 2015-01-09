@@ -36,6 +36,8 @@ CGPoint             originalCharacterPosition;
 CGPoint             originalClockPosition;
 CGFloat             velocityY;
 BOOL                alarmChanging;
+SKTextureAtlas      *messageAtlas;
+
 @interface MainScene()
 
 @property (nonatomic, strong) BTPeripheralModule            *btTransmitter;
@@ -52,9 +54,11 @@ BOOL                alarmChanging;
 @property (nonatomic) SKSpriteNode                          *alarmbutton;
 @property (nonatomic) SKSpriteNode                          *mainbutton;
 @property (nonatomic) SKSpriteNode                          *demobutton;
+@property (nonatomic) SKSpriteNode                          *messageSprite;
 @property (nonatomic, strong)SKSpriteNode                   *uiNode;
 @property (nonatomic) float                                 secPerBeat;
 @property (nonatomic) BOOL                                  isInputTiming;
+@property (nonatomic) BOOL                                  isAssemblyTime;
 
 
 @end
@@ -141,14 +145,24 @@ BOOL                alarmChanging;
     _demobutton = [SKSpriteNode spriteNodeWithImageNamed:@"demobutton"];
     _demobutton.position = CGPointMake(self.size.width/2 - _demobutton.size.width/2-10, 0.0);
     [_uiNode addChild:_demobutton];
-     
+    
+    
+    //attributes setup
     _secPerBeat = 60.0/120.0;
     _numBeatsToWakeUp = NUM_TO_WAKE;
     _numBeatsHit = 0;
     _isInputTiming = NO;
+    _isAssemblyTime = NO;
+    
+    messageAtlas = [SKTextureAtlas atlasNamed:@"Message"];
+    
+    _messageSprite = [SKSpriteNode spriteNodeWithTexture:[messageAtlas textureNamed:@"message_idle"]];
+    _messageSprite.position = CGPointMake(0.0,120.0);
+//    _messageSprite.alpha = 0.0;
+    [_uiNode addChild:_messageSprite];
     
     [self addChild:_uiNode];
-    
+
     [self updateState:IDLE];
 }
 
@@ -538,6 +552,7 @@ BOOL                alarmChanging;
             [_controller turnOff];
             [self stopCheckingUserRhythmInput];
             [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
+            _isAssemblyTime = YES;
             break;
         case WAITING:
             [_defaultPlayer.character turnOffSearchLight];
@@ -576,6 +591,48 @@ BOOL                alarmChanging;
     NSLog(@"Switching from %u to %u", _state, state);
     
     _state = state;
+    
+    [self displayMessage];
 }
+
+-(void)displayMessage{
+    switch (_state) {
+        case IDLE:
+            if (_isAssemblyTime) {
+                //bring me to assembly
+                [_messageSprite setTexture:[messageAtlas textureNamed:@"message_afterwakeup"]];
+            }
+            else{
+                //tap me to get ready
+                [_messageSprite setTexture:[messageAtlas textureNamed:@"message_idle"]];
+            }
+            break;
+        case SLEEPING:
+            [_messageSprite setTexture:[messageAtlas textureNamed:@"message_sleeping"]];
+            break;
+        case ALARM:
+            [_messageSprite setTexture:[messageAtlas textureNamed:@"message_alarm"]];
+            break;
+        case WAITING:
+            [_messageSprite setTexture:[messageAtlas textureNamed:@"message_waiting"]];
+            break;
+        case CONNECTED:
+            [_messageSprite setTexture:[messageAtlas textureNamed:@"message_connected"]];
+            break;
+        default:
+            break;
+    }
+    
+    SKAction* show = [SKAction fadeAlphaTo:1.0 duration:0.1];
+    SKAction* wait = [SKAction waitForDuration:5.0];
+    SKAction* fadeout = [SKAction fadeAlphaTo:0.0 duration:1.0];
+    SKAction* display = [SKAction sequence:@[show, wait, fadeout]];
+    [_messageSprite removeAllActions];
+    _messageSprite.alpha = 0.0;
+    [_messageSprite runAction:display];
+    
+//    NSLog(@"asdf!");
+}
+
 
 @end

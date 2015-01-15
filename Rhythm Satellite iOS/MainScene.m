@@ -143,7 +143,7 @@ SKTextureAtlas      *messageAtlas;
     
     //demo button
     _demobutton = [SKSpriteNode spriteNodeWithImageNamed:@"demobutton"];
-    _demobutton.position = CGPointMake(self.size.width/2 - _demobutton.size.width/2-10, 0.0);
+    _demobutton.position = CGPointMake(self.size.width/2 - _demobutton.size.width/2-10, 50.0);
     [_uiNode addChild:_demobutton];
     
     
@@ -413,7 +413,8 @@ SKTextureAtlas      *messageAtlas;
                     latestCommand = [_controller update:currentTime];
                     if(latestCommand.input != NEUTRAL && latestCommand.input != TAP && latestCommand.input != START){
                         _numBeatsToWakeUp--;
-                        [_defaultPlayer.character voiceForCommand:DOWN];
+//                        [_defaultPlayer.character voiceForCommand:DOWN];
+                        [self runAction:[SKAction playSoundFileNamed:@"shake.wav" waitForCompletion:NO]];
                         NSLog(@"number of beats to shake: %d", _numBeatsToWakeUp);
                     }
                 }
@@ -566,6 +567,9 @@ SKTextureAtlas      *messageAtlas;
     //new state
     switch (state) {
         case IDLE:
+            if(_isAssemblyTime){
+                
+            }
             [_defaultPlayer.character fireAnimationForState:NoriAnimationStateIdle];
             break;
         case SLEEPING:

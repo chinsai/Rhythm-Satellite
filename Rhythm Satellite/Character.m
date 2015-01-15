@@ -467,6 +467,10 @@ SKSpriteNode            *headlight;
     }
 }
 
+-(void)voiceGoodMorning{
+    [self runAction:[SKAction playSoundFileNamed:@"oha.wav" waitForCompletion:NO]];
+}
+
 - (void)dropToPositionY: (CGFloat)y ForDuration:(CGFloat)time{
     if (y > self.position.y)
         return;

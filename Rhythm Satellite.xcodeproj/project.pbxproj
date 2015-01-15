@@ -12,6 +12,10 @@
 		98093D251A1ECD3D001657A0 /* dialogBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98093D221A1ECD3D001657A0 /* dialogBox@2x.png */; };
 		98093D2A1A1EE5F4001657A0 /* startScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 98093D271A1EE5F4001657A0 /* startScreen.png */; };
 		98093D2B1A1EE5F4001657A0 /* startScreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98093D281A1EE5F4001657A0 /* startScreen@2x.png */; };
+		981311031A67DB0E00A2755F /* shake.wav in Resources */ = {isa = PBXBuildFile; fileRef = 981311021A67DB0E00A2755F /* shake.wav */; };
+		981311041A67DB0E00A2755F /* shake.wav in Resources */ = {isa = PBXBuildFile; fileRef = 981311021A67DB0E00A2755F /* shake.wav */; };
+		981311061A67DCCE00A2755F /* oha.wav in Resources */ = {isa = PBXBuildFile; fileRef = 981311051A67DCCE00A2755F /* oha.wav */; };
+		981311071A67DCCE00A2755F /* oha.wav in Resources */ = {isa = PBXBuildFile; fileRef = 981311051A67DCCE00A2755F /* oha.wav */; };
 		9815BC4E1A1E33850001EB49 /* block.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9815BC4B1A1E33850001EB49 /* block.wav */; };
 		9815BC4F1A1E33850001EB49 /* charge.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9815BC4C1A1E33850001EB49 /* charge.wav */; };
 		9815BC501A1E33850001EB49 /* attack.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9815BC4D1A1E33850001EB49 /* attack.wav */; };
@@ -155,6 +159,8 @@
 		98093D221A1ECD3D001657A0 /* dialogBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialogBox@2x.png"; sourceTree = "<group>"; };
 		98093D271A1EE5F4001657A0 /* startScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startScreen.png; path = ../startScreen.png; sourceTree = "<group>"; };
 		98093D281A1EE5F4001657A0 /* startScreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "startScreen@2x.png"; path = "../startScreen@2x.png"; sourceTree = "<group>"; };
+		981311021A67DB0E00A2755F /* shake.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shake.wav; sourceTree = "<group>"; };
+		981311051A67DCCE00A2755F /* oha.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = oha.wav; sourceTree = "<group>"; };
 		9815BC4B1A1E33850001EB49 /* block.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = block.wav; sourceTree = "<group>"; };
 		9815BC4C1A1E33850001EB49 /* charge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = charge.wav; sourceTree = "<group>"; };
 		9815BC4D1A1E33850001EB49 /* attack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = attack.wav; sourceTree = "<group>"; };
@@ -502,6 +508,8 @@
 		98564EA21A14A04F00284333 /* SoundEffects */ = {
 			isa = PBXGroup;
 			children = (
+				981311051A67DCCE00A2755F /* oha.wav */,
+				981311021A67DB0E00A2755F /* shake.wav */,
 				9815BC4B1A1E33850001EB49 /* block.wav */,
 				9815BC4C1A1E33850001EB49 /* charge.wav */,
 				9815BC4D1A1E33850001EB49 /* attack.wav */,
@@ -764,6 +772,7 @@
 				98ED63601A196EBD00A9182B /* hill@2x.png in Resources */,
 				9847D9511A12E17700658D41 /* Note.atlas in Resources */,
 				98E7C26A19F0E1F8006397DF /* bgm.mp3 in Resources */,
+				981311031A67DB0E00A2755F /* shake.wav in Resources */,
 				98564EA51A14A06700284333 /* Go.m4a in Resources */,
 				98093D241A1ECD3D001657A0 /* dialogBox.png in Resources */,
 				9850483B1A1CA16D0066FA31 /* round@2x.png in Resources */,
@@ -779,6 +788,7 @@
 				98ED63651A1970E400A9182B /* hill_zoomed.png in Resources */,
 				9850483A1A1CA16D0066FA31 /* round.png in Resources */,
 				985048361A1C9D5E0066FA31 /* sa.wav in Resources */,
+				981311061A67DCCE00A2755F /* oha.wav in Resources */,
 				985048321A1C9D5E0066FA31 /* da.wav in Resources */,
 				98CC0DAD1A5F57FD00F647F4 /* Nori_Question.atlas in Resources */,
 				98093D251A1ECD3D001657A0 /* dialogBox@2x.png in Resources */,
@@ -822,6 +832,7 @@
 				98C524FB1A5D108F006708A2 /* alarmicon@2x.png in Resources */,
 				98C915271A1DC0D700082F65 /* musicnote.png in Resources */,
 				98CC0DB21A5F645A00F647F4 /* questionmark.png in Resources */,
+				981311041A67DB0E00A2755F /* shake.wav in Resources */,
 				98F0FC1E19F369B20071768B /* simplebeat.caf in Resources */,
 				98C915171A1D716000082F65 /* Shadow.atlas in Resources */,
 				98CC0DAE1A5F57FD00F647F4 /* Nori_Question.atlas in Resources */,
@@ -837,6 +848,7 @@
 				986B30711A5DF4AD0089F197 /* Nori_Sleep.atlas in Resources */,
 				98E3CE171A17009800626D20 /* Nori_Ready_Nod.atlas in Resources */,
 				98CC0DB41A5F645A00F647F4 /* questionmark@2x.png in Resources */,
+				981311071A67DCCE00A2755F /* oha.wav in Resources */,
 				983BE10219E753BB00147F39 /* Main.storyboard in Resources */,
 				98CC0DA91A5E212000F647F4 /* Message.atlas in Resources */,
 				986B306E1A5DE14E0089F197 /* demobutton@2x.png in Resources */,

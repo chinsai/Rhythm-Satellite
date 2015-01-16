@@ -490,7 +490,7 @@ long RSSIValue;
 
 -(void)resetBattle{
     //reset the attribute
-    _numOfRounds = 3;
+    _numOfRounds = 16;
     _isInputTiming = YES;
     [_defaultPlayer.character resetAttributes];
     [_opponentPlayer.character resetAttributes];
